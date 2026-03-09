@@ -4,7 +4,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Open Sans',sans-serif;font-size:15px;color:#333;background:#fff;line-height:1.7}
-a{color:#b22222;text-decoration:none}a:hover{text-decoration:underline;color:#8b0000}
+a{color:var(--brand,#b22222);text-decoration:none}a:hover{text-decoration:underline;color:var(--brand-dark,#8b0000)}
 h1,h2,h3,h4{font-family:'Merriweather',serif;line-height:1.3;color:#222}
 h1{font-size:26px}h2{font-size:22px}h3{font-size:18px}h4{font-size:15px}
 p{margin-bottom:14px;color:#444}
@@ -19,7 +19,7 @@ ul{list-style:none}
 .full-width{max-width:1060px;margin:0 auto;padding:0 20px}
 
 /* ── TOP BAR ─────────────────────────────────────────── */
-.top-bar{background:#222;padding:7px 0;border-bottom:2px solid #b22222}
+.top-bar{background:#222;padding:7px 0;border-bottom:2px solid var(--brand,#b22222)}
 .top-bar-inner{display:flex;justify-content:space-between;align-items:center;max-width:1060px;margin:0 auto;padding:0 20px}
 .top-bar-links{display:flex;gap:0}
 .top-bar-links a{color:#ccc;font-size:12px;padding:0 12px;border-right:1px solid #444;font-weight:600;letter-spacing:.3px}
@@ -30,16 +30,16 @@ ul{list-style:none}
 .top-bar-phone:hover{color:#f0a0a0;text-decoration:none}
 
 /* ── HEADER ──────────────────────────────────────────── */
-.site-header{background:#fff;border-bottom:3px solid #b22222;padding:14px 0}
+.site-header{background:#fff;border-bottom:3px solid var(--brand,#b22222);padding:14px 0}
 .header-inner{display:flex;align-items:center;justify-content:space-between;max-width:1060px;margin:0 auto;padding:0 20px}
 .site-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .logo-icon{font-size:42px;line-height:1}
 .logo-text-wrap{display:flex;flex-direction:column}
 .logo-title{font-family:'Merriweather',serif;font-size:20px;font-weight:900;color:#222;line-height:1.1}
-.logo-sub{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#b22222;font-weight:700;margin-top:3px}
+.logo-sub{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--brand,#b22222);font-weight:700;margin-top:3px}
 
 /* ── MAIN NAV ────────────────────────────────────────── */
-.main-nav{background:#b22222}
+.main-nav{background:var(--brand,#b22222)}
 .main-nav ul{display:flex;max-width:1060px;margin:0 auto;padding:0 20px}
 .main-nav a{display:block;padding:13px 18px;color:#fff;font-size:13px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;border-right:1px solid rgba(255,255,255,.15);transition:background .15s}
 .main-nav a:hover,.main-nav a.active{background:rgba(0,0,0,.2);text-decoration:none}
@@ -49,7 +49,7 @@ ul{list-style:none}
 .page-title-bar{background:#f5f5f5;border-bottom:1px solid #ddd;padding:18px 0}
 .page-title-bar h1{font-size:24px;color:#222}
 .page-title-bar .breadcrumb{font-size:12px;color:#888;margin-top:4px}
-.page-title-bar .breadcrumb a{color:#b22222}
+.page-title-bar .breadcrumb a{color:var(--brand,#b22222)}
 
 /* ── HERO SECTION ────────────────────────────────────── */
 .hero-section{background:#1a1a1a;padding:0}
@@ -59,19 +59,19 @@ ul{list-style:none}
 .hero-content p{color:#ccc;font-size:15px;margin-bottom:20px}
 .hero-content .hero-bullets{list-style:none;margin-bottom:24px}
 .hero-content .hero-bullets li{color:#ccc;padding:4px 0;font-size:14px}
-.hero-content .hero-bullets li::before{content:'✓ ';color:#b22222;font-weight:700}
+.hero-content .hero-bullets li::before{content:'✓ ';color:var(--brand,#b22222);font-weight:700}
 .hero-form-box{background:#fff;width:300px;flex-shrink:0;padding:28px 24px}
-.hero-form-box h3{font-size:18px;margin-bottom:6px;color:#222;border-bottom:3px solid #b22222;padding-bottom:10px;margin-bottom:16px}
+.hero-form-box h3{font-size:18px;margin-bottom:6px;color:#222;border-bottom:3px solid var(--brand,#b22222);padding-bottom:10px;margin-bottom:16px}
 .hero-form-box p{font-size:13px;color:#666;margin-bottom:14px}
 
 /* ── FORMS ───────────────────────────────────────────── */
 .form-row{margin-bottom:10px}
 .form-row label{display:block;font-size:12px;font-weight:700;color:#555;margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
 .form-row input,.form-row select,.form-row textarea{width:100%;padding:9px 11px;border:1px solid #ccc;font-size:14px;font-family:'Open Sans',sans-serif;background:#fafafa;transition:border-color .2s;border-radius:3px}
-.form-row input:focus,.form-row select:focus,.form-row textarea:focus{outline:none;border-color:#b22222;background:#fff}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{outline:none;border-color:var(--brand,#b22222);background:#fff}
 textarea.form-row input{height:90px;resize:vertical}
-.btn-submit{background:#b22222;color:#fff;border:none;padding:11px 24px;font-size:14px;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;width:100%;margin-top:8px;border-radius:3px;text-transform:uppercase;letter-spacing:.5px;transition:background .2s}
-.btn-submit:hover{background:#8b0000}
+.btn-submit{background:var(--brand,#b22222);color:#fff;border:none;padding:11px 24px;font-size:14px;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;width:100%;margin-top:8px;border-radius:3px;text-transform:uppercase;letter-spacing:.5px;transition:background .2s}
+.btn-submit:hover{background:var(--brand-dark,#8b0000)}
 .privacy-note{font-size:11px;color:#aaa;text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:5px}
 .form-msg{padding:10px 14px;border-radius:3px;font-size:13px;margin-top:10px;display:none}
 .form-msg.success{background:#dff0d8;color:#3c763d;display:block}
@@ -79,20 +79,20 @@ textarea.form-row input{height:90px;resize:vertical}
 
 /* ── BUTTONS ─────────────────────────────────────────── */
 .btn{display:inline-block;padding:10px 22px;font-size:13px;font-weight:700;border-radius:3px;cursor:pointer;border:none;font-family:'Open Sans',sans-serif;text-transform:uppercase;letter-spacing:.5px;transition:all .2s;text-decoration:none}
-.btn-red{background:#b22222;color:#fff}.btn-red:hover{background:#8b0000;text-decoration:none;color:#fff}
+.btn-red{background:var(--brand,#b22222);color:#fff}.btn-red:hover{background:var(--brand-dark,#8b0000);text-decoration:none;color:#fff}
 .btn-dark{background:#333;color:#fff}.btn-dark:hover{background:#111;text-decoration:none;color:#fff}
-.btn-outline{background:transparent;border:2px solid #b22222;color:#b22222}.btn-outline:hover{background:#b22222;color:#fff;text-decoration:none}
+.btn-outline{background:transparent;border:2px solid var(--brand,#b22222);color:var(--brand,#b22222)}.btn-outline:hover{background:var(--brand,#b22222);color:#fff;text-decoration:none}
 .btn-block{display:block;width:100%;text-align:center}
 
 /* ── SECTION TITLES ──────────────────────────────────── */
-.section-heading{font-size:22px;color:#222;border-bottom:3px solid #b22222;padding-bottom:10px;margin-bottom:22px}
+.section-heading{font-size:22px;color:#222;border-bottom:3px solid var(--brand,#b22222);padding-bottom:10px;margin-bottom:22px}
 .section-heading-light{font-size:22px;color:#fff;border-bottom:3px solid rgba(255,255,255,.3);padding-bottom:10px;margin-bottom:22px}
 
 /* ── STEPS BAR ───────────────────────────────────────── */
 .steps-bar{display:flex;gap:0;margin:24px 0 32px;border:1px solid #ddd;border-radius:4px;overflow:hidden}
 .step-item{flex:1;text-align:center;padding:20px 12px;background:#f9f9f9;border-right:1px solid #ddd;position:relative}
 .step-item:last-child{border-right:none}
-.step-num{display:inline-block;width:36px;height:36px;background:#b22222;color:#fff;border-radius:50%;font-weight:900;font-size:16px;line-height:36px;margin-bottom:10px;font-family:'Merriweather',serif}
+.step-num{display:inline-block;width:36px;height:36px;background:var(--brand,#b22222);color:#fff;border-radius:50%;font-weight:900;font-size:16px;line-height:36px;margin-bottom:10px;font-family:'Merriweather',serif}
 .step-item h4{font-size:13px;color:#333;margin-bottom:6px}
 .step-item p{font-size:12px;color:#777;margin:0}
 
@@ -107,9 +107,9 @@ textarea.form-row input{height:90px;resize:vertical}
 .badge-available{background:#2e7d32}.badge-sold{background:#555}.badge-pending{background:#e65100}
 .prop-card-body{padding:14px}
 .prop-card-body h3{font-size:14px;margin-bottom:4px;line-height:1.4}
-.prop-card-body h3 a{color:#222}.prop-card-body h3 a:hover{color:#b22222;text-decoration:none}
+.prop-card-body h3 a{color:#222}.prop-card-body h3 a:hover{color:var(--brand,#b22222);text-decoration:none}
 .prop-card-city{font-size:12px;color:#777;margin-bottom:8px}
-.prop-card-price{font-size:20px;font-weight:700;color:#b22222;font-family:'Merriweather',serif;margin-bottom:8px}
+.prop-card-price{font-size:20px;font-weight:700;color:var(--brand,#b22222);font-family:'Merriweather',serif;margin-bottom:8px}
 .prop-card-details{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .prop-card-details span{font-size:11px;background:#f5f5f5;padding:3px 8px;border-radius:2px;color:#555;font-weight:600}
 .prop-card-body .btn{font-size:11px;padding:7px 14px}
@@ -117,15 +117,15 @@ textarea.form-row input{height:90px;resize:vertical}
 
 /* ── WORK WITH US BOXES ──────────────────────────────── */
 .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:18px}
-.work-box{background:#f9f9f9;border:1px solid #e0e0e0;border-top:3px solid #b22222;padding:20px 18px;border-radius:3px}
-.work-box h3{font-size:15px;margin-bottom:8px;color:#b22222}
+.work-box{background:#f9f9f9;border:1px solid #e0e0e0;border-top:3px solid var(--brand,#b22222);padding:20px 18px;border-radius:3px}
+.work-box h3{font-size:15px;margin-bottom:8px;color:var(--brand,#b22222)}
 .work-box p{font-size:13px;margin:0;color:#555}
-.work-box a{color:#b22222;font-weight:700}
+.work-box a{color:var(--brand,#b22222);font-weight:700}
 
 /* ── COMPARE TABLE ───────────────────────────────────── */
 .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
 .compare-table th{background:#222;color:#fff;padding:11px 14px;text-align:left;font-family:'Merriweather',serif;font-size:13px}
-.compare-table th:nth-child(2){background:#b22222}
+.compare-table th:nth-child(2){background:var(--brand,#b22222)}
 .compare-table td{padding:10px 14px;border-bottom:1px solid #e8e8e8;color:#444}
 .compare-table tr:nth-child(even) td{background:#fafafa}
 .check{color:#2e7d32;font-weight:700}.cross{color:#c62828}
@@ -133,14 +133,14 @@ textarea.form-row input{height:90px;resize:vertical}
 /* ── TESTIMONIALS ────────────────────────────────────── */
 .testimonials-section{background:#1a1a1a;padding:40px 0}
 .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.t-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:22px;border-radius:3px;border-top:3px solid #b22222}
+.t-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:22px;border-radius:3px;border-top:3px solid var(--brand,#b22222)}
 .t-card blockquote{font-size:14px;font-style:italic;color:#ccc;line-height:1.8;margin-bottom:14px}
-.t-card cite{font-size:13px;font-weight:700;color:#b22222;font-style:normal}
+.t-card cite{font-size:13px;font-weight:700;color:var(--brand,#b22222);font-style:normal}
 
 /* ── FAQ ─────────────────────────────────────────────── */
 .faq-item{border-bottom:1px solid #e0e0e0}
 .faq-q{padding:16px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:15px;color:#222;user-select:none}
-.faq-q::after{content:'+';color:#b22222;font-size:22px;font-weight:300;flex-shrink:0;margin-left:10px;transition:transform .2s}
+.faq-q::after{content:'+';color:var(--brand,#b22222);font-size:22px;font-weight:300;flex-shrink:0;margin-left:10px;transition:transform .2s}
 .faq-q.open::after{transform:rotate(45deg)}
 .faq-a{display:none;padding:0 0 16px;font-size:14px;line-height:1.8;color:#555}
 .faq-a.open{display:block}
@@ -151,20 +151,20 @@ textarea.form-row input{height:90px;resize:vertical}
 .contact-info-item:last-child{border-bottom:none}
 .contact-info-icon{font-size:22px;flex-shrink:0;width:36px;text-align:center}
 .contact-info-item h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
-.contact-info-item a{font-weight:700;font-size:16px;color:#222}.contact-info-item a:hover{color:#b22222;text-decoration:none}
+.contact-info-item a{font-weight:700;font-size:16px;color:#222}.contact-info-item a:hover{color:var(--brand,#b22222);text-decoration:none}
 .contact-info-item p{font-size:13px;color:#666;margin:0}
 .hours-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
 .hours-table td{padding:7px 0;border-bottom:1px solid #eee;color:#555}
 .hours-table td:last-child{text-align:right;font-weight:600;color:#333}
 
 /* ── SIDEBAR ─────────────────────────────────────────── */
-.sidebar-box{background:#f9f9f9;border:1px solid #e0e0e0;border-top:3px solid #b22222;padding:20px 18px;margin-bottom:22px;border-radius:3px}
-.sidebar-box h3{font-size:16px;color:#222;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #b22222}
+.sidebar-box{background:#f9f9f9;border:1px solid #e0e0e0;border-top:3px solid var(--brand,#b22222);padding:20px 18px;margin-bottom:22px;border-radius:3px}
+.sidebar-box h3{font-size:16px;color:#222;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--brand,#b22222)}
 .sidebar-box p{font-size:13px;color:#666;margin-bottom:14px}
-.sidebar-cta{background:#b22222;padding:22px 18px;margin-bottom:22px;border-radius:3px;text-align:center}
+.sidebar-cta{background:var(--brand,#b22222);padding:22px 18px;margin-bottom:22px;border-radius:3px;text-align:center}
 .sidebar-cta h3{color:#fff;font-size:18px;margin-bottom:8px}
 .sidebar-cta p{color:rgba(255,255,255,.8);font-size:13px;margin-bottom:16px}
-.sidebar-cta a{background:#fff;color:#b22222;padding:10px 20px;border-radius:3px;font-weight:700;font-size:13px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
+.sidebar-cta a{background:#fff;color:var(--brand,#b22222);padding:10px 20px;border-radius:3px;font-weight:700;font-size:13px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
 .sidebar-cta a:hover{background:#f5f5f5;text-decoration:none}
 
 /* ── FOOTER ──────────────────────────────────────────── */
@@ -172,10 +172,10 @@ textarea.form-row input{height:90px;resize:vertical}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:32px}
 .footer-logo-area .footer-logo-txt{font-family:'Merriweather',serif;font-size:16px;color:#fff;display:block;margin-bottom:10px}
 .footer-logo-area p{font-size:13px;color:#777;line-height:1.7}
-.footer-logo-area .slogan{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#b22222;font-weight:700;margin-top:10px;display:block}
+.footer-logo-area .slogan{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--brand,#b22222);font-weight:700;margin-top:10px;display:block}
 .footer-col h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
 .footer-col li{margin-bottom:8px}
-.footer-col a{font-size:13px;color:#777;transition:color .15s}.footer-col a:hover{color:#b22222;text-decoration:none}
+.footer-col a{font-size:13px;color:#777;transition:color .15s}.footer-col a:hover{color:var(--brand,#b22222);text-decoration:none}
 .footer-col .contact-line{display:flex;gap:8px;font-size:13px;color:#777;margin-bottom:8px;align-items:flex-start}
 .footer-bar{border-top:1px solid rgba(255,255,255,.06);padding:14px 0;text-align:center;font-size:12px;color:#555}
 
@@ -215,7 +215,7 @@ textarea.form-row input{height:90px;resize:vertical}
 <p>Since our founding, we have been helping homeowners by purchasing their properties, allowing them to move forward with their lives. Many of the properties we buy we fully renovate and redevelop, improving neighborhoods and raising the standard of living in every community we work in.</p>
 <p>We are passionate about improving people's lives and the communities across Georgia — one property at a time.</p>
 <div style="background:#1a1a1a;padding:28px 32px;border-radius:4px;margin:24px 0;border-left:4px solid #b22222">
-<h3 style="color:#b22222;font-size:18px;margin-bottom:12px">Our Mission</h3>
+<h3 style="color:var(--brand,#b22222);font-size:18px;margin-bottom:12px">Our Mission</h3>
 <p style="color:#ccc;font-size:15px;margin:0;line-height:1.8">To rejuvenate Georgia neighborhoods and increase the standard of living by improving the overall quality of housing for residents across the state — while providing homeowners with fast, fair, and stress-free real estate solutions.</p>
 </div>
 <p>We not only purchase properties directly from owners — we also sell fully renovated, move-in ready homes to buyers with <strong>no commissions or middlemen</strong>.</p>
@@ -291,9 +291,9 @@ var fy=document.getElementById('footer-yr');if(fy)fy.textContent=new Date().getF
   // Apply brand color
   if (s.brand_color) {
     const root = document.documentElement;
-    root.style.setProperty('--red', s.brand_color);
+    root.style.setProperty('--brand', s.brand_color);
     // Darken for hover
-    root.style.setProperty('--red-dark', darken(s.brand_color, 20));
+    root.style.setProperty('--brand-dark', darken(s.brand_color, 20));
     // Update all hardcoded red references via inline style injection
     const style = document.createElement('style');
     style.innerHTML = [
@@ -434,7 +434,7 @@ var fy=document.getElementById('footer-yr');if(fy)fy.textContent=new Date().getF
           '<span class="prop-badge ' + badge + '">' + (p.status||'available') + '</span>' +
           '</div>' +
           '<div class="prop-card-body">' +
-          '<p style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red,#b22222);margin-bottom:4px">' + (typeLabel[p.property_type]||p.property_type||'') + '</p>' +
+          '<p style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--brand,#b22222);margin-bottom:4px">' + (typeLabel[p.property_type]||p.property_type||'') + '</p>' +
           '<h3><a href="contact.html">' + p.title + '</a></h3>' +
           '<p class="prop-card-city">' + (p.address ? p.address + ', ' : '') + (p.city||'') + (p.zip ? ', GA ' + p.zip : '') + '</p>' +
           '<div class="prop-card-price">' + price + '</div>' +
@@ -467,7 +467,7 @@ var fy=document.getElementById('footer-yr');if(fy)fy.textContent=new Date().getF
           '<span class="prop-badge badge-available">Available</span>' +
           '</div>' +
           '<div class="prop-card-body">' +
-          '<p style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red,#b22222);margin-bottom:4px">' + (typeLabel[p.property_type]||'') + '</p>' +
+          '<p style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--brand,#b22222);margin-bottom:4px">' + (typeLabel[p.property_type]||'') + '</p>' +
           '<h3><a href="listings.html">' + p.title + '</a></h3>' +
           '<p class="prop-card-city">' + (p.city||'') + (p.zip ? ', GA ' + p.zip : '') + '</p>' +
           '<div class="prop-card-price">' + price + '</div>' +
