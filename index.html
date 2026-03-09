@@ -5,8 +5,8 @@
 <title>Home — Great Properties GA, LLC</title>
 <meta name="description" content="Great Properties GA, LLC — Georgia's premier real estate investment company. We buy, renovate and sell properties across all of Georgia.">
 <style>
-:root{--brand:#b22222;--brand-dark:#8b0000}
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Open+Sans:wght@400;600;700&display=swap');
+:root{--brand:#b22222;--brand-dark:#8b0000}
 
 /* ── RESET & BASE ─────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -445,8 +445,7 @@ var fy=document.getElementById('footer-yr');if(fy)fy.textContent=new Date().getF
   if (s.hero_title) {
     const heroH = document.querySelector('.hero-content h2');
     if (heroH) {
-      heroH.innerHTML = s.hero_title.replace(/
-/g, '<br>');
+      heroH.innerHTML = s.hero_title.replace(/\n/g, '<br>');
     }
   }
 
