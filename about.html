@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>About — Great Properties GA, LLC</title><style>@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Open+Sans:wght@400;600;700&display=swap');
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>About — Great Properties GA, LLC</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Open+Sans:wght@400;600;700&display=swap');
+:root{--brand:#b22222;--brand-dark:#8b0000}
 
 /* ── RESET & BASE ─────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -290,30 +292,8 @@ var fy=document.getElementById('footer-yr');if(fy)fy.textContent=new Date().getF
 
   // Apply brand color
   if (s.brand_color) {
-    const root = document.documentElement;
-    root.style.setProperty('--brand', s.brand_color);
-    // Darken for hover
-    root.style.setProperty('--brand-dark', darken(s.brand_color, 20));
-    // Update all hardcoded red references via inline style injection
-    const style = document.createElement('style');
-    style.innerHTML = [
-      '.main-nav, .main-nav a:hover, .main-nav a.active { background-color: ' + s.brand_color + ' !important; }',
-      '.main-nav { background: ' + s.brand_color + ' !important; }',
-      '.site-header { border-bottom-color: ' + s.brand_color + ' !important; }',
-      '.top-bar { border-bottom-color: ' + s.brand_color + ' !important; }',
-      '.logo-sub { color: ' + s.brand_color + ' !important; }',
-      '.btn-submit, .btn-red { background: ' + s.brand_color + ' !important; }',
-      '.btn-submit:hover, .btn-red:hover { background: ' + darken(s.brand_color, 20) + ' !important; }',
-      '.prop-card-price { color: ' + s.brand_color + ' !important; }',
-      '.section-heading { border-bottom-color: ' + s.brand_color + ' !important; }',
-      'a { color: ' + s.brand_color + ' !important; }',
-      '.footer-col a:hover { color: ' + s.brand_color + ' !important; }',
-      '.work-box h3 { color: ' + s.brand_color + ' !important; }',
-      '.top-bar { background: #222 !important; }',
-      '.t-card { border-top-color: ' + s.brand_color + ' !important; }',
-    ].join('
-');
-    document.head.appendChild(style);
+    document.documentElement.style.setProperty('--brand', s.brand_color);
+    document.documentElement.style.setProperty('--brand-dark', darken(s.brand_color, 20));
   }
 
   // Apply logo URL
@@ -364,8 +344,7 @@ var fy=document.getElementById('footer-yr');if(fy)fy.textContent=new Date().getF
   if (s.hero_title) {
     const heroH = document.querySelector('.hero-content h2');
     if (heroH) {
-      heroH.innerHTML = s.hero_title.replace(/
-/g, '<br>');
+      heroH.innerHTML = s.hero_title.replace(/\n/g, '<br>');
     }
   }
 
