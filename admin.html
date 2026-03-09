@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Panel — Great Properties GA</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --red: #c0392b;
+  --red-dark: #922b21;
+  --red-light: #fadbd8;
+  --dark: #0f0f0f;
+  --panel: #1a1a1a;
+  --card: #242424;
+  --border: #2e2e2e;
+  --text: #e8e8e8;
+  --muted: #888;
+  --green: #27ae60;
+  --yellow: #f39c12;
+  --blue: #2980b9;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); font-size: 14px; }
+
+/* ── LAYOUT ── */
+.app { display: flex; height: 100vh; overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 240px; flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo .logo-eagle { font-size: 28px; line-height: 1; }
+.sidebar-logo .logo-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 800;
+  color: #fff; line-height: 1.2; margin-top: 8px;
+  letter-spacing: .3px;
+}
+.sidebar-logo .logo-sub {
+  font-size: 9px; color: var(--red);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  margin-top: 3px; font-weight: 600;
+}
+.sidebar-logo .logo-badge {
+  display: inline-block; margin-top: 10px;
+  background: var(--red); color: #fff;
+  font-size: 9px; font-weight: 700;
+  padding: 3px 8px; border-radius: 2px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.nav-section { padding: 16px 12px 8px; }
+.nav-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  padding: 0 8px; margin-bottom: 4px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 6px;
+  cursor: pointer; transition: all .15s;
+  font-size: 13px; font-weight: 500; color: #999;
+  position: relative;
+}
+.nav-item:hover { background: rgba(255,255,255,.05); color: var(--text); }
+.nav-item.active { background: rgba(192,57,43,.15); color: var(--red); }
+.nav-item.active::before {
+  content: ''; position: absolute; left: 0; top: 20%; height: 60%;
+  width: 3px; background: var(--red); border-radius: 0 2px 2px 0;
+}
+.nav-item .nav-icon { width: 16px; text-align: center; font-size: 14px; }
+.nav-badge {
+  margin-left: auto; background: var(--red);
+  color: #fff; font-size: 10px; font-weight: 700;
+  padding: 2px 6px; border-radius: 10px;
+}
+.sidebar-footer {
+  margin-top: auto; padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--muted);
+}
+
+/* ── MAIN ── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.topbar {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 56px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 800; color: #fff;
+}
+.topbar-right { display: flex; align-items: center; gap: 14px; }
+.topbar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.topbar-status { font-size: 11px; color: var(--muted); }
+
+.content { flex: 1; overflow-y: auto; padding: 28px; }
+
+/* ── VIEWS ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.page-header h2 {
+  font-family: 'Syne', sans-serif; font-size: 20px;
+  font-weight: 800; color: #fff;
+}
+.page-header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px;
+  position: relative; overflow: hidden;
+}
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.stat-card.red::before { background: var(--red); }
+.stat-card.green::before { background: var(--green); }
+.stat-card.yellow::before { background: var(--yellow); }
+.stat-card.blue::before { background: var(--blue); }
+.stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+.stat-value { font-size: 32px; font-weight: 700; font-family: 'Syne', sans-serif; color: #fff; margin: 6px 0 2px; line-height: 1; }
+.stat-sub { font-size: 11px; color: var(--muted); }
+
+/* ── CARDS ── */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden; margin-bottom: 20px;
+}
+.card-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-header h3 { font-size: 14px; font-weight: 600; color: #fff; }
+.card-body { padding: 20px; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 6px; border: none;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: all .15s;
+  text-decoration: none;
+}
+.btn-primary { background: var(--red); color: #fff; }
+.btn-primary:hover { background: var(--red-dark); }
+.btn-secondary { background: rgba(255,255,255,.07); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: rgba(255,255,255,.12); }
+.btn-danger { background: rgba(192,57,43,.2); color: #e74c3c; border: 1px solid rgba(192,57,43,.3); }
+.btn-danger:hover { background: rgba(192,57,43,.35); }
+.btn-success { background: rgba(39,174,96,.2); color: #2ecc71; border: 1px solid rgba(39,174,96,.3); }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
+.btn-icon { padding: 6px 8px; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th {
+  text-align: left; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--muted); padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.04); font-size: 13px; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+.td-actions { display: flex; gap: 6px; }
+
+/* ── BADGE ── */
+.badge {
+  display: inline-block; padding: 3px 9px; border-radius: 20px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+}
+.badge-available { background: rgba(39,174,96,.15); color: #2ecc71; border: 1px solid rgba(39,174,96,.25); }
+.badge-sold      { background: rgba(136,136,136,.15); color: #aaa; border: 1px solid rgba(136,136,136,.25); }
+.badge-pending   { background: rgba(243,156,18,.15); color: #f39c12; border: 1px solid rgba(243,156,18,.25); }
+.badge-new       { background: rgba(52,152,219,.15); color: #3498db; border: 1px solid rgba(52,152,219,.25); }
+.badge-contacted { background: rgba(243,156,18,.15); color: #f39c12; border: 1px solid rgba(243,156,18,.25); }
+.badge-qualified { background: rgba(39,174,96,.15); color: #2ecc71; border: 1px solid rgba(39,174,96,.25); }
+.badge-closed    { background: rgba(136,136,136,.15); color: #aaa; border: 1px solid rgba(136,136,136,.25); }
+.badge-dead      { background: rgba(192,57,43,.15); color: #e74c3c; border: 1px solid rgba(192,57,43,.25); }
+
+/* ── FORMS ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-grid.cols-1 { grid-template-columns: 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1/-1; }
+label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
+input, select, textarea {
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 9px 12px;
+  color: var(--text); font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color .15s; width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--red);
+  background: rgba(255,255,255,.07);
+}
+select option { background: #222; }
+textarea { resize: vertical; min-height: 90px; }
+input[type="color"] { padding: 4px; height: 38px; cursor: pointer; }
+.form-section-title {
+  grid-column: 1/-1; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px; color: var(--red);
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  margin-top: 8px;
+}
+.form-actions {
+  display: flex; gap: 10px; justify-content: flex-end;
+  padding-top: 16px; border-top: 1px solid var(--border); margin-top: 8px;
+  grid-column: 1/-1;
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.75); z-index: 1000;
+  align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; width: 100%; max-width: 700px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,.6);
+}
+.modal-header {
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--card); z-index: 1;
+}
+.modal-header h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: #fff; }
+.modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; line-height: 1; padding: 4px; }
+.modal-close:hover { color: var(--text); }
+.modal-body { padding: 24px; }
+
+/* ── SETTINGS TABS ── */
+.settings-tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+.stab {
+  padding: 8px 16px; border-radius: 6px 6px 0 0; cursor: pointer;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: all .15s;
+}
+.stab:hover { color: var(--text); }
+.stab.active { color: var(--red); border-bottom-color: var(--red); }
+.stab-panel { display: none; }
+.stab-panel.active { display: block; }
+
+/* ── SETTINGS ITEM ── */
+.setting-item {
+  display: grid; grid-template-columns: 200px 1fr auto;
+  align-items: center; gap: 16px;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.setting-item:last-child { border-bottom: none; }
+.setting-label-wrap .setting-label { font-size: 13px; font-weight: 500; color: var(--text); }
+.setting-label-wrap .setting-key { font-size: 10px; color: var(--muted); font-family: monospace; }
+
+/* ── IMAGE UPLOAD ── */
+.img-upload-zone {
+  border: 2px dashed var(--border); border-radius: 8px;
+  padding: 24px; text-align: center; cursor: pointer;
+  transition: all .2s; position: relative;
+}
+.img-upload-zone:hover { border-color: var(--red); background: rgba(192,57,43,.04); }
+.img-upload-zone input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.img-upload-zone .upload-icon { font-size: 28px; color: var(--muted); margin-bottom: 8px; }
+.img-upload-zone p { font-size: 12px; color: var(--muted); }
+.img-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.img-thumb { position: relative; width: 80px; height: 60px; }
+.img-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+.img-thumb-del {
+  position: absolute; top: -6px; right: -6px;
+  background: var(--red); color: #fff; border-radius: 50%;
+  width: 18px; height: 18px; font-size: 10px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; border: none;
+}
+
+/* ── TOAST ── */
+.toast-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+.toast {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 18px;
+  font-size: 13px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+  transform: translateX(120%); transition: transform .3s; min-width: 260px;
+  display: flex; align-items: center; gap: 10px;
+}
+.toast.show { transform: translateX(0); }
+.toast.success { border-left: 3px solid var(--green); }
+.toast.error   { border-left: 3px solid #e74c3c; }
+.toast.info    { border-left: 3px solid var(--blue); }
+
+/* ── EMPTY STATE ── */
+.empty-state { text-align: center; padding: 48px 24px; color: var(--muted); }
+.empty-state .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: .4; }
+.empty-state h4 { font-size: 14px; color: #666; margin-bottom: 6px; }
+.empty-state p { font-size: 12px; }
+
+/* ── LOADING ── */
+.loading { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; }
+.spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--red); border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── LEAD DETAIL ── */
+.lead-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.lead-detail-item label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 3px; }
+.lead-detail-item span { font-size: 14px; color: var(--text); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { width: 60px; }
+  .sidebar-logo .logo-name, .sidebar-logo .logo-sub, .sidebar-logo .logo-badge, .nav-item span, .nav-label, .sidebar-footer { display: none; }
+  .nav-item { justify-content: center; padding: 12px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .setting-item { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-eagle">🦅</div>
+      <div class="logo-name">Great Properties<br>GA, LLC</div>
+      <div class="logo-sub">Admin Panel</div>
+      <span class="logo-badge">Admin</span>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Dashboard</div>
+      <div class="nav-item active" onclick="showView('dashboard')">
+        <span class="nav-icon">📊</span><span>Overview</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Contenido</div>
+      <div class="nav-item" onclick="showView('properties')">
+        <span class="nav-icon">🏠</span><span>Propiedades</span>
+        <span class="nav-badge" id="nav-badge-props">0</span>
+      </div>
+      <div class="nav-item" onclick="showView('leads')">
+        <span class="nav-icon">📋</span><span>Leads</span>
+        <span class="nav-badge" id="nav-badge-leads" style="background:#3498db">0</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Configuración</div>
+      <div class="nav-item" onclick="showView('settings')">
+        <span class="nav-icon">⚙️</span><span>Site Settings</span>
+      </div>
+      <div class="nav-item" onclick="showView('media')">
+        <span class="nav-icon">🖼️</span><span>Media / Archivos</span>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div>v1.0 · GPGA Admin</div>
+      <div style="margin-top:4px; color:#555">Supabase connected</div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="main">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-right">
+        <div class="topbar-dot" id="conn-dot"></div>
+        <div class="topbar-status" id="conn-status">Connecting…</div>
+        <a href="https://greatpropertiesga-greatpropertiesga.zewfmr.easypanel.host" target="_blank" class="btn btn-secondary btn-sm">
+          Ver Sitio →
+        </a>
+      </div>
+    </div>
+
+    <!-- ─── CONTENT ─── -->
+    <div class="content">
+
+      <!-- ══ DASHBOARD ══ -->
+      <div class="view active" id="view-dashboard">
+        <div class="page-header">
+          <div><h2>Overview</h2><p>Resumen de Great Properties GA</p></div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card red">
+            <div class="stat-label">Propiedades</div>
+            <div class="stat-value" id="stat-props">—</div>
+            <div class="stat-sub">en inventario</div>
+          </div>
+          <div class="stat-card blue">
+            <div class="stat-label">Leads Total</div>
+            <div class="stat-value" id="stat-leads">—</div>
+            <div class="stat-sub">formularios recibidos</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Leads Nuevos</div>
+            <div class="stat-value" id="stat-new-leads">—</div>
+            <div class="stat-sub">sin contactar</div>
+          </div>
+          <div class="stat-card yellow">
+            <div class="stat-label">Disponibles</div>
+            <div class="stat-value" id="stat-available">—</div>
+            <div class="stat-sub">propiedades activas</div>
+          </div>
+        </div>
+
+        <!-- Recent leads -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Últimos Leads</h3>
+            <button class="btn btn-secondary btn-sm" onclick="showView('leads')">Ver todos</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div id="dashboard-leads"><div class="loading"><span class="spinner"></span>Cargando…</div></div>
+          </div>
+        </div>
+
+        <!-- Recent props -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Propiedades Recientes</h3>
+            <button class="btn btn-primary btn-sm" onclick="openPropertyModal()">+ Nueva</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div id="dashboard-props"><div class="loading"><span class="spinner"></span>Cargando…</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PROPERTIES ══ -->
+      <div class="view" id="view-properties">
+        <div class="page-header">
+          <div><h2>Propiedades</h2><p>Gestiona tu inventario de propiedades</p></div>
+          <button class="btn btn-primary" onclick="openPropertyModal()">+ Nueva Propiedad</button>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <div id="props-table"><div class="loading"><span class="spinner"></span>Cargando propiedades…</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ LEADS ══ -->
+      <div class="view" id="view-leads">
+        <div class="page-header">
+          <div><h2>Leads</h2><p>Contactos recibidos por los formularios del sitio</p></div>
+          <div style="display:flex;gap:8px">
+            <select id="leads-filter" onchange="loadLeads()" style="padding:7px 12px;font-size:12px;width:auto">
+              <option value="">Todos los estados</option>
+              <option value="new">Nuevos</option>
+              <option value="contacted">Contactados</option>
+              <option value="qualified">Calificados</option>
+              <option value="closed">Cerrados</option>
+              <option value="dead">Descartados</option>
+            </select>
+            <button class="btn btn-secondary btn-sm" onclick="exportLeads()">⬇ Exportar CSV</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <div id="leads-table"><div class="loading"><span class="spinner"></span>Cargando leads…</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SETTINGS ══ -->
+      <div class="view" id="view-settings">
+        <div class="page-header">
+          <div><h2>Site Settings</h2><p>Textos, colores, logo y configuración del sitio</p></div>
+          <button class="btn btn-primary" onclick="saveAllSettings()">💾 Guardar Todo</button>
+        </div>
+
+        <div class="settings-tabs">
+          <div class="stab active" onclick="switchStab('contact')">📞 Contacto</div>
+          <div class="stab" onclick="switchStab('branding')">🎨 Branding</div>
+          <div class="stab" onclick="switchStab('homepage')">🏠 Homepage</div>
+          <div class="stab" onclick="switchStab('about')">ℹ️ About</div>
+          <div class="stab" onclick="switchStab('seo')">🔍 SEO</div>
+        </div>
+
+        <div id="settings-panels">
+          <div class="loading"><span class="spinner"></span>Cargando configuración…</div>
+        </div>
+      </div>
+
+      <!-- ══ MEDIA ══ -->
+      <div class="view" id="view-media">
+        <div class="page-header">
+          <div><h2>Media / Archivos</h2><p>Sube imágenes y videos al bucket de Supabase</p></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Subir Archivos</h3></div>
+          <div class="card-body">
+            <div class="img-upload-zone" id="media-drop-zone">
+              <input type="file" id="media-file-input" multiple accept="image/*,video/*" onchange="handleMediaUpload(this.files)">
+              <div class="upload-icon">☁️</div>
+              <p><strong>Click o arrastra archivos aquí</strong></p>
+              <p>Imágenes (JPG, PNG, WebP) o Videos (MP4, WebM) — máx 50MB</p>
+            </div>
+            <div id="upload-progress" style="margin-top:12px"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Archivos en el Bucket</h3>
+            <button class="btn btn-secondary btn-sm" onclick="loadMedia()">🔄 Recargar</button>
+          </div>
+          <div class="card-body">
+            <div id="media-grid"><div class="loading"><span class="spinner"></span>Cargando archivos…</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ═══ MODAL: PROPERTY ═══ -->
+<div class="modal-overlay" id="modal-property">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-prop-title">Nueva Propiedad</h3>
+      <button class="modal-close" onclick="closeModal('modal-property')">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="prop-form" onsubmit="saveProperty(event)">
+        <input type="hidden" id="prop-id">
+        <div class="form-grid">
+          <div class="form-section-title">Información Básica</div>
+          <div class="form-group full"><label>Título *</label><input type="text" id="prop-title" placeholder="Renovated Family Home – Atlanta" required></div>
+          <div class="form-group full"><label>Dirección</label><input type="text" id="prop-address" placeholder="1234 Peachtree Rd NE"></div>
+          <div class="form-group"><label>Ciudad</label><input type="text" id="prop-city" placeholder="Atlanta"></div>
+          <div class="form-group"><label>Zip Code</label><input type="text" id="prop-zip" placeholder="30309"></div>
+          <div class="form-group"><label>Precio ($)</label><input type="number" id="prop-price" placeholder="249000"></div>
+          <div class="form-group"><label>Estado</label>
+            <select id="prop-status">
+              <option value="available">Available</option>
+              <option value="pending">Pending</option>
+              <option value="sold">Sold</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Tipo de Propiedad</label>
+            <select id="prop-type">
+              <option value="single-family">Single-Family</option>
+              <option value="condo">Condo/Townhome</option>
+              <option value="multi-family">Multi-Family</option>
+              <option value="commercial">Commercial</option>
+              <option value="land">Land/Lot</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Destacada</label>
+            <select id="prop-featured">
+              <option value="false">No</option>
+              <option value="true">Sí — mostrar primero</option>
+            </select>
+          </div>
+
+          <div class="form-section-title">Detalles</div>
+          <div class="form-group"><label>Habitaciones (Bed)</label><input type="number" id="prop-bed" placeholder="3"></div>
+          <div class="form-group"><label>Baños (Bath)</label><input type="number" id="prop-bath" step="0.5" placeholder="2"></div>
+          <div class="form-group"><label>Sqft</label><input type="number" id="prop-sqft" placeholder="1650"></div>
+          <div class="form-group"><label>Lot Size</label><input type="text" id="prop-lot" placeholder="0.25 acres"></div>
+          <div class="form-group full"><label>Descripción</label><textarea id="prop-desc" rows="4" placeholder="Fully renovated 3/2 single family home…"></textarea></div>
+          <div class="form-group full"><label>Features (separar por comas)</label><input type="text" id="prop-features" placeholder="New roof, Updated kitchen, Granite countertops"></div>
+
+          <div class="form-section-title">Imágenes (URLs separadas por comas)</div>
+          <div class="form-group full">
+            <label>URLs de Imágenes</label>
+            <textarea id="prop-images" rows="3" placeholder="https://..., https://..."></textarea>
+            <small style="color:var(--muted);font-size:11px;margin-top:4px">Pega URLs de imágenes subidas a Media, separadas por coma</small>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('modal-property')">Cancelar</button>
+            <button type="submit" class="btn btn-primary">💾 Guardar Propiedad</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: LEAD DETAIL ═══ -->
+<div class="modal-overlay" id="modal-lead">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <h3>Detalle del Lead</h3>
+      <button class="modal-close" onclick="closeModal('modal-lead')">✕</button>
+    </div>
+    <div class="modal-body" id="modal-lead-body"></div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════
+const SB_URL = 'https://cqwvnvcjxbeskvyqrank.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxd3ZudmNqeGJlc2t2eXFyYW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMjg5OTMsImV4cCI6MjA4ODYwNDk5M30.pavJBT9fpyoKPH9zbn-9pcUY72gaOB6qL76QMCtFoWw';
+const BUCKET = 'gpga-media';
+
+const headers = {
+  'apikey': SB_KEY,
+  'Authorization': `Bearer ${SB_KEY}`,
+  'Content-Type': 'application/json',
+  'Prefer': 'return=representation'
+};
+
+// ═══════════════════════════════════════════════
+// SUPABASE HELPERS
+// ═══════════════════════════════════════════════
+async function sbGet(table, params='') {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${params}`, { headers });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbInsert(table, data) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}`, {
+    method: 'POST', headers, body: JSON.stringify(data)
+  });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbUpdate(table, id, data) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method: 'PATCH', headers, body: JSON.stringify(data)
+  });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbDelete(table, id) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method: 'DELETE', headers
+  });
+  if (!r.ok) throw new Error(await r.text());
+  return true;
+}
+async function sbUpsert(table, data, onConflict) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?on_conflict=${onConflict}`, {
+    method: 'POST',
+    headers: {...headers, 'Prefer': 'resolution=merge-duplicates,return=representation'},
+    body: JSON.stringify(data)
+  });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+// ═══════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════
+const viewTitles = { dashboard:'Dashboard', properties:'Propiedades', leads:'Leads', settings:'Site Settings', media:'Media / Archivos' };
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(`view-${name}`).classList.add('active');
+  event.currentTarget.classList.add('active');
+  document.getElementById('topbar-title').textContent = viewTitles[name];
+  if (name === 'properties') loadProperties();
+  if (name === 'leads')      loadLeads();
+  if (name === 'settings')   loadSettings();
+  if (name === 'media')      loadMedia();
+}
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+function toast(msg, type='success') {
+  const icons = { success:'✅', error:'❌', info:'ℹ️' };
+  const w = document.getElementById('toast-wrap');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+  w.appendChild(t);
+  requestAnimationFrame(() => { requestAnimationFrame(() => t.classList.add('show')); });
+  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3500);
+}
+
+// ═══════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+
+// ═══════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════
+async function loadDashboard() {
+  try {
+    const [props, leads, newLeads, available] = await Promise.all([
+      sbGet('properties', 'select=count', ),
+      sbGet('leads', 'select=count'),
+      sbGet('leads', 'status=eq.new&select=count'),
+      sbGet('properties', 'status=eq.available&select=count')
+    ]);
+    // Count via head
+    const [pc, lc, nc, ac] = await Promise.all([
+      fetch(`${SB_URL}/rest/v1/properties?select=id`, {headers:{...headers,'Prefer':'count=exact'}}).then(r=>r.headers.get('Content-Range')?.split('/')[1]||'0'),
+      fetch(`${SB_URL}/rest/v1/leads?select=id`, {headers:{...headers,'Prefer':'count=exact'}}).then(r=>r.headers.get('Content-Range')?.split('/')[1]||'0'),
+      fetch(`${SB_URL}/rest/v1/leads?status=eq.new&select=id`, {headers:{...headers,'Prefer':'count=exact'}}).then(r=>r.headers.get('Content-Range')?.split('/')[1]||'0'),
+      fetch(`${SB_URL}/rest/v1/properties?status=eq.available&select=id`, {headers:{...headers,'Prefer':'count=exact'}}).then(r=>r.headers.get('Content-Range')?.split('/')[1]||'0'),
+    ]);
+    document.getElementById('stat-props').textContent = pc;
+    document.getElementById('stat-leads').textContent = lc;
+    document.getElementById('stat-new-leads').textContent = nc;
+    document.getElementById('stat-available').textContent = ac;
+    document.getElementById('nav-badge-props').textContent = pc;
+    document.getElementById('nav-badge-leads').textContent = nc;
+
+    // Recent leads table
+    const recentLeads = await sbGet('leads', 'order=created_at.desc&limit=5');
+    renderDashLeads(recentLeads);
+
+    // Recent props
+    const recentProps = await sbGet('properties', 'order=created_at.desc&limit=4');
+    renderDashProps(recentProps);
+
+    // Connection status
+    document.getElementById('conn-dot').style.background = 'var(--green)';
+    document.getElementById('conn-status').textContent = 'Supabase conectado';
+  } catch(e) {
+    document.getElementById('conn-dot').style.background = '#e74c3c';
+    document.getElementById('conn-status').textContent = 'Error de conexión';
+    console.error(e);
+  }
+}
+
+function renderDashLeads(leads) {
+  if (!leads.length) { document.getElementById('dashboard-leads').innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>No hay leads aún</p></div>'; return; }
+  document.getElementById('dashboard-leads').innerHTML = `
+    <div class="table-wrap"><table>
+      <thead><tr><th>Nombre</th><th>Teléfono</th><th>Fuente</th><th>Fecha</th><th>Estado</th></tr></thead>
+      <tbody>${leads.map(l=>`
+        <tr>
+          <td><strong>${l.name||'—'}</strong></td>
+          <td>${l.phone||'—'}</td>
+          <td style="font-size:11px;color:var(--muted)">${l.source||'—'}</td>
+          <td style="font-size:11px;color:var(--muted)">${formatDate(l.created_at)}</td>
+          <td><span class="badge badge-${l.status||'new'}">${l.status||'new'}</span></td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>`;
+}
+
+function renderDashProps(props) {
+  if (!props.length) { document.getElementById('dashboard-props').innerHTML = '<div class="empty-state"><div class="empty-icon">🏠</div><p>No hay propiedades aún</p></div>'; return; }
+  document.getElementById('dashboard-props').innerHTML = `
+    <div class="table-wrap"><table>
+      <thead><tr><th>Título</th><th>Ciudad</th><th>Precio</th><th>Tipo</th><th>Estado</th></tr></thead>
+      <tbody>${props.map(p=>`
+        <tr>
+          <td><strong>${p.title}</strong></td>
+          <td>${p.city||'—'}</td>
+          <td style="color:var(--red);font-weight:700">${p.price?'$'+Number(p.price).toLocaleString():'—'}</td>
+          <td style="font-size:11px;color:var(--muted)">${p.property_type||'—'}</td>
+          <td><span class="badge badge-${p.status}">${p.status}</span></td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>`;
+}
+
+// ═══════════════════════════════════════════════
+// PROPERTIES
+// ═══════════════════════════════════════════════
+async function loadProperties() {
+  document.getElementById('props-table').innerHTML = '<div class="loading"><span class="spinner"></span>Cargando…</div>';
+  try {
+    const props = await sbGet('properties', 'order=featured.desc,sort_order.asc,created_at.desc');
+    if (!props.length) {
+      document.getElementById('props-table').innerHTML = '<div class="empty-state"><div class="empty-icon">🏠</div><h4>No hay propiedades</h4><p>Agrega tu primera propiedad</p></div>';
+      return;
+    }
+    document.getElementById('props-table').innerHTML = `
+      <div class="table-wrap"><table>
+        <thead><tr><th>Título</th><th>Ciudad/Zip</th><th>Precio</th><th>Tipo</th><th>Bed/Bath</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>${props.map(p=>`
+          <tr>
+            <td>
+              <strong>${p.title}</strong>
+              ${p.featured?'<span class="badge badge-available" style="margin-left:6px;font-size:9px">⭐ Featured</span>':''}
+            </td>
+            <td style="font-size:12px">${p.city||'—'} ${p.zip?`<span style="color:var(--muted)">${p.zip}</span>`:''}</td>
+            <td style="color:var(--red);font-weight:700">${p.price?'$'+Number(p.price).toLocaleString():'—'}</td>
+            <td style="font-size:11px;color:var(--muted)">${p.property_type||'—'}</td>
+            <td style="font-size:12px">${p.bedrooms?p.bedrooms+'bd':''} ${p.bathrooms?p.bathrooms+'ba':''}</td>
+            <td><span class="badge badge-${p.status}">${p.status}</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-secondary btn-sm btn-icon" onclick='editProperty(${JSON.stringify(p)})' title="Editar">✏️</button>
+              <button class="btn btn-danger btn-sm btn-icon" onclick="deleteProperty('${p.id}','${p.title.replace(/'/g,"\\'")}')">🗑️</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>`;
+  } catch(e) { toast('Error cargando propiedades','error'); console.error(e); }
+}
+
+function openPropertyModal(p=null) {
+  document.getElementById('modal-prop-title').textContent = p ? 'Editar Propiedad' : 'Nueva Propiedad';
+  document.getElementById('prop-id').value = p?.id||'';
+  document.getElementById('prop-title').value = p?.title||'';
+  document.getElementById('prop-address').value = p?.address||'';
+  document.getElementById('prop-city').value = p?.city||'';
+  document.getElementById('prop-zip').value = p?.zip||'';
+  document.getElementById('prop-price').value = p?.price||'';
+  document.getElementById('prop-status').value = p?.status||'available';
+  document.getElementById('prop-type').value = p?.property_type||'single-family';
+  document.getElementById('prop-featured').value = p?.featured?'true':'false';
+  document.getElementById('prop-bed').value = p?.bedrooms||'';
+  document.getElementById('prop-bath').value = p?.bathrooms||'';
+  document.getElementById('prop-sqft').value = p?.sqft||'';
+  document.getElementById('prop-lot').value = p?.lot_size||'';
+  document.getElementById('prop-desc').value = p?.description||'';
+  document.getElementById('prop-features').value = (p?.features||[]).join(', ');
+  document.getElementById('prop-images').value = (p?.images||[]).join(', ');
+  openModal('modal-property');
+}
+
+function editProperty(p) { openPropertyModal(p); }
+
+async function saveProperty(e) {
+  e.preventDefault();
+  const id = document.getElementById('prop-id').value;
+  const data = {
+    title:         document.getElementById('prop-title').value.trim(),
+    address:       document.getElementById('prop-address').value.trim(),
+    city:          document.getElementById('prop-city').value.trim(),
+    zip:           document.getElementById('prop-zip').value.trim(),
+    price:         parseFloat(document.getElementById('prop-price').value)||null,
+    status:        document.getElementById('prop-status').value,
+    property_type: document.getElementById('prop-type').value,
+    featured:      document.getElementById('prop-featured').value === 'true',
+    bedrooms:      parseInt(document.getElementById('prop-bed').value)||null,
+    bathrooms:     parseFloat(document.getElementById('prop-bath').value)||null,
+    sqft:          parseInt(document.getElementById('prop-sqft').value)||null,
+    lot_size:      document.getElementById('prop-lot').value.trim(),
+    description:   document.getElementById('prop-desc').value.trim(),
+    features:      document.getElementById('prop-features').value.split(',').map(s=>s.trim()).filter(Boolean),
+    images:        document.getElementById('prop-images').value.split(',').map(s=>s.trim()).filter(Boolean),
+    updated_at:    new Date().toISOString()
+  };
+  try {
+    if (id) { await sbUpdate('properties', id, data); toast('Propiedad actualizada ✓'); }
+    else    { await sbInsert('properties', data); toast('Propiedad creada ✓'); }
+    closeModal('modal-property');
+    loadProperties();
+    loadDashboard();
+  } catch(e) { toast('Error guardando: '+e.message,'error'); }
+}
+
+async function deleteProperty(id, title) {
+  if (!confirm(`¿Eliminar "${title}"?`)) return;
+  try {
+    await sbDelete('properties', id);
+    toast('Propiedad eliminada');
+    loadProperties();
+    loadDashboard();
+  } catch(e) { toast('Error: '+e.message,'error'); }
+}
+
+// ═══════════════════════════════════════════════
+// LEADS
+// ═══════════════════════════════════════════════
+async function loadLeads() {
+  document.getElementById('leads-table').innerHTML = '<div class="loading"><span class="spinner"></span>Cargando leads…</div>';
+  const filter = document.getElementById('leads-filter')?.value;
+  let params = 'order=created_at.desc&limit=100';
+  if (filter) params += `&status=eq.${filter}`;
+  try {
+    const leads = await sbGet('leads', params);
+    if (!leads.length) {
+      document.getElementById('leads-table').innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><h4>No hay leads</h4><p>Los formularios del sitio enviarán datos aquí</p></div>';
+      return;
+    }
+    document.getElementById('leads-table').innerHTML = `
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Zip</th><th>Fuente</th><th>Fecha</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>${leads.map(l=>`
+          <tr>
+            <td><strong>${l.name||'—'}</strong></td>
+            <td style="font-size:12px">${l.email||'—'}</td>
+            <td><a href="tel:${l.phone}" style="color:var(--red);font-weight:600">${l.phone||'—'}</a></td>
+            <td style="font-size:12px;color:var(--muted)">${l.zip||'—'}</td>
+            <td style="font-size:11px;color:var(--muted)">${l.source||'—'}</td>
+            <td style="font-size:11px;color:var(--muted)">${formatDate(l.created_at)}</td>
+            <td>
+              <select onchange="updateLeadStatus('${l.id}',this.value)" style="padding:4px 8px;font-size:11px;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text);width:auto">
+                ${['new','contacted','qualified','closed','dead'].map(s=>`<option value="${s}"${l.status===s?' selected':''}>${s}</option>`).join('')}
+              </select>
+            </td>
+            <td><div class="td-actions">
+              <button class="btn btn-secondary btn-sm btn-icon" onclick='openLeadDetail(${JSON.stringify(l)})' title="Ver detalle">👁</button>
+              <button class="btn btn-danger btn-sm btn-icon" onclick="deleteLead('${l.id}')">🗑️</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>`;
+  } catch(e) { toast('Error cargando leads','error'); console.error(e); }
+}
+
+async function updateLeadStatus(id, status) {
+  try {
+    await sbUpdate('leads', id, { status });
+    toast(`Lead marcado como "${status}"`,'info');
+    loadDashboard();
+  } catch(e) { toast('Error: '+e.message,'error'); }
+}
+
+function openLeadDetail(l) {
+  document.getElementById('modal-lead-body').innerHTML = `
+    <div class="lead-detail-grid">
+      <div class="lead-detail-item"><label>Nombre</label><span>${l.name||'—'}</span></div>
+      <div class="lead-detail-item"><label>Teléfono</label><span><a href="tel:${l.phone}" style="color:var(--red)">${l.phone||'—'}</a></span></div>
+      <div class="lead-detail-item"><label>Email</label><span>${l.email||'—'}</span></div>
+      <div class="lead-detail-item"><label>Zip Code</label><span>${l.zip||'—'}</span></div>
+      <div class="lead-detail-item"><label>Fuente</label><span>${l.source||'—'}</span></div>
+      <div class="lead-detail-item"><label>Fecha</label><span>${formatDate(l.created_at)}</span></div>
+      <div class="lead-detail-item" style="grid-column:1/-1"><label>Dirección/Propiedad</label><span>${l.address||'—'}</span></div>
+      <div class="lead-detail-item" style="grid-column:1/-1"><label>Mensaje</label><span>${l.message||'—'}</span></div>
+      <div class="lead-detail-item"><label>Estado</label>
+        <select onchange="updateLeadStatus('${l.id}',this.value)" style="padding:6px 10px;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text)">
+          ${['new','contacted','qualified','closed','dead'].map(s=>`<option value="${s}"${l.status===s?' selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:flex;gap:10px">
+      <a href="tel:${l.phone}" class="btn btn-primary">📞 Llamar</a>
+      <a href="mailto:${l.email}" class="btn btn-secondary">✉️ Email</a>
+      <a href="sms:${l.phone}" class="btn btn-secondary">💬 SMS</a>
+    </div>`;
+  openModal('modal-lead');
+}
+
+async function deleteLead(id) {
+  if (!confirm('¿Eliminar este lead?')) return;
+  try { await sbDelete('leads', id); toast('Lead eliminado'); loadLeads(); loadDashboard(); }
+  catch(e) { toast('Error: '+e.message,'error'); }
+}
+
+function exportLeads() {
+  sbGet('leads','order=created_at.desc&limit=1000').then(leads=>{
+    const csv = ['Name,Email,Phone,Zip,Source,Status,Date,Address,Message',
+      ...leads.map(l=>[l.name,l.email,l.phone,l.zip,l.source,l.status,l.created_at,l.address,l.message].map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(','))
+    ].join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+    a.download = `gpga-leads-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    toast('CSV exportado ✓');
+  });
+}
+
+// ═══════════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════════
+let settingsData = {};
+
+async function loadSettings() {
+  try {
+    const settings = await sbGet('site_settings','order=section.asc,key.asc');
+    settingsData = {};
+    settings.forEach(s => settingsData[s.key] = s);
+    renderSettings(settings);
+  } catch(e) { toast('Error cargando settings','error'); console.error(e); }
+}
+
+const sectionNames = { contact:'Contacto', branding:'Branding', homepage:'Homepage', about:'About', footer:'Footer', seo:'SEO' };
+const allSections = ['contact','branding','homepage','about','seo'];
+
+function renderSettings(settings) {
+  const bySection = {};
+  settings.forEach(s => { if (!bySection[s.section]) bySection[s.section] = []; bySection[s.section].push(s); });
+
+  document.getElementById('settings-panels').innerHTML = allSections.map((sec,i)=>`
+    <div class="stab-panel ${i===0?'active':''}" id="stab-panel-${sec}">
+      <div class="card">
+        <div class="card-body">
+          ${(bySection[sec]||[]).map(s=>`
+            <div class="setting-item">
+              <div class="setting-label-wrap">
+                <div class="setting-label">${s.label}</div>
+                <div class="setting-key">${s.key}</div>
+              </div>
+              <div>${renderSettingInput(s)}</div>
+              <button class="btn btn-secondary btn-sm" onclick="saveSetting('${s.key}')">Guardar</button>
+            </div>`).join('')}
+          ${!(bySection[sec]||[]).length ? '<p style="color:var(--muted);font-size:13px">No hay configuraciones en esta sección</p>' : ''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderSettingInput(s) {
+  const val = (s.value||'').replace(/"/g,'&quot;');
+  if (s.type === 'textarea') return `<textarea id="setting-${s.key}" rows="3" style="width:100%;min-width:280px">${s.value||''}</textarea>`;
+  if (s.type === 'color')    return `<div style="display:flex;gap:8px;align-items:center"><input type="color" id="setting-${s.key}" value="${s.value||'#c0392b'}" style="width:60px"><input type="text" id="setting-${s.key}-txt" value="${val}" style="width:120px" oninput="document.getElementById('setting-${s.key}').value=this.value"></div>`;
+  if (s.type === 'image_url') return `<div><input type="url" id="setting-${s.key}" value="${val}" placeholder="https://..." style="min-width:280px">${s.value?`<br><img src="${s.value}" style="height:40px;margin-top:6px;border-radius:4px" onerror="this.style.display='none'">`:''}</div>`;
+  return `<input type="text" id="setting-${s.key}" value="${val}" style="min-width:280px">`;
+}
+
+async function saveSetting(key) {
+  const el = document.getElementById(`setting-${key}`);
+  const txtEl = document.getElementById(`setting-${key}-txt`);
+  const value = el ? el.value : '';
+  const finalValue = settingsData[key]?.type === 'color' && txtEl ? txtEl.value : value;
+  try {
+    await sbUpsert('site_settings', { key, value: finalValue, updated_at: new Date().toISOString() }, 'key');
+    settingsData[key] = {...settingsData[key], value: finalValue};
+    toast(`"${settingsData[key]?.label||key}" guardado ✓`);
+  } catch(e) { toast('Error: '+e.message,'error'); }
+}
+
+async function saveAllSettings() {
+  const keys = Object.keys(settingsData);
+  let saved = 0;
+  for (const key of keys) {
+    const el = document.getElementById(`setting-${key}`);
+    if (!el) continue;
+    const value = el.value;
+    try {
+      await sbUpsert('site_settings', { key, value, updated_at: new Date().toISOString() }, 'key');
+      saved++;
+    } catch(e) {}
+  }
+  toast(`${saved} configuraciones guardadas ✓`);
+}
+
+function switchStab(name) {
+  document.querySelectorAll('.stab').forEach((t,i) => {
+    t.classList.toggle('active', allSections[i] === name);
+  });
+  document.querySelectorAll('.stab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === `stab-panel-${name}`);
+  });
+}
+
+// ═══════════════════════════════════════════════
+// MEDIA
+// ═══════════════════════════════════════════════
+async function loadMedia() {
+  document.getElementById('media-grid').innerHTML = '<div class="loading"><span class="spinner"></span>Cargando archivos…</div>';
+  try {
+    const r = await fetch(`${SB_URL}/storage/v1/object/list/${BUCKET}`, {
+      method: 'POST',
+      headers: {...headers, 'Content-Type':'application/json'},
+      body: JSON.stringify({ limit:100, offset:0, sortBy:{ column:'created_at', order:'desc' } })
+    });
+    if (!r.ok) { throw new Error('Bucket no encontrado — créalo en Supabase Storage'); }
+    const files = await r.json();
+    if (!files.length) {
+      document.getElementById('media-grid').innerHTML = '<div class="empty-state"><div class="empty-icon">🖼️</div><h4>No hay archivos</h4><p>Sube imágenes arriba</p></div>';
+      return;
+    }
+    document.getElementById('media-grid').innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px">
+        ${files.map(f=>{
+          const url = `${SB_URL}/storage/v1/object/public/${BUCKET}/${f.name}`;
+          const isImg = /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name);
+          return `<div style="background:var(--dark);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+            ${isImg ? `<img src="${url}" style="width:100%;height:110px;object-fit:cover" loading="lazy">` : `<div style="height:110px;display:flex;align-items:center;justify-content:center;font-size:32px">🎬</div>`}
+            <div style="padding:8px">
+              <div style="font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${f.name}">${f.name}</div>
+              <div style="display:flex;gap:6px;margin-top:6px">
+                <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText('${url}');toast('URL copiada ✓','info')" style="flex:1;font-size:10px">📋 Copiar URL</button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteMedia('${f.name}')">🗑️</button>
+              </div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`;
+  } catch(e) {
+    document.getElementById('media-grid').innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h4>Bucket no configurado</h4><p>Ve a Supabase → Storage → New Bucket → nombre: <strong>gpga-media</strong> → Public: ON</p></div>`;
+  }
+}
+
+async function handleMediaUpload(files) {
+  const prog = document.getElementById('upload-progress');
+  for (const file of files) {
+    prog.innerHTML = `<div class="loading"><span class="spinner"></span>Subiendo ${file.name}…</div>`;
+    try {
+      const r = await fetch(`${SB_URL}/storage/v1/object/${BUCKET}/${file.name}`, {
+        method: 'POST',
+        headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': file.type },
+        body: file
+      });
+      if (!r.ok) throw new Error(await r.text());
+      toast(`${file.name} subido ✓`);
+    } catch(e) { toast(`Error subiendo ${file.name}: `+e.message,'error'); }
+  }
+  prog.innerHTML = '';
+  loadMedia();
+}
+
+async function deleteMedia(name) {
+  if (!confirm(`¿Eliminar ${name}?`)) return;
+  try {
+    await fetch(`${SB_URL}/storage/v1/object/${BUCKET}/${name}`, {
+      method: 'DELETE', headers
+    });
+    toast(`${name} eliminado`);
+    loadMedia();
+  } catch(e) { toast('Error: '+e.message,'error'); }
+}
+
+// ═══════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════
+function formatDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+loadDashboard();
+</script>
+</body>
+</html>
