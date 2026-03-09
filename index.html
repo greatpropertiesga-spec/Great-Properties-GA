@@ -266,7 +266,7 @@ textarea.form-row input{height:90px;resize:vertical}
 
 <!-- FEATURED PROPERTIES -->
 <h2 class="section-heading">Buy Properties From Us</h2>
-<div class="prop-grid">
+<div class="prop-grid" id="sb-home-props">
 <div class="prop-card"><div class="prop-card-img" style="background:linear-gradient(135deg,#2c2c2c,#555)"><span class="placeholder">🏠</span><span class="prop-badge badge-available">Available</span></div><div class="prop-card-body"><p style="font-size:11px;font-weight:700;text-transform:uppercase;color:#b22222;margin-bottom:4px">Single-Family</p><h3><a href="listings.html">Renovated Family Home – Atlanta</a></h3><p class="prop-card-city">Atlanta, GA 30309</p><div class="prop-card-price">$249,000</div><div class="prop-card-details"><span>🛏 3 Bed</span><span>🚿 2 Bath</span><span>📐 1,650 sqft</span></div><a href="listings.html" class="btn btn-dark btn-block">View Property</a></div></div>
 <div class="prop-card"><div class="prop-card-img" style="background:linear-gradient(135deg,#1a3a2a,#2d5a4a)"><span class="placeholder">🏢</span><span class="prop-badge badge-available">Available</span></div><div class="prop-card-body"><p style="font-size:11px;font-weight:700;text-transform:uppercase;color:#b22222;margin-bottom:4px">Condo/Townhome</p><h3><a href="listings.html">Updated Townhome – Savannah</a></h3><p class="prop-card-city">Savannah, GA 31401</p><div class="prop-card-price">$185,000</div><div class="prop-card-details"><span>🛏 2 Bed</span><span>🚿 2 Bath</span><span>📐 1,200 sqft</span></div><a href="listings.html" class="btn btn-dark btn-block">View Property</a></div></div>
 <div class="prop-card"><div class="prop-card-img" style="background:linear-gradient(135deg,#2a1a1a,#4a2d2d)"><span class="placeholder">🏗️</span><span class="prop-badge badge-available">Available</span></div><div class="prop-card-body"><p style="font-size:11px;font-weight:700;text-transform:uppercase;color:#b22222;margin-bottom:4px">Multi-Family</p><h3><a href="listings.html">Multi-Family Investment – Augusta</a></h3><p class="prop-card-city">Augusta, GA 30901</p><div class="prop-card-price">$399,000</div><div class="prop-card-details"><span>4 Units</span><span>📐 3,200 sqft</span></div><a href="listings.html" class="btn btn-dark btn-block">View Property</a></div></div>
@@ -363,4 +363,274 @@ function showToast(msg){
 }
 // Footer year
 var fy=document.getElementById('footer-yr');if(fy)fy.textContent=new Date().getFullYear();</script>
-</body></html>
+<script>
+// ═══════════════════════════════════════════════
+// GREAT PROPERTIES GA — SUPABASE LIVE LOADER
+// Lee settings y propiedades de Supabase y los
+// aplica dinámicamente al sitio
+// ═══════════════════════════════════════════════
+(async function() {
+  const SB_URL = 'https://cqwvnvcjxbeskvyqrank.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxd3ZudmNqeGJlc2t2eXFyYW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMjg5OTMsImV4cCI6MjA4ODYwNDk5M30.pavJBT9fpyoKPH9zbn-9pcUY72gaOB6qL76QMCtFoWw';
+  const H = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+
+  async function get(table, params) {
+    try {
+      const r = await fetch(SB_URL + '/rest/v1/' + table + '?' + (params||''), { headers: H });
+      if (!r.ok) return null;
+      return r.json();
+    } catch(e) { return null; }
+  }
+
+  // ── LOAD SETTINGS ──────────────────────────────
+  const settings = await get('site_settings', 'select=key,value');
+  if (!settings) return;
+
+  const s = {};
+  settings.forEach(function(row) { s[row.key] = row.value; });
+
+  // Apply brand color
+  if (s.brand_color) {
+    const root = document.documentElement;
+    root.style.setProperty('--red', s.brand_color);
+    // Darken for hover
+    root.style.setProperty('--red-dark', darken(s.brand_color, 20));
+    // Update all hardcoded red references via inline style injection
+    const style = document.createElement('style');
+    style.innerHTML = [
+      '.main-nav, .main-nav a:hover, .main-nav a.active { background-color: ' + s.brand_color + ' !important; }',
+      '.main-nav { background: ' + s.brand_color + ' !important; }',
+      '.site-header { border-bottom-color: ' + s.brand_color + ' !important; }',
+      '.top-bar { border-bottom-color: ' + s.brand_color + ' !important; }',
+      '.logo-sub { color: ' + s.brand_color + ' !important; }',
+      '.btn-submit, .btn-red { background: ' + s.brand_color + ' !important; }',
+      '.btn-submit:hover, .btn-red:hover { background: ' + darken(s.brand_color, 20) + ' !important; }',
+      '.prop-card-price { color: ' + s.brand_color + ' !important; }',
+      '.section-heading { border-bottom-color: ' + s.brand_color + ' !important; }',
+      'a { color: ' + s.brand_color + ' !important; }',
+      '.footer-col a:hover { color: ' + s.brand_color + ' !important; }',
+      '.work-box h3 { color: ' + s.brand_color + ' !important; }',
+      '.top-bar { background: #222 !important; }',
+      '.t-card { border-top-color: ' + s.brand_color + ' !important; }',
+    ].join('
+');
+    document.head.appendChild(style);
+  }
+
+  // Apply logo URL
+  if (s.logo_url) {
+    document.querySelectorAll('.logo-icon').forEach(function(el) {
+      const img = document.createElement('img');
+      img.src = s.logo_url;
+      img.style.cssText = 'height:48px;width:auto;object-fit:contain';
+      img.onerror = function() { img.replaceWith(el.cloneNode(true)); };
+      el.replaceWith(img);
+    });
+  }
+
+  // Apply logo text
+  if (s.logo_text) {
+    document.querySelectorAll('.logo-title').forEach(function(el) {
+      el.textContent = s.logo_text;
+    });
+    // Also footer
+    document.querySelectorAll('.footer-logo-txt').forEach(function(el) {
+      el.innerHTML = (s.logo_url ? '' : '🦅 ') + s.logo_text;
+    });
+  }
+
+  // Apply phone everywhere
+  if (s.site_phone) {
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+      el.href = 'tel:' + s.site_phone.replace(/\D/g,'');
+      if (el.textContent.match(/\d{3}[-.\s]\d{3}/)) {
+        el.textContent = s.site_phone;
+      }
+    });
+    document.querySelectorAll('.top-bar-phone').forEach(function(el) {
+      el.textContent = '📞 ' + s.site_phone;
+      el.href = 'tel:' + s.site_phone.replace(/\D/g,'');
+    });
+  }
+
+  // Apply email
+  if (s.site_email) {
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(el) {
+      el.href = 'mailto:' + s.site_email;
+      if (el.textContent.includes('@')) el.textContent = s.site_email;
+    });
+  }
+
+  // Apply hero title (index only)
+  if (s.hero_title) {
+    const heroH = document.querySelector('.hero-content h2');
+    if (heroH) {
+      heroH.innerHTML = s.hero_title.replace(/
+/g, '<br>');
+    }
+  }
+
+  // Apply hero subtitle
+  if (s.hero_subtitle) {
+    const heroP = document.querySelector('.hero-content > p');
+    if (heroP) heroP.textContent = s.hero_subtitle;
+  }
+
+  // Apply hero background image
+  if (s.hero_image_url) {
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
+      heroSection.style.backgroundImage = 'url(' + s.hero_image_url + ')';
+      heroSection.style.backgroundSize = 'cover';
+      heroSection.style.backgroundPosition = 'center';
+    }
+  }
+
+  // Apply hero video
+  if (s.hero_video_url) {
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection && !heroSection.querySelector('video')) {
+      const vid = document.createElement('video');
+      vid.src = s.hero_video_url;
+      vid.autoplay = true;
+      vid.muted = true;
+      vid.loop = true;
+      vid.playsInline = true;
+      vid.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.4';
+      heroSection.style.position = 'relative';
+      heroSection.insertBefore(vid, heroSection.firstChild);
+      heroSection.querySelector('.wrap').style.position = 'relative';
+      heroSection.querySelector('.wrap').style.zIndex = '1';
+    }
+  }
+
+  // Apply footer text
+  if (s.footer_text) {
+    document.querySelectorAll('.footer-logo-area p').forEach(function(el) {
+      el.textContent = s.footer_text;
+    });
+  }
+
+  // Apply meta title/description for SEO
+  if (s.meta_title) document.title = s.meta_title;
+  if (s.meta_description) {
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
+    meta.content = s.meta_description;
+  }
+
+  // ── LOAD PROPERTIES (listings page only) ───────
+  const propsContainer = document.getElementById('sb-properties-grid');
+  if (propsContainer) {
+    const props = await get('properties', 'status=eq.available&order=featured.desc,sort_order.asc,created_at.desc');
+    if (props && props.length) {
+      propsContainer.innerHTML = props.map(function(p) {
+        const price = p.price ? '$' + Number(p.price).toLocaleString() : 'Contact Us';
+        const imgs = p.images && p.images.length ? p.images[0] : null;
+        const badge = p.status === 'sold' ? 'badge-sold' : p.status === 'pending' ? 'badge-pending' : 'badge-available';
+        const typeLabel = { 'single-family':'Single-Family','condo':'Condo/Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land/Lot','other':'Other' };
+        return '<div class="prop-card">' +
+          '<div class="prop-card-img" style="background:linear-gradient(135deg,#2c2c2c,#555)">' +
+          (imgs ? '<img src="' + imgs + '" alt="' + p.title + '" loading="lazy">' : '<span class="placeholder">🏠</span>') +
+          '<span class="prop-badge ' + badge + '">' + (p.status||'available') + '</span>' +
+          '</div>' +
+          '<div class="prop-card-body">' +
+          '<p style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red,#b22222);margin-bottom:4px">' + (typeLabel[p.property_type]||p.property_type||'') + '</p>' +
+          '<h3><a href="contact.html">' + p.title + '</a></h3>' +
+          '<p class="prop-card-city">' + (p.address ? p.address + ', ' : '') + (p.city||'') + (p.zip ? ', GA ' + p.zip : '') + '</p>' +
+          '<div class="prop-card-price">' + price + '</div>' +
+          '<div class="prop-card-details">' +
+          (p.bedrooms ? '<span>🛏 ' + p.bedrooms + ' Bed</span>' : '') +
+          (p.bathrooms ? '<span>🚿 ' + p.bathrooms + ' Bath</span>' : '') +
+          (p.sqft ? '<span>📐 ' + Number(p.sqft).toLocaleString() + ' sqft</span>' : '') +
+          '</div>' +
+          (p.description ? '<p style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">' + p.description.substring(0,120) + (p.description.length>120?'…':'') + '</p>' : '') +
+          '<a href="contact.html" class="btn btn-dark btn-block">Inquire About This Property</a>' +
+          '</div></div>';
+      }).join('');
+    } else if (props) {
+      propsContainer.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#888"><p>No properties available at this time. Check back soon!</p></div>';
+    }
+  }
+
+  // ── LOAD FEATURED PROPS (homepage) ─────────────
+  const homePropsGrid = document.getElementById('sb-home-props');
+  if (homePropsGrid) {
+    const props = await get('properties', 'status=eq.available&order=featured.desc,created_at.desc&limit=4');
+    if (props && props.length) {
+      homePropsGrid.innerHTML = props.map(function(p) {
+        const price = p.price ? '$' + Number(p.price).toLocaleString() : 'Contact Us';
+        const imgs = p.images && p.images.length ? p.images[0] : null;
+        const typeLabel = { 'single-family':'Single-Family','condo':'Condo/Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land/Lot' };
+        return '<div class="prop-card">' +
+          '<div class="prop-card-img" style="background:linear-gradient(135deg,#2c2c2c,#555)">' +
+          (imgs ? '<img src="' + imgs + '" alt="' + p.title + '" loading="lazy">' : '<span class="placeholder">🏠</span>') +
+          '<span class="prop-badge badge-available">Available</span>' +
+          '</div>' +
+          '<div class="prop-card-body">' +
+          '<p style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red,#b22222);margin-bottom:4px">' + (typeLabel[p.property_type]||'') + '</p>' +
+          '<h3><a href="listings.html">' + p.title + '</a></h3>' +
+          '<p class="prop-card-city">' + (p.city||'') + (p.zip ? ', GA ' + p.zip : '') + '</p>' +
+          '<div class="prop-card-price">' + price + '</div>' +
+          '<div class="prop-card-details">' +
+          (p.bedrooms ? '<span>🛏 ' + p.bedrooms + ' Bed</span>' : '') +
+          (p.bathrooms ? '<span>🚿 ' + p.bathrooms + ' Bath</span>' : '') +
+          (p.sqft ? '<span>📐 ' + Number(p.sqft).toLocaleString() + ' sqft</span>' : '') +
+          '</div>' +
+          '<a href="listings.html" class="btn btn-dark btn-block">View Details →</a>' +
+          '</div></div>';
+      }).join('');
+    }
+  }
+
+  // ── LEAD FORM → SUPABASE ────────────────────────
+  document.querySelectorAll('.lead-form').forEach(function(form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('[type=submit]');
+      const msg = form.querySelector('.form-msg');
+      const orig = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Sending…';
+      const data = {
+        name:    (form.querySelector('[name=name]')||{}).value || null,
+        email:   (form.querySelector('[name=email]')||{}).value || null,
+        phone:   (form.querySelector('[name=phone]')||{}).value || null,
+        zip:     (form.querySelector('[name=zip]')||{}).value || null,
+        address: (form.querySelector('[name=address]')||{}).value || null,
+        message: (form.querySelector('[name=message]')||{}).value || null,
+        subject: (form.querySelector('[name=subject]')||{}).value || null,
+        source:  form.dataset.source || window.location.pathname.split('/').pop() || 'website'
+      };
+      try {
+        const r = await fetch(SB_URL + '/rest/v1/leads', {
+          method: 'POST',
+          headers: { ...H, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+          body: JSON.stringify(data)
+        });
+        if (!r.ok) throw new Error();
+        if (msg) { msg.className = 'form-msg success'; msg.textContent = '✓ Thank you! We will contact you within 24 hours.'; }
+        form.reset();
+        showToast('✓ Message sent! We will contact you shortly.');
+      } catch(err) {
+        if (msg) { msg.className = 'form-msg error'; msg.textContent = 'Something went wrong. Please call us directly.'; }
+      }
+      btn.disabled = false; btn.textContent = orig;
+    });
+  });
+
+  // ── UTILS ───────────────────────────────────────
+  function darken(hex, pct) {
+    try {
+      hex = hex.replace('#','');
+      if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');
+      const num = parseInt(hex,16);
+      let r = Math.max(0,(num>>16)-Math.round(2.55*pct));
+      let g = Math.max(0,((num>>8)&0xff)-Math.round(2.55*pct));
+      let b = Math.max(0,(num&0xff)-Math.round(2.55*pct));
+      return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+    } catch(e) { return hex; }
+  }
+
+})();
+</script>
+</html>
