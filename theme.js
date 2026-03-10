@@ -34,15 +34,33 @@
     section_about_band: 'true',
   };
 
-  // ── FETCH SETTINGS ───────────────────────────────────────────
+  // ── APPLY CACHE INSTANTLY (antes de que el browser pinte) ────
+  // Esto elimina el "flash" del color por defecto
+  const CACHE_KEY = 'gpga_theme_v2';
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const cs = JSON.parse(cached);
+      // Aplicar colores y fuentes del cache INMEDIATAMENTE
+      const root = document.documentElement;
+      if (cs.brand_color)   root.style.setProperty('--brand',      cs.brand_color);
+      if (cs.brand_color_2) root.style.setProperty('--brand2',     cs.brand_color_2);
+      if (cs.font_display)  root.style.setProperty('--font-display',"'" + cs.font_display + "', Georgia, serif");
+      if (cs.font_body)     root.style.setProperty('--font-body',  "'" + cs.font_body    + "', system-ui, sans-serif");
+    }
+  } catch(e) {}
+
+  // ── FETCH SETTINGS desde Supabase ────────────────────────────
   let s = { ...DEFAULTS };
   try {
     const r = await fetch(SB_URL + '/rest/v1/site_settings?select=key,value', { headers: H });
     if (r.ok) {
       const rows = await r.json();
       rows.forEach(function(row) { if (row.value !== null && row.value !== '') s[row.key] = row.value; });
+      // Guardar en cache para la próxima carga (sin flash)
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify(s)); } catch(e) {}
     }
-  } catch(e) { /* use defaults */ }
+  } catch(e) { /* usar cache o defaults */ }
 
   // ── EXPOSE GLOBALLY for pages that need it ───────────────────
   window.GPGA = { settings: s, SB_URL, SB_KEY, H };
