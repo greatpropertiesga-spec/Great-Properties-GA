@@ -366,42 +366,76 @@
 
 <script src="theme.js"></script>
 <script>
-// Load properties from Supabase into home grid
-(async function() {
-  await new Promise(function(r) {
-    if (window.GPGA) return r();
-    document.querySelector('script[src="theme.js"]').addEventListener('load', r);
-    setTimeout(r, 3000);
-  });
-  const s = window.GPGA;
-  if (!s) return;
+// Load FEATURED properties (all statuses) into home grid
+function waitForGPGA_home(cb) {
+  if (window.GPGA && window.GPGA.settings) { cb(window.GPGA); return; }
+  var attempts = 0;
+  var t = setInterval(function() {
+    attempts++;
+    if (window.GPGA && window.GPGA.settings) { clearInterval(t); cb(window.GPGA); }
+    else if (attempts > 80) clearInterval(t);
+  }, 50);
+}
+
+waitForGPGA_home(async function(g) {
+  var grid = document.getElementById('sb-home-props');
+  if (!grid) return;
   try {
-    const r = await fetch(s.SB_URL + '/rest/v1/properties?status=eq.available&order=featured.desc,created_at.desc&limit=3', { headers: s.H });
+    // Fetch FEATURED properties of ALL statuses (available, pending, sold)
+    var r = await fetch(g.SB_URL + '/rest/v1/properties?featured=eq.true&order=created_at.desc&limit=6', { headers: g.H });
     if (!r.ok) return;
-    const props = await r.json();
+    var props = await r.json();
+
+    // Fallback: if no featured, grab latest available
+    if (!props || !props.length) {
+      r = await fetch(g.SB_URL + '/rest/v1/properties?order=created_at.desc&limit=3', { headers: g.H });
+      if (!r.ok) return;
+      props = await r.json();
+    }
     if (!props || !props.length) return;
-    const typeLabel = { 'single-family':'Single-Family','condo':'Condo / Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land / Lot' };
-    const grid = document.getElementById('sb-home-props');
-    if (grid) grid.innerHTML = props.map(function(p) {
-      const price = p.price ? '$' + Number(p.price).toLocaleString() : 'Contact Us';
-      const img = p.images && p.images.length ? '<img src="'+p.images[0]+'" alt="'+p.title+'" loading="lazy">' : '<div class="placeholder">🏠</div>';
-      return '<div class="gpga-prop-card gpga-animate gpga-visible">'+
-        '<div class="gpga-prop-card-img">'+img+'<span class="gpga-prop-badge badge-available">Available</span></div>'+
-        '<div class="gpga-prop-card-body">'+
-        '<div class="gpga-prop-type">'+(typeLabel[p.property_type]||p.property_type||'Property')+'</div>'+
-        '<h3><a href="listings.html">'+p.title+'</a></h3>'+
-        '<p class="gpga-prop-city">'+(p.city||'')+(p.zip?', GA '+p.zip:'')+'</p>'+
-        '<div class="gpga-prop-price">'+price+'</div>'+
-        '<div class="gpga-prop-details">'+
-        (p.bedrooms?'<span>🛏 '+p.bedrooms+' Bed</span>':'')+
-        (p.bathrooms?'<span>🚿 '+p.bathrooms+' Bath</span>':'')+
-        (p.sqft?'<span>📐 '+Number(p.sqft).toLocaleString()+' sqft</span>':'')+
-        '</div>'+
-        '<a href="listings.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">View Property</a>'+
-        '</div></div>';
+
+    var typeLabel = {'single-family':'Single-Family','condo':'Condo/Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land/Lot'};
+    var statusLabel = {'available':'Available','pending':'Pending','sold':'Sold'};
+
+    grid.innerHTML = props.map(function(p) {
+      var price = p.price ? '$' + Number(p.price).toLocaleString() : 'Contact Us';
+      var img = (p.images && p.images.length)
+        ? '<img src="' + p.images[0] + '" alt="' + p.title + '" loading="lazy">'
+        : '<div class="placeholder">🏠</div>';
+      var st = p.status || 'available';
+      var badge = st === 'sold' ? 'badge-sold' : st === 'pending' ? 'badge-pending' : 'badge-available';
+      var label = statusLabel[st] || st;
+
+      var overlay = st === 'sold'
+        ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);display:flex;align-items:center;justify-content:center;z-index:2"><span style="background:rgba(60,60,60,0.92);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:3px;letter-spacing:2px;text-transform:uppercase">SOLD</span></div>'
+        : st === 'pending'
+        ? '<div style="position:absolute;inset:0;background:rgba(180,90,0,0.15);display:flex;align-items:center;justify-content:center;z-index:2"><span style="background:#c84b00;color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:3px;letter-spacing:2px;text-transform:uppercase">PENDING</span></div>'
+        : '';
+
+      var cardStyle = st !== 'available' ? 'opacity:0.85;' : '';
+
+      var footerBtn = st === 'available'
+        ? '<a href="contact.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">Inquire About This Property</a>'
+        : '<div style="font-size:12px;color:var(--text-3);text-align:center;padding:6px 0;border-top:1px solid rgba(0,0,0,.07);margin-top:4px">'
+          + (st === 'sold' ? '🏷 Sold' : '⏳ Under Contract') + '</div>';
+
+      return '<div class="gpga-prop-card gpga-animate gpga-visible" style="' + cardStyle + '">'
+        + '<div class="gpga-prop-card-img" style="position:relative">' + img + overlay + '<span class="gpga-prop-badge ' + badge + '">' + label + '</span></div>'
+        + '<div class="gpga-prop-card-body">'
+        + '<div class="gpga-prop-type">' + (typeLabel[p.property_type] || p.property_type || 'Property') + '</div>'
+        + '<h3><a href="listings.html">' + p.title + '</a></h3>'
+        + '<p class="gpga-prop-city">' + (p.city || '') + (p.zip ? ', GA ' + p.zip : '') + '</p>'
+        + '<div class="gpga-prop-price">' + (st === 'sold' ? '<span style="color:var(--text-3);font-style:italic;font-size:13px">Sold</span>' : price) + '</div>'
+        + '<div class="gpga-prop-details">'
+        + (p.bedrooms ? '<span>🛏 ' + p.bedrooms + ' Bed</span>' : '')
+        + (p.bathrooms ? '<span>🚿 ' + p.bathrooms + ' Bath</span>' : '')
+        + (p.sqft ? '<span>📐 ' + Number(p.sqft).toLocaleString() + ' sqft</span>' : '')
+        + '</div>'
+        + footerBtn
+        + '</div></div>';
     }).join('');
-  } catch(e) {}
-})();
+  } catch(e) { console.error('Home props error:', e); }
+});
 </script>
 </body>
 </html>
