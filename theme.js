@@ -67,6 +67,9 @@
   applyMeta(s);
   applySections(s);
 
+  // ── EXPOSE GLOBALLY EARLY — so pages don't wait on network ──
+  window.GPGA = { settings: s, SB_URL, SB_KEY, H };
+
   // ── STEP 2: FETCH FRESH FROM SUPABASE ────────────────────────
   try {
     const r = await fetch(SB_URL + '/rest/v1/site_settings?select=key,value', { headers: H });
@@ -86,11 +89,10 @@
       applyMeta(fresh);
       applySections(fresh);
       s = fresh;
+      // Update global with fresh settings
+      window.GPGA = { settings: s, SB_URL, SB_KEY, H };
     }
   } catch(e) { /* use cache */ }
-
-  // ── EXPOSE GLOBALLY ───────────────────────────────────────────
-  window.GPGA = { settings: s, SB_URL, SB_KEY, H };
 
   // ── LOAD GOOGLE FONTS ────────────────────────────────────────
   const fontMap = {
