@@ -7,12 +7,13 @@
 <title>Properties — Great Properties GA, LLC</title>
 <link rel="stylesheet" href="theme.css">
 <style>
+/* ── Filter buttons ── */
 .gpga-filter-btn {
   padding: 8px 18px;
   border-radius: 50px;
-  border: 1.5px solid rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(0,0,0,0.14);
   background: transparent;
-  color: var(--text-2, #aaa);
+  color: var(--text-2);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -20,15 +21,81 @@
   font-family: var(--font-body, sans-serif);
   letter-spacing: 0.2px;
 }
-.gpga-filter-btn:hover {
-  border-color: var(--brand);
-  color: var(--brand);
+.gpga-filter-btn:hover { border-color: var(--brand); color: var(--brand); }
+.gpga-filter-btn.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* ── Photo slider ── */
+.prop-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
-.gpga-filter-btn.active {
-  background: var(--brand);
-  border-color: var(--brand);
+.prop-slider-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+}
+.prop-slider-track img,
+.prop-slider-track .placeholder {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.prop-slider-track .placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: var(--bg-3);
+}
+.prop-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.45);
   color: #fff;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  line-height: 1;
 }
+.prop-slider-btn:hover { background: rgba(0,0,0,0.7); }
+.prop-slider-btn.prev { left: 8px; }
+.prop-slider-btn.next { right: 8px; }
+/* Hide arrows if only 1 photo */
+.prop-slider[data-count="1"] .prop-slider-btn { display: none; }
+.prop-slider-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 5;
+}
+.prop-slider-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.15s;
+  border: none;
+  padding: 0;
+}
+.prop-slider-dot.active { background: #fff; }
+/* Hide dots if only 1 photo */
+.prop-slider[data-count="1"] .prop-slider-dots { display: none; }
 </style>
 </head>
 <body>
@@ -60,7 +127,6 @@
       <a href="why.html">Why Us</a>
       <a href="faqs.html">FAQs</a>
       <a href="contact.html" class="gpga-nav-cta">Contact</a>
-      
     </nav>
   </div></div>
 </header>
@@ -75,7 +141,6 @@
   </div>
 </div>
 
-
 <section class="gpga-section">
   <div class="gpga-wrap">
     <div class="gpga-heading gpga-animate">
@@ -84,17 +149,16 @@
       <h2>Our <em>Properties</em></h2>
       <p>Renovated and investment-ready properties across Georgia. No agent commissions — buy direct.</p>
     </div>
-    <!-- Filter Bar -->
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;align-items:center">
-      <button class="gpga-filter-btn active" data-filter="all" onclick="filterProps(this,'all')">All Properties</button>
-      <button class="gpga-filter-btn" data-filter="available" onclick="filterProps(this,'available')">✅ Available</button>
-      <button class="gpga-filter-btn" data-filter="pending" onclick="filterProps(this,'pending')">⏳ Pending</button>
-      <button class="gpga-filter-btn" data-filter="sold" onclick="filterProps(this,'sold')">🏷 Sold</button>
+      <button class="gpga-filter-btn active" onclick="filterProps(this,'all')">All Properties</button>
+      <button class="gpga-filter-btn" onclick="filterProps(this,'available')">✅ Available</button>
+      <button class="gpga-filter-btn" onclick="filterProps(this,'pending')">⏳ Pending</button>
+      <button class="gpga-filter-btn" onclick="filterProps(this,'sold')">🏷 Sold</button>
     </div>
     <div class="gpga-prop-grid" id="sb-properties-grid">
       <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-3)">
         <div style="font-size:32px;margin-bottom:12px">🏠</div>
-        <p>Loading properties...</p>
+        <p>Loading properties…</p>
       </div>
     </div>
   </div>
@@ -105,7 +169,7 @@
     <div class="gpga-footer-grid">
       <div>
         <span class="gpga-footer-logo-name gpga-footer-name">Great Properties GA, LLC</span>
-        <p class="gpga-footer-desc gpga-footer-desc">Georgia&#39;s trusted real estate investment company. We buy, renovate, and sell properties across all of Georgia.</p>
+        <p class="gpga-footer-desc">Georgia's trusted real estate investment company. We buy, renovate, and sell properties across all of Georgia.</p>
         <span class="gpga-footer-slogan">Serious About Buying. Serious About Closing.</span>
       </div>
       <div class="gpga-footer-col"><h4>Navigation</h4><ul>
@@ -135,8 +199,7 @@
 
 <script src="theme.js"></script>
 <script>
-var ALL_PROPS = [];
-
+// ── Filter ──────────────────────────────────────────────
 function filterProps(btn, status) {
   document.querySelectorAll('.gpga-filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
@@ -146,31 +209,77 @@ function filterProps(btn, status) {
   });
   var visible = Array.from(cards).filter(function(c){ return c.style.display !== 'none'; });
   var empty = document.getElementById('sb-empty-state');
-  if(empty) empty.style.display = visible.length ? 'none' : 'block';
+  if (empty) empty.style.display = visible.length ? 'none' : 'block';
 }
 
-// Wait for GPGA settings — works whether theme.js is fast or slow
+// ── Slider logic ────────────────────────────────────────
+function initSlider(slider) {
+  var track  = slider.querySelector('.prop-slider-track');
+  var dots   = slider.querySelectorAll('.prop-slider-dot');
+  var count  = parseInt(slider.dataset.count) || 1;
+  var cur    = 0;
+
+  function goTo(n) {
+    cur = (n + count) % count;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === cur); });
+  }
+
+  var prevBtn = slider.querySelector('.prop-slider-btn.prev');
+  var nextBtn = slider.querySelector('.prop-slider-btn.next');
+  if (prevBtn) prevBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(cur - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(cur + 1); });
+  dots.forEach(function(d, i){ d.addEventListener('click', function(e){ e.stopPropagation(); goTo(i); }); });
+
+  // Touch swipe
+  var startX = 0;
+  slider.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  slider.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
+  }, {passive:true});
+}
+
+// ── Build card HTML ──────────────────────────────────────
+function buildSlider(images) {
+  var count = images.length;
+  var slides = images.map(function(url){
+    return '<img src="' + url + '" loading="lazy" alt="Property photo">';
+  }).join('');
+  var dotHtml = count > 1 ? images.map(function(_, i){
+    return '<button class="prop-slider-dot' + (i === 0 ? ' active' : '') + '"></button>';
+  }).join('') : '';
+
+  return '<div class="prop-slider" data-count="' + count + '">'
+    + '<div class="prop-slider-track">' + slides + '</div>'
+    + '<button class="prop-slider-btn prev">&#8249;</button>'
+    + '<button class="prop-slider-btn next">&#8250;</button>'
+    + '<div class="prop-slider-dots">' + dotHtml + '</div>'
+    + '</div>';
+}
+
+// ── Wait for GPGA ────────────────────────────────────────
 function waitForGPGA(cb) {
   if (window.GPGA && window.GPGA.settings) { cb(window.GPGA); return; }
   var attempts = 0;
   var t = setInterval(function() {
     attempts++;
     if (window.GPGA && window.GPGA.settings) { clearInterval(t); cb(window.GPGA); }
-    else if (attempts > 80) { clearInterval(t); } // give up after 4s
+    else if (attempts > 80) clearInterval(t);
   }, 50);
 }
 
+// ── Load properties ──────────────────────────────────────
 waitForGPGA(async function(g) {
   var grid = document.getElementById('sb-properties-grid');
   if (!grid) return;
   try {
-    // Fetch ALL statuses: available + pending + sold
     var r = await fetch(g.SB_URL + '/rest/v1/properties?order=featured.desc,created_at.desc', { headers: g.H });
     if (!r.ok) throw new Error('Fetch failed');
     var props = await r.json();
 
     if (!props || !props.length) {
-      grid.innerHTML = '<div id="sb-empty-state" style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)"><div style="font-size:32px;margin-bottom:12px">🏠</div><p>No properties listed yet. Check back soon!</p></div>';
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)"><div style="font-size:32px;margin-bottom:12px">🏠</div><p>No properties listed yet. Check back soon!</p></div>';
       return;
     }
 
@@ -179,46 +288,54 @@ waitForGPGA(async function(g) {
 
     grid.innerHTML = props.map(function(p) {
       var price = p.price ? '$' + Number(p.price).toLocaleString() : 'Contact Us';
-      var img = (p.images && p.images.length)
-        ? '<img src="' + p.images[0] + '" alt="' + p.title + '" loading="lazy">'
+      var imgs  = (p.images && p.images.length) ? p.images : null;
+      var imgBlock = imgs
+        ? buildSlider(imgs)
         : '<div class="placeholder">🏠</div>';
-      var st = p.status || 'available';
+
+      var st    = p.status || 'available';
       var badge = st === 'sold' ? 'badge-sold' : st === 'pending' ? 'badge-pending' : 'badge-available';
       var label = statusLabel[st] || st;
 
-      var overlay = '';
-   
+      var featuredBadge = p.featured
+        ? '<span style="position:absolute;top:10px;left:10px;z-index:6;background:var(--brand);color:#000;font-size:9px;font-weight:800;padding:4px 10px;border-radius:2px;letter-spacing:1.5px;text-transform:uppercase">⭐ Featured</span>'
+        : '';
 
-      var featuredBadge = p.featured ? '<span style="position:absolute;top:10px;left:10px;z-index:3;background:var(--brand);color:#000;font-size:9px;font-weight:800;padding:4px 10px;border-radius:2px;letter-spacing:1.5px;text-transform:uppercase">⭐ Featured</span>' : '';
-
-      var cardStyle = st !== 'available' ? 'opacity:0.85;' : '';
+      var cardOpacity = st !== 'available' ? 'opacity:0.85;' : '';
 
       var footerBlock = st === 'available'
         ? '<a href="contact.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">Inquire About This Property</a>'
         : '<div style="font-size:12px;color:var(--text-3);text-align:center;padding:8px 0;border-top:1px solid rgba(0,0,0,.07);margin-top:4px">'
           + (st === 'sold' ? '🏷 This property has been sold' : '⏳ Currently under contract') + '</div>';
 
-      return '<div class="gpga-prop-card" data-status="' + st + '" style="' + cardStyle + '">'
-        + '<div class="gpga-prop-card-img" style="position:relative">' + img + overlay + featuredBadge + '<span class="gpga-prop-badge ' + badge + '">' + label + '</span></div>'
+      return '<div class="gpga-prop-card" data-status="' + st + '" style="' + cardOpacity + '">'
+        + '<div class="gpga-prop-card-img" style="position:relative">'
+        + imgBlock
+        + featuredBadge
+        + '<span class="gpga-prop-badge ' + badge + '" style="z-index:6">' + label + '</span>'
+        + '</div>'
         + '<div class="gpga-prop-card-body">'
         + '<div class="gpga-prop-type">' + (typeLabel[p.property_type] || p.property_type || '') + '</div>'
         + '<h3>' + (st === 'available' ? '<a href="contact.html">' + p.title + '</a>' : p.title) + '</h3>'
         + '<p class="gpga-prop-city">' + (p.address ? p.address + ', ' : '') + (p.city || '') + (p.zip ? ', GA ' + p.zip : '') + '</p>'
         + '<div class="gpga-prop-price">' + (st === 'sold' ? '<span style="color:var(--text-3);font-size:13px;font-style:italic">Sold</span>' : price) + '</div>'
         + '<div class="gpga-prop-details">'
-        + (p.bedrooms ? '<span>🛏 ' + p.bedrooms + ' Bed</span>' : '')
+        + (p.bedrooms  ? '<span>🛏 ' + p.bedrooms  + ' Bed</span>'  : '')
         + (p.bathrooms ? '<span>🚿 ' + p.bathrooms + ' Bath</span>' : '')
-        + (p.sqft ? '<span>📐 ' + Number(p.sqft).toLocaleString() + ' sqft</span>' : '')
+        + (p.sqft      ? '<span>📐 ' + Number(p.sqft).toLocaleString() + ' sqft</span>' : '')
         + '</div>'
-        + (p.description ? '<p style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.6">' + p.description.substring(0, 120) + (p.description.length > 120 ? '…' : '') + '</p>' : '')
+        + (p.description ? '<p style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.6">' + p.description.substring(0,120) + (p.description.length > 120 ? '…' : '') + '</p>' : '')
         + footerBlock
         + '</div></div>';
     }).join('')
-      + '<div id="sb-empty-state" style="display:none;grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)"><div style="font-size:32px;margin-bottom:12px">🔍</div><p>No properties in this category right now.</p></div>';
+      + '<div id="sb-empty-state" style="display:none;grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)"><p>No properties in this category right now.</p></div>';
+
+    // Init sliders after DOM is updated
+    document.querySelectorAll('.prop-slider').forEach(initSlider);
 
   } catch(e) {
     console.error('Properties error:', e);
-    if (grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-3)">Unable to load properties. Please try again later.</div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-3)">Unable to load properties. Please try again.</div>';
   }
 });
 </script>
