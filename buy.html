@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{var c=JSON.parse(localStorage.getItem("gpga_theme_v2")||"{}");var r=document.documentElement;if(c.brand_color)r.style.setProperty("--brand",c.brand_color);if(c.brand_color_2)r.style.setProperty("--brand2",c.brand_color_2);if(c.font_display)r.style.setProperty("--font-display","'"+c.font_display+"', Georgia, serif");if(c.font_body)r.style.setProperty("--font-body","'"+c.font_body+"', system-ui, sans-serif");if(c.logo_url){var s=document.createElement("style");s.textContent=".gpga-logo-emoji{display:none!important}";document.head.appendChild(s);};}catch(e){}</script>
+<script>try{var _c=JSON.parse(localStorage.getItem("gpga_theme_v3")||"{}");var _r=document.documentElement;if(_c.brand_color)_r.style.setProperty("--brand",_c.brand_color);if(_c.brand_color_2)_r.style.setProperty("--brand2",_c.brand_color_2);if(_c.bg_color)_r.style.setProperty("--bg",_c.bg_color);if(_c.bg_color_2)_r.style.setProperty("--bg-2",_c.bg_color_2);if(_c.text_color)_r.style.setProperty("--text",_c.text_color);if(_c.font_display)_r.style.setProperty("--font-display","'"+_c.font_display+"'"+", Arial, sans-serif");if(_c.font_body)_r.style.setProperty("--font-body","'"+_c.font_body+"'"+", Arial, sans-serif");if(_c.logo_url){var _s=document.createElement("style");_s.id="gpga-logo-hide";_s.textContent=".gpga-logo-emoji{display:none!important}.gpga-logo-img-pre{display:block!important}";document.head.appendChild(_s);};}catch(e){}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Buy a Home — Great Properties GA, LLC</title>
+<meta name="description" content="Browse investment-ready properties across Georgia. Buy direct — no agent commissions.">
 <link rel="stylesheet" href="theme.css">
 </head>
-<body>
-
-<div class="gpga-topbar">
+<body><div class="gpga-topbar">
   <div class="gpga-wrap"><div class="gpga-topbar-inner">
     <div class="gpga-topbar-links">
-      <a href="faqs.html">FAQs</a><a href="contact.html">Contact</a><a href="why.html">Why Us</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="why.html">Why Work With Us?</a>
     </div>
     <a href="tel:4045901613" class="gpga-topbar-phone gpga-phone">404-590-1613</a>
   </div></div>
-</div>
-
-<header class="gpga-header">
+</div><header class="gpga-header">
   <div class="gpga-wrap"><div class="gpga-header-inner">
     <a href="index.html" class="gpga-logo">
-      <div class="gpga-logo-icon" id="gpga-logo-img-wrap"><span class="gpga-logo-emoji">🦅</span></div>
+      <div class="gpga-logo-icon" id="gpga-logo-img-wrap">
+        <span class="gpga-logo-emoji">🦅</span>
+        <img class="gpga-logo-img gpga-logo-img-pre" id="gpga-logo-preload" src="" alt="Logo"
+          style="height:52px;width:auto;max-width:200px;object-fit:contain;display:none"
+          onerror="this.style.display='none';document.querySelector('.gpga-logo-emoji').style.display=''">
+        <script>try{var _lu=JSON.parse(localStorage.getItem("gpga_theme_v3")||"{}").logo_url;if(_lu){var _li=document.getElementById("gpga-logo-preload");if(_li)_li.src=_lu;}}catch(e){}</script>
+      </div>
       <div class="gpga-logo-text">
         <span class="gpga-logo-name">Great Properties GA</span>
         <span class="gpga-logo-tag">Serious About Buying. Serious About Closing.</span>
@@ -36,7 +41,6 @@
       <a href="why.html">Why Us</a>
       <a href="faqs.html">FAQs</a>
       <a href="contact.html" class="gpga-nav-cta">Contact</a>
-      
     </nav>
   </div></div>
 </header>
@@ -44,50 +48,55 @@
 <div class="gpga-page-hero">
   <div class="gpga-wrap">
     <div class="gpga-page-hero-inner">
-      <span class="gpga-eyebrow">No Commissions · Move-In Ready</span>
-      <div class="gpga-line"></div>
-      <h1 class="gpga-page-title">Buy a Home From Us</h1>
+      <div class="gpga-breadcrumb"><a href="index.html">Home</a><span>›</span>Buy</div>
+      <h1>Buy a Home</h1>
+      <p>Find your next home or investment property — direct from us, no commissions.</p>
     </div>
   </div>
 </div>
 
+<section class="gpga-section">
+  <div class="gpga-wrap">
+    <div class="gpga-heading gpga-animate">
+      <span class="gpga-eyebrow">For Home Buyers</span>
+      <div class="gpga-line"></div>
+      <h2>A Better Way to Buy</h2>
+      <p>We sell fully renovated, move-in ready homes direct to buyers. No agent, no middleman — just a fair deal.</p>
+    </div>
+    <div class="gpga-buy-steps">
+      <div class="gpga-step gpga-animate"><div class="gpga-step-num">1</div><h3>Get Pre-Qualified</h3><p>The first step is understanding what you can afford. We can help connect you with a trusted lender at no cost.</p></div>
+      <div class="gpga-step gpga-animate"><div class="gpga-step-num">2</div><h3>Browse Our Properties</h3><p>View our current inventory of renovated homes across Georgia. All properties are listed on our Properties page.</p></div>
+      <div class="gpga-step gpga-animate"><div class="gpga-step-num">3</div><h3>Make an Offer</h3><p>Found something you love? Contact us directly. We respond fast and make the buying process simple and smooth.</p></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap">
+      <a href="listings.html" class="gpga-btn gpga-btn-dark">View All Properties →</a>
+      <a href="contact.html" class="gpga-btn gpga-btn-outline-dark">Get Pre-Qualified</a>
+    </div>
+  </div>
+</section>
 
-<div class="gpga-wrap"><div class="gpga-content-wrap">
-<main class="gpga-main-col">
-  <div class="gpga-heading gpga-animate">
-    <span class="gpga-eyebrow">Home Buyers</span>
-    <div class="gpga-line"></div>
-    <h2>Buy a <em>Home From Us</em></h2>
-    <p>Browse our inventory of renovated, move-in ready properties across Georgia. No agent commissions, no hidden fees.</p>
+<section class="gpga-section gpga-section-alt">
+  <div class="gpga-wrap">
+    <div class="gpga-heading gpga-heading-center gpga-animate">
+      <span class="gpga-eyebrow">Join Our VIP List</span>
+      <div class="gpga-line"></div>
+      <h2>Get First Access to New Properties</h2>
+      <p>Join our VIP buyer list and be the first to know when new properties become available.</p>
+    </div>
+    <div style="max-width:500px;margin:0 auto;background:#fff;border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:4px;padding:32px 28px">
+      <form class="gpga-form" data-source="buy-vip">
+        <div class="gpga-field"><input name="name" type="text" placeholder="Your Full Name *" required></div>
+        <div class="gpga-field"><input name="phone" type="tel" placeholder="Phone Number *" required></div>
+        <div class="gpga-field"><input name="email" type="email" placeholder="Email Address *" required></div>
+        <div class="gpga-field"><input name="zip" type="text" placeholder="Preferred Zip Code(s)"></div>
+        <div class="gpga-field"><textarea name="message" rows="2" placeholder="What type of property are you looking for?"></textarea></div>
+        <button type="submit" class="gpga-btn gpga-btn-gold gpga-btn-block">Join VIP Buyers List →</button>
+        <div class="gpga-form-msg"></div>
+      </form>
+      <p class="gpga-privacy" style="margin-top:12px">🔒 We respect your privacy. No spam, ever.</p>
+    </div>
   </div>
-  <p style="color:var(--text-2);line-height:1.9;margin-bottom:24px">When you buy a home directly from Great Properties GA, you skip the middleman and the costs that come with him. Our properties are fully renovated, inspected, and priced fairly. We want you to find the right home — not just any home.</p>
-  <div class="gpga-why-grid">
-    <div class="gpga-why-box gpga-animate"><h3>No Agent Commissions</h3><p>Buy direct and save thousands in real estate agent fees.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>Move-In Ready</h3><p>Every property is fully renovated and inspected before listing.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>Fair Pricing</h3><p>We price our properties competitively — no inflated margins.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>Simple Process</h3><p>Streamlined purchase process with minimal paperwork and fast closings.</p></div>
-  </div>
-  <div style="margin-top:40px"><a href="listings.html" class="gpga-btn gpga-btn-gold">View Available Properties →</a></div>
-</main>
-<aside class="gpga-sidebar">
-  <div class="gpga-sidebar-cta">
-    <h3>VIP Buyer List</h3>
-    <p>Get notified first when new properties become available.</p>
-  </div>
-  <div class="gpga-sidebar-box">
-    <h3>Join VIP List</h3>
-    <form class="gpga-form" data-source="buy-vip">
-      <div class="gpga-field"><label>Full Name</label><input type="text" name="name" placeholder="John Smith" required></div>
-      <div class="gpga-field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
-      <div class="gpga-field"><label>Phone</label><input type="tel" name="phone" placeholder="(404) 000-0000"></div>
-      <div class="gpga-field"><label>Desired Area / Zip</label><input type="text" name="zip" placeholder="Atlanta, 30309..."></div>
-      <button type="submit" class="gpga-btn gpga-btn-gold gpga-btn-block">Join VIP List →</button>
-      <div class="gpga-form-msg"></div>
-    </form>
-  </div>
-</aside>
-</div></div>
-
+</section>
 <footer class="gpga-footer">
   <div class="gpga-wrap">
     <div class="gpga-footer-grid">
@@ -107,21 +116,18 @@
         <li><a href="sell.html">Multi-Family Units</a></li><li><a href="sell.html">Commercial</a></li>
         <li><a href="sell.html">Land &amp; Lots</a></li><li><a href="sell.html">Foreclosures</a></li>
       </ul></div>
-      <div class="gpga-footer-col"><h4>Contact</h4>
-        <div class="gpga-footer-contact-line">📞 <a href="tel:4045901613" style="color:var(--text-3)" class="gpga-phone">404-590-1613</a></div>
-        <div class="gpga-footer-contact-line">✉️ <a href="mailto:info@greatpropertiesga.com" style="color:var(--text-3)">info@greatpropertiesga.com</a></div>
+      <div class="gpga-footer-col"><h4>Contact Us</h4>
+        <div class="gpga-footer-contact-line">📞 <a href="tel:4045901613" style="color:rgba(255,255,255,.65)" class="gpga-phone">404-590-1613</a></div>
+        <div class="gpga-footer-contact-line">✉️ <a href="mailto:info@greatpropertiesga.com" style="color:rgba(255,255,255,.65)">info@greatpropertiesga.com</a></div>
         <div class="gpga-footer-contact-line">📍 Serving all of Georgia</div>
-        <div style="margin-top:20px"><a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer</a></div>
+        <div style="margin-top:20px"><a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer →</a></div>
       </div>
     </div>
     <div class="gpga-footer-bar">
-      <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC</span>
-      <span style="color:var(--text-3)">Georgia Real Estate Investors</span>
+      <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC &middot; All Rights Reserved</span>
+      <span>Georgia Real Estate Investors</span>
     </div>
   </div>
 </footer>
-
 <script src="theme.js"></script>
-
-</body>
-</html>
+</body></html>
