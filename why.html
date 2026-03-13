@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{var c=JSON.parse(localStorage.getItem("gpga_theme_v2")||"{}");var r=document.documentElement;if(c.brand_color)r.style.setProperty("--brand",c.brand_color);if(c.brand_color_2)r.style.setProperty("--brand2",c.brand_color_2);if(c.font_display)r.style.setProperty("--font-display","'"+c.font_display+"', Georgia, serif");if(c.font_body)r.style.setProperty("--font-body","'"+c.font_body+"', system-ui, sans-serif");}catch(e){}</script>
+<script>try{var _c=JSON.parse(localStorage.getItem("gpga_theme_v3")||"{}");var _r=document.documentElement;if(_c.brand_color)_r.style.setProperty("--brand",_c.brand_color);if(_c.brand_color_2)_r.style.setProperty("--brand2",_c.brand_color_2);if(_c.bg_color)_r.style.setProperty("--bg",_c.bg_color);if(_c.bg_color_2)_r.style.setProperty("--bg-2",_c.bg_color_2);if(_c.text_color)_r.style.setProperty("--text",_c.text_color);if(_c.font_display)_r.style.setProperty("--font-display","'"+_c.font_display+"'"+", Arial, sans-serif");if(_c.font_body)_r.style.setProperty("--font-body","'"+_c.font_body+"'"+", Arial, sans-serif");if(_c.logo_url){var _s=document.createElement("style");_s.id="gpga-logo-hide";_s.textContent=".gpga-logo-emoji{display:none!important}.gpga-logo-img-pre{display:block!important}";document.head.appendChild(_s);};}catch(e){}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Why Work With Us — Great Properties GA, LLC</title>
+<meta name="description" content="Why choose Great Properties GA? No commissions, fast closings, as-is purchases, and local Georgia expertise.">
 <link rel="stylesheet" href="theme.css">
 </head>
-<body>
-
-<div class="gpga-topbar">
+<body><div class="gpga-topbar">
   <div class="gpga-wrap"><div class="gpga-topbar-inner">
     <div class="gpga-topbar-links">
-      <a href="faqs.html">FAQs</a><a href="contact.html">Contact</a><a href="why.html">Why Us</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="why.html">Why Work With Us?</a>
     </div>
     <a href="tel:4045901613" class="gpga-topbar-phone gpga-phone">404-590-1613</a>
   </div></div>
-</div>
-
-<header class="gpga-header">
+</div><header class="gpga-header">
   <div class="gpga-wrap"><div class="gpga-header-inner">
     <a href="index.html" class="gpga-logo">
-      <div class="gpga-logo-icon">🦅</div>
+      <div class="gpga-logo-icon" id="gpga-logo-img-wrap">
+        <span class="gpga-logo-emoji">🦅</span>
+        <img class="gpga-logo-img gpga-logo-img-pre" id="gpga-logo-preload" src="" alt="Logo"
+          style="height:52px;width:auto;max-width:200px;object-fit:contain;display:none"
+          onerror="this.style.display='none';document.querySelector('.gpga-logo-emoji').style.display=''">
+        <script>try{var _lu=JSON.parse(localStorage.getItem("gpga_theme_v3")||"{}").logo_url;if(_lu){var _li=document.getElementById("gpga-logo-preload");if(_li)_li.src=_lu;}}catch(e){}</script>
+      </div>
       <div class="gpga-logo-text">
         <span class="gpga-logo-name">Great Properties GA</span>
         <span class="gpga-logo-tag">Serious About Buying. Serious About Closing.</span>
@@ -36,7 +41,6 @@
       <a href="why.html" class="active">Why Us</a>
       <a href="faqs.html">FAQs</a>
       <a href="contact.html" class="gpga-nav-cta">Contact</a>
-      
     </nav>
   </div></div>
 </header>
@@ -44,56 +48,62 @@
 <div class="gpga-page-hero">
   <div class="gpga-wrap">
     <div class="gpga-page-hero-inner">
-      <span class="gpga-eyebrow">Our Advantages</span>
-      <div class="gpga-line"></div>
-      <h1 class="gpga-page-title">Why Work With Us</h1>
+      <div class="gpga-breadcrumb"><a href="index.html">Home</a><span>›</span>Why Work With Us</div>
+      <h1>Why Work With Us?</h1>
+      <p>Here&#39;s what makes Great Properties GA different from traditional real estate.</p>
     </div>
   </div>
 </div>
 
+<section class="gpga-section">
+  <div class="gpga-wrap">
+    <div class="gpga-heading gpga-animate">
+      <span class="gpga-eyebrow">The Difference</span>
+      <div class="gpga-line"></div>
+      <h2>Traditional Sale vs. Great Properties GA</h2>
+      <p>Selling to us is faster, simpler, and puts more money in your pocket.</p>
+    </div>
+    <div style="overflow-x:auto;margin-bottom:48px">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="background:var(--brand);color:#fff">
+            <th style="padding:14px 18px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:1px">Feature</th>
+            <th style="padding:14px 18px;text-align:center;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent)">Great Properties GA</th>
+            <th style="padding:14px 18px;text-align:center;font-size:12px;text-transform:uppercase;letter-spacing:1px">Traditional Sale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:12px 18px;font-weight:600">Closing Timeline</td><td style="padding:12px 18px;text-align:center;color:var(--accent);font-weight:700">7–14 Days</td><td style="padding:12px 18px;text-align:center;color:var(--text-3)">60–90 Days</td></tr>
+          <tr style="background:var(--bg-2);border-bottom:1px solid var(--border)"><td style="padding:12px 18px;font-weight:600">Repairs Required</td><td style="padding:12px 18px;text-align:center;color:var(--accent);font-weight:700">None</td><td style="padding:12px 18px;text-align:center;color:var(--text-3)">Usually Required</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:12px 18px;font-weight:600">Agent Commissions</td><td style="padding:12px 18px;text-align:center;color:var(--accent);font-weight:700">$0</td><td style="padding:12px 18px;text-align:center;color:var(--text-3)">5–6% of Sale Price</td></tr>
+          <tr style="background:var(--bg-2);border-bottom:1px solid var(--border)"><td style="padding:12px 18px;font-weight:600">Showings Required</td><td style="padding:12px 18px;text-align:center;color:var(--accent);font-weight:700">No</td><td style="padding:12px 18px;text-align:center;color:var(--text-3)">Many</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:12px 18px;font-weight:600">Offer Certainty</td><td style="padding:12px 18px;text-align:center;color:var(--accent);font-weight:700">Guaranteed Cash</td><td style="padding:12px 18px;text-align:center;color:var(--text-3)">May Fall Through</td></tr>
+          <tr style="background:var(--bg-2)"><td style="padding:12px 18px;font-weight:600">Closing Costs</td><td style="padding:12px 18px;text-align:center;color:var(--accent);font-weight:700">We Cover Them</td><td style="padding:12px 18px;text-align:center;color:var(--text-3)">Seller Pays</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="gpga-why-big-grid">
+      <div class="gpga-why-big-item gpga-animate"><div class="gpga-why-big-item-icon">💰</div><div><h3>Fair Cash Offers</h3><p>We research your property thoroughly and make honest offers based on real market data. We don&#39;t waste your time with lowball numbers.</p></div></div>
+      <div class="gpga-why-big-item gpga-animate"><div class="gpga-why-big-item-icon">🔨</div><div><h3>Buy Any Condition</h3><p>Cracked foundation? Water damage? Outdated kitchen? We buy properties in any condition — you don&#39;t spend a cent on repairs.</p></div></div>
+      <div class="gpga-why-big-item gpga-animate"><div class="gpga-why-big-item-icon">⚡</div><div><h3>Lightning Fast Process</h3><p>From first contact to cash in hand, our process is designed to move as fast as you need it to — sometimes in under 2 weeks.</p></div></div>
+      <div class="gpga-why-big-item gpga-animate"><div class="gpga-why-big-item-icon">📋</div><div><h3>Zero Fees or Commissions</h3><p>We handle all closing costs and paperwork. The cash offer you receive is exactly what you get — no deductions.</p></div></div>
+      <div class="gpga-why-big-item gpga-animate"><div class="gpga-why-big-item-icon">🤝</div><div><h3>Local Georgia Experts</h3><p>We live and work here in Georgia. We understand the local market in every city and county across the state.</p></div></div>
+      <div class="gpga-why-big-item gpga-animate"><div class="gpga-why-big-item-icon">🛡</div><div><h3>No Pressure, Ever</h3><p>Our offers are 100% free with zero obligation. If our offer doesn&#39;t work for you, we part as friends — no hard feelings.</p></div></div>
+    </div>
+  </div>
+</section>
 
-<div class="gpga-wrap"><div class="gpga-content-wrap">
-<main class="gpga-main-col">
-  <div class="gpga-heading gpga-animate">
-    <span class="gpga-eyebrow">Our Advantages</span>
-    <div class="gpga-line"></div>
-    <h2>Why Choose <em>Great Properties GA</em></h2>
-    <p>We&#39;ve simplified real estate for Georgia homeowners. Here&#39;s what sets us apart.</p>
+<div class="gpga-cta-band">
+  <div class="gpga-wrap">
+    <div class="gpga-cta-band-inner">
+      <div><h2>Ready to Get Started?</h2><p>Get your free cash offer today — no obligation, no pressure.</p></div>
+      <div class="gpga-cta-band-actions">
+        <a href="sell.html" class="gpga-btn gpga-btn-dark">Get Cash Offer →</a>
+        <a href="contact.html" class="gpga-btn gpga-btn-outline">Contact Us</a>
+      </div>
+    </div>
   </div>
-  <div class="gpga-why-grid" style="margin-bottom:40px">
-    <div class="gpga-why-box gpga-animate"><h3>Lightning Fast Closings</h3><p>We can close in as little as 7 days. No waiting months for buyers to secure financing or pass inspections.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>Zero Commissions or Fees</h3><p>When we buy your home, you pay absolutely zero in agent commissions, hidden fees, or closing costs.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>No Repairs Needed</h3><p>Sell your property exactly as it is today. We handle all repairs after closing — at our expense.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>Guaranteed Cash Offer</h3><p>Our offer is backed by our own capital. No financing contingencies, no last-minute cancellations.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>Your Timeline</h3><p>Need to close in 7 days? Or 60? We work around your schedule, not ours.</p></div>
-    <div class="gpga-why-box gpga-animate"><h3>Statewide Coverage</h3><p>We buy in every Georgia city and county — Atlanta, Savannah, Augusta, Columbus, Macon, and everywhere in between.</p></div>
-  </div>
-  <h3 style="font-size:22px;font-weight:400;margin-bottom:20px">The <em>Numbers</em></h3>
-  <table class="gpga-compare">
-    <thead><tr><th>Factor</th><th>Great Properties GA</th><th>Traditional Sale</th></tr></thead>
-    <tbody>
-      <tr><td>Time to Close</td><td><span class="gpga-check">7–21 days</span></td><td>60–120 days</td></tr>
-      <tr><td>Commissions</td><td><span class="gpga-check">$0</span></td><td>$15,000+ on $250k home</td></tr>
-      <tr><td>Repairs</td><td><span class="gpga-check">$0</span></td><td>$5,000–$50,000+</td></tr>
-      <tr><td>Showings</td><td><span class="gpga-check">0</span></td><td>10–30+ showings</td></tr>
-      <tr><td>Deal Fall-Through Risk</td><td><span class="gpga-check">0%</span></td><td>15–30% of deals fail</td></tr>
-    </tbody>
-  </table>
-</main>
-<aside class="gpga-sidebar">
-  <div class="gpga-sidebar-cta">
-    <h3>Ready to Sell?</h3>
-    <p>Get your no-obligation cash offer within 24 hours.</p>
-    <a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-block">Get Cash Offer →</a>
-  </div>
-  <div class="gpga-sidebar-box">
-    <h3>Call Us Direct</h3>
-    <p>Speak with a specialist today — no automated phone systems.</p>
-    <a href="tel:4045901613" class="gpga-btn gpga-btn-outline gpga-btn-block">📞 <span class="gpga-phone">404-590-1613</span></a>
-  </div>
-</aside>
-</div></div>
-
+</div>
 <footer class="gpga-footer">
   <div class="gpga-wrap">
     <div class="gpga-footer-grid">
@@ -113,21 +123,18 @@
         <li><a href="sell.html">Multi-Family Units</a></li><li><a href="sell.html">Commercial</a></li>
         <li><a href="sell.html">Land &amp; Lots</a></li><li><a href="sell.html">Foreclosures</a></li>
       </ul></div>
-      <div class="gpga-footer-col"><h4>Contact</h4>
-        <div class="gpga-footer-contact-line">📞 <a href="tel:4045901613" style="color:var(--text-3)" class="gpga-phone">404-590-1613</a></div>
-        <div class="gpga-footer-contact-line">✉️ <a href="mailto:info@greatpropertiesga.com" style="color:var(--text-3)">info@greatpropertiesga.com</a></div>
+      <div class="gpga-footer-col"><h4>Contact Us</h4>
+        <div class="gpga-footer-contact-line">📞 <a href="tel:4045901613" style="color:rgba(255,255,255,.65)" class="gpga-phone">404-590-1613</a></div>
+        <div class="gpga-footer-contact-line">✉️ <a href="mailto:info@greatpropertiesga.com" style="color:rgba(255,255,255,.65)">info@greatpropertiesga.com</a></div>
         <div class="gpga-footer-contact-line">📍 Serving all of Georgia</div>
-        <div style="margin-top:20px"><a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer</a></div>
+        <div style="margin-top:20px"><a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer →</a></div>
       </div>
     </div>
     <div class="gpga-footer-bar">
-      <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC</span>
-      <span style="color:var(--text-3)">Georgia Real Estate Investors</span>
+      <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC &middot; All Rights Reserved</span>
+      <span>Georgia Real Estate Investors</span>
     </div>
   </div>
 </footer>
-
 <script src="theme.js"></script>
-
-</body>
-</html>
+</body></html>
