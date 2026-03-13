@@ -19,8 +19,8 @@
 
   // ── DEFAULTS ─────────────────────────────────────────────────
   const DEFAULTS = {
-    brand_color:          '#c9a84c',
-    brand_color_2:        '#0a0a0a',
+    brand_color:          '#1a3a5c',
+    brand_color_2:        '#0f2340',
     bg_color:             '#ffffff',
     bg_color_2:           '#f7f5f2',
     text_color:           '#1a1410',
