@@ -1,290 +1,154 @@
-// ═══════════════════════════════════════════════════════════════
-// GREAT PROPERTIES GA — THEME ENGINE v2
-// Archivo central de tema. Cargado en todas las páginas.
-// Lee site_settings de Supabase y aplica todo dinámicamente.
-// ═══════════════════════════════════════════════════════════════
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>try{var c=JSON.parse(localStorage.getItem("gpga_theme_v2")||"{}");var r=document.documentElement;if(c.brand_color)r.style.setProperty("--brand",c.brand_color);if(c.brand_color_2)r.style.setProperty("--brand2",c.brand_color_2);if(c.font_display)r.style.setProperty("--font-display","'"+c.font_display+"', Georgia, serif");if(c.font_body)r.style.setProperty("--font-body","'"+c.font_body+"', system-ui, sans-serif");if(c.logo_url){var s=document.createElement("style");s.textContent=".gpga-logo-emoji{display:none!important}";document.head.appendChild(s);};}catch(e){}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sell Your Home — Great Properties GA, LLC</title>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
 
-(async function GPGA_THEME() {
-  const SB_URL = 'https://cqwvnvcjxbeskvyqrank.supabase.co';
-  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxd3ZudmNqeGJlc2t2eXFyYW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMjg5OTMsImV4cCI6MjA4ODYwNDk5M30.pavJBT9fpyoKPH9zbn-9pcUY72gaOB6qL76QMCtFoWw';
-  const H = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+<div class="gpga-topbar">
+  <div class="gpga-wrap"><div class="gpga-topbar-inner">
+    <div class="gpga-topbar-links">
+      <a href="faqs.html">FAQs</a><a href="contact.html">Contact</a><a href="why.html">Why Us</a>
+    </div>
+    <a href="tel:4045901613" class="gpga-topbar-phone gpga-phone">404-590-1613</a>
+  </div></div>
+</div>
 
-  // ── DEFAULTS (fallback si Supabase no responde) ──────────────
-  const DEFAULTS = {
-    brand_color:     '#c9a84c',
-    brand_color_2:   '#0a0a0a',
-    font_display:    'Cormorant Garamond',
-    font_body:       'DM Sans',
-    logo_text:       'Great Properties GA',
-    logo_url:        '',
-    site_phone:      '404-590-1613',
-    site_email:      'info@greatpropertiesga.com',
-    hero_title:      'Georgia Real Estate\nDone Right.',
-    hero_subtitle:   'We buy, renovate, and sell exceptional properties across all of Georgia. Fast closings. Cash offers. No commissions.',
-    hero_image_url:  '',
-    hero_video_url:  '',
-    footer_text:     "Georgia's trusted real estate investment company. We buy, renovate, and sell properties across all of Georgia.",
-    meta_title:      'Great Properties GA, LLC — Georgia Real Estate',
-    meta_description:'Great Properties GA buys houses fast across Georgia. Cash offers within 24 hours. Any condition, any city.',
-    // Section visibility (true = visible)
-    section_hero:       'true',
-    section_how_it_works:'true',
-    section_properties: 'true',
-    section_testimonials:'true',
-    section_about_band: 'true',
-  };
+<header class="gpga-header">
+  <div class="gpga-wrap"><div class="gpga-header-inner">
+    <a href="index.html" class="gpga-logo">
+      <div class="gpga-logo-icon" id="gpga-logo-img-wrap"><span class="gpga-logo-emoji">🦅</span></div>
+      <div class="gpga-logo-text">
+        <span class="gpga-logo-name">Great Properties GA</span>
+        <span class="gpga-logo-tag">Serious About Buying. Serious About Closing.</span>
+      </div>
+    </a>
+    <nav class="gpga-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="sell.html" class="active">Sell to Us</a>
+      <a href="listings.html">Properties</a>
+      <a href="buy.html">Buy</a>
+      <a href="why.html">Why Us</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="contact.html" class="gpga-nav-cta">Contact</a>
+      
+    </nav>
+  </div></div>
+</header>
 
-  // ── APPLY CACHE INSTANTLY (antes de que el browser pinte) ────
-  // Esto elimina el "flash" del color por defecto
-  const CACHE_KEY = 'gpga_theme_v2';
-  try {
-    const cached = localStorage.getItem(CACHE_KEY);
-    if (cached) {
-      const cs = JSON.parse(cached);
-      // Aplicar colores y fuentes del cache INMEDIATAMENTE
-      const root = document.documentElement;
-      if (cs.brand_color)   root.style.setProperty('--brand',      cs.brand_color);
-      if (cs.brand_color_2) root.style.setProperty('--brand2',     cs.brand_color_2);
-      if (cs.font_display)  root.style.setProperty('--font-display',"'" + cs.font_display + "', Georgia, serif");
-      if (cs.font_body)     root.style.setProperty('--font-body',  "'" + cs.font_body    + "', system-ui, sans-serif");
-    }
-  } catch(e) {}
+<div class="gpga-page-hero">
+  <div class="gpga-wrap">
+    <div class="gpga-page-hero-inner">
+      <span class="gpga-eyebrow">Cash Offers · Fast Closings</span>
+      <div class="gpga-line"></div>
+      <h1 class="gpga-page-title">Sell Your Home Fast</h1>
+    </div>
+  </div>
+</div>
 
-  // ── FETCH SETTINGS desde Supabase ────────────────────────────
-  let s = { ...DEFAULTS };
-  try {
-    const r = await fetch(SB_URL + '/rest/v1/site_settings?select=key,value', { headers: H });
-    if (r.ok) {
-      const rows = await r.json();
-      rows.forEach(function(row) { if (row.value !== null && row.value !== '') s[row.key] = row.value; });
-      // Guardar en cache para la próxima carga (sin flash)
-      try { localStorage.setItem(CACHE_KEY, JSON.stringify(s)); } catch(e) {}
-    }
-  } catch(e) { /* usar cache o defaults */ }
 
-  // ── EXPOSE GLOBALLY for pages that need it ───────────────────
-  window.GPGA = { settings: s, SB_URL, SB_KEY, H };
+<div class="gpga-wrap"><div class="gpga-content-wrap">
+<main class="gpga-main-col">
 
-  // ── LOAD GOOGLE FONTS ────────────────────────────────────────
-  const displayFont = s.font_display || 'Cormorant Garamond';
-  const bodyFont    = s.font_body    || 'DM Sans';
-  const fontMap = {
-    'Cormorant Garamond': 'Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400',
-    'Playfair Display':   'Playfair+Display:ital,wght@0,400;0,700;0,900;1,400',
-    'Libre Baskerville':  'Libre+Baskerville:ital,wght@0,400;0,700;1,400',
-    'EB Garamond':        'EB+Garamond:ital,wght@0,400;0,500;0,700;1,400',
-    'DM Sans':            'DM+Sans:wght@300;400;500;600;700',
-    'Outfit':             'Outfit:wght@300;400;500;600;700',
-    'Jost':               'Jost:wght@300;400;500;600;700',
-    'Raleway':            'Raleway:wght@300;400;500;600;700',
-  };
-  const dq = fontMap[displayFont] || (displayFont.replace(/ /g,'+') + ':wght@400;700');
-  const bq = fontMap[bodyFont]    || (bodyFont.replace(/ /g,'+')    + ':wght@300;400;500;600');
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = 'https://fonts.googleapis.com/css2?family=' + dq + '&family=' + bq + '&display=swap';
-  document.head.appendChild(link);
+  <div class="gpga-heading gpga-animate">
+    <span class="gpga-eyebrow">Sell Your Property</span>
+    <div class="gpga-line"></div>
+    <h2>A Better Way to <em>Sell</em></h2>
+    <p>Skip the traditional listing process. Get a fair cash offer and close on your schedule — often in as little as 7 days.</p>
+  </div>
 
-  // ── APPLY CSS VARIABLES ──────────────────────────────────────
-  function hexToRgb(hex) {
-    hex = hex.replace('#','');
-    if (hex.length === 3) hex = hex.split('').map(c=>c+c).join('');
-    const n = parseInt(hex,16);
-    return [(n>>16)&255, (n>>8)&255, n&255];
-  }
-  function darken(hex, pct) {
-    try {
-      const [r,g,b] = hexToRgb(hex);
-      const f = 1 - pct/100;
-      return '#' + [r,g,b].map(c=>Math.max(0,Math.round(c*f)).toString(16).padStart(2,'0')).join('');
-    } catch(e) { return hex; }
-  }
-  function lighten(hex, pct) {
-    try {
-      const [r,g,b] = hexToRgb(hex);
-      return '#' + [r,g,b].map(c=>Math.min(255,Math.round(c+(255-c)*pct/100)).toString(16).padStart(2,'0')).join('');
-    } catch(e) { return hex; }
-  }
+  <div class="gpga-steps" style="margin-bottom:56px">
+    <div class="gpga-step gpga-animate"><div class="gpga-step-num">1</div><h4>Contact Us</h4><p>Fill out our form or call with basic property details.</p></div>
+    <div class="gpga-step gpga-animate"><div class="gpga-step-num">2</div><h4>Property Review</h4><p>We assess your property and prepare a fair cash offer.</p></div>
+    <div class="gpga-step gpga-animate"><div class="gpga-step-num">3</div><h4>Receive Offer</h4><p>Get your written, no-obligation cash offer within 24 hours.</p></div>
+    <div class="gpga-step gpga-animate"><div class="gpga-step-num">4</div><h4>Close &amp; Get Paid</h4><p>Choose your closing date and receive your cash payment.</p></div>
+  </div>
 
-  const brand  = s.brand_color  || '#c9a84c';
-  const brand2 = s.brand_color_2|| '#0a0a0a';
-  const root   = document.documentElement;
+  <h3 style="font-size:22px;font-weight:400;margin-bottom:20px">Us vs. <em>Traditional Sale</em></h3>
+  <table class="gpga-compare">
+    <thead><tr>
+      <th>Factor</th>
+      <th>Great Properties GA</th>
+      <th>Traditional Agent</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Closing Time</td><td><span class="gpga-check">7–14 days</span></td><td>60–90+ days</td></tr>
+      <tr><td>Repairs Required</td><td><span class="gpga-check">None — as-is</span></td><td>Often required</td></tr>
+      <tr><td>Agent Commission</td><td><span class="gpga-check">$0</span></td><td>5–6% of sale price</td></tr>
+      <tr><td>Closing Costs</td><td><span class="gpga-check">We cover them</span></td><td>Paid by seller</td></tr>
+      <tr><td>Showings/Open Houses</td><td><span class="gpga-check">None</span></td><td>Multiple required</td></tr>
+      <tr><td>Offer Certainty</td><td><span class="gpga-check">Guaranteed cash</span></td><td>Subject to financing</td></tr>
+      <tr><td>Contingencies</td><td><span class="gpga-check">None</span></td><td>Inspection, appraisal, financing</td></tr>
+    </tbody>
+  </table>
 
-  root.style.setProperty('--brand',        brand);
-  root.style.setProperty('--brand-dark',   darken(brand, 20));
-  root.style.setProperty('--brand-light',  lighten(brand, 60));
-  root.style.setProperty('--brand-rgb',    hexToRgb(brand).join(','));
-  root.style.setProperty('--brand2',       brand2);
-  root.style.setProperty('--brand2-dark',  darken(brand2, 20));
-  root.style.setProperty('--font-display', "'" + displayFont + "', Georgia, serif");
-  root.style.setProperty('--font-body',    "'" + bodyFont    + "', system-ui, sans-serif");
+</main>
+<aside class="gpga-sidebar">
+  <div class="gpga-sidebar-cta">
+    <h3>Get Your Offer</h3>
+    <p>No obligation. No pressure. Just a fair cash offer.</p>
+    <a href="tel:4045901613" class="gpga-btn gpga-btn-gold gpga-btn-block">📞 Call Now</a>
+  </div>
+  <div class="gpga-sidebar-box">
+    <h3>Request Cash Offer</h3>
+    <form class="gpga-form" data-source="sell">
+      <div class="gpga-field"><label>Full Name</label><input type="text" name="name" placeholder="John Smith" required></div>
+      <div class="gpga-field"><label>Phone</label><input type="tel" name="phone" placeholder="(404) 000-0000" required></div>
+      <div class="gpga-field"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St"></div>
+      <div class="gpga-field"><label>Zip Code</label><input type="text" name="zip" placeholder="30301"></div>
+      <div class="gpga-field"><label>Property Type</label>
+        <select name="subject">
+          <option value="">Select type...</option>
+          <option>Single-Family Home</option><option>Condo/Townhome</option>
+          <option>Multi-Family</option><option>Commercial</option><option>Land/Lot</option>
+        </select>
+      </div>
+      <button type="submit" class="gpga-btn gpga-btn-gold gpga-btn-block">Get My Cash Offer →</button>
+      <div class="gpga-form-msg"></div>
+    </form>
+  </div>
+</aside>
+</div></div>
 
-  // ── APPLY LOGO ───────────────────────────────────────────────
-  if (s.logo_url) {
-    document.querySelectorAll('.gpga-logo-icon').forEach(function(el) {
-      const img = document.createElement('img');
-      img.src = s.logo_url;
-      img.className = 'gpga-logo-img';
-      img.alt = s.logo_text || 'Logo';
-      img.onerror = function() { img.style.display='none'; };
-      el.replaceWith(img);
-    });
-  }
-  if (s.logo_text) {
-    document.querySelectorAll('.gpga-logo-name').forEach(function(el) { el.textContent = s.logo_text; });
-    document.querySelectorAll('.gpga-footer-name').forEach(function(el) { el.textContent = s.logo_text; });
-  }
+<footer class="gpga-footer">
+  <div class="gpga-wrap">
+    <div class="gpga-footer-grid">
+      <div>
+        <span class="gpga-footer-logo-name gpga-footer-name">Great Properties GA, LLC</span>
+        <p class="gpga-footer-desc gpga-footer-desc">Georgia&#39;s trusted real estate investment company. We buy, renovate, and sell properties across all of Georgia.</p>
+        <span class="gpga-footer-slogan">Serious About Buying. Serious About Closing.</span>
+      </div>
+      <div class="gpga-footer-col"><h4>Navigation</h4><ul>
+        <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+        <li><a href="sell.html">Sell Your Home</a></li><li><a href="listings.html">Properties</a></li>
+        <li><a href="buy.html">Buy a Home</a></li><li><a href="why.html">Why Work With Us</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+      </ul></div>
+      <div class="gpga-footer-col"><h4>We Buy</h4><ul>
+        <li><a href="sell.html">Single-Family Homes</a></li><li><a href="sell.html">Condos &amp; Townhomes</a></li>
+        <li><a href="sell.html">Multi-Family Units</a></li><li><a href="sell.html">Commercial</a></li>
+        <li><a href="sell.html">Land &amp; Lots</a></li><li><a href="sell.html">Foreclosures</a></li>
+      </ul></div>
+      <div class="gpga-footer-col"><h4>Contact</h4>
+        <div class="gpga-footer-contact-line">📞 <a href="tel:4045901613" style="color:var(--text-3)" class="gpga-phone">404-590-1613</a></div>
+        <div class="gpga-footer-contact-line">✉️ <a href="mailto:info@greatpropertiesga.com" style="color:var(--text-3)">info@greatpropertiesga.com</a></div>
+        <div class="gpga-footer-contact-line">📍 Serving all of Georgia</div>
+        <div style="margin-top:20px"><a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer</a></div>
+      </div>
+    </div>
+    <div class="gpga-footer-bar">
+      <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC</span>
+      <span style="color:var(--text-3)">Georgia Real Estate Investors</span>
+    </div>
+  </div>
+</footer>
 
-  // ── APPLY CONTACT INFO ───────────────────────────────────────
-  if (s.site_phone) {
-    const clean = s.site_phone.replace(/\D/g,'');
-    document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
-      el.href = 'tel:' + clean;
-    });
-    document.querySelectorAll('.gpga-phone').forEach(function(el) { el.textContent = s.site_phone; });
-  }
-  if (s.site_email) {
-    document.querySelectorAll('a[href^="mailto:"]').forEach(function(el) {
-      el.href = 'mailto:' + s.site_email;
-    });
-    document.querySelectorAll('.gpga-email').forEach(function(el) { el.textContent = s.site_email; });
-  }
+<script src="theme.js"></script>
 
-  // ── APPLY HERO ───────────────────────────────────────────────
-  if (s.hero_title) {
-    document.querySelectorAll('.gpga-hero-title').forEach(function(el) {
-      el.innerHTML = s.hero_title.replace(/\n/g, '<br>');
-    });
-  }
-  if (s.hero_subtitle) {
-    document.querySelectorAll('.gpga-hero-subtitle').forEach(function(el) {
-      el.textContent = s.hero_subtitle;
-    });
-  }
-  const heroSection = document.querySelector('.gpga-hero');
-  if (heroSection) {
-    if (s.hero_video_url) {
-      const vid = document.createElement('video');
-      vid.src = s.hero_video_url;
-      vid.autoplay = vid.muted = vid.loop = vid.playsInline = true;
-      vid.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.35';
-      heroSection.style.position = 'relative';
-      heroSection.insertBefore(vid, heroSection.firstChild);
-    } else if (s.hero_image_url) {
-      heroSection.style.backgroundImage = 'url(' + s.hero_image_url + ')';
-      heroSection.style.backgroundSize = 'cover';
-      heroSection.style.backgroundPosition = 'center';
-    }
-  }
-
-  // ── APPLY FOOTER TEXT ────────────────────────────────────────
-  if (s.footer_text) {
-    document.querySelectorAll('.gpga-footer-desc').forEach(function(el) { el.textContent = s.footer_text; });
-  }
-
-  // ── APPLY META ───────────────────────────────────────────────
-  if (s.meta_title) document.title = s.meta_title;
-  if (s.meta_description) {
-    let m = document.querySelector('meta[name="description"]');
-    if (!m) { m = document.createElement('meta'); m.name='description'; document.head.appendChild(m); }
-    m.content = s.meta_description;
-  }
-
-  // ── SECTION VISIBILITY ───────────────────────────────────────
-  const sectionMap = {
-    'section_hero':         '.gpga-hero-wrap',
-    'section_how_it_works': '.gpga-section-how',
-    'section_properties':   '.gpga-section-props',
-    'section_testimonials': '.gpga-section-testimonials',
-    'section_about_band':   '.gpga-section-about-band',
-  };
-  Object.keys(sectionMap).forEach(function(key) {
-    if (s[key] === 'false') {
-      document.querySelectorAll(sectionMap[key]).forEach(function(el) {
-        el.style.display = 'none';
-      });
-    }
-  });
-
-  // ── LEAD FORMS → SUPABASE ────────────────────────────────────
-  document.querySelectorAll('.gpga-form').forEach(function(form) {
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = form.querySelector('[type=submit]');
-      const msg = form.querySelector('.gpga-form-msg');
-      const orig = btn.textContent;
-      btn.disabled = true; btn.textContent = 'Sending…';
-      const data = {
-        name:    (form.querySelector('[name=name]')||{}).value || null,
-        email:   (form.querySelector('[name=email]')||{}).value || null,
-        phone:   (form.querySelector('[name=phone]')||{}).value || null,
-        zip:     (form.querySelector('[name=zip]')||{}).value || null,
-        address: (form.querySelector('[name=address]')||{}).value || null,
-        message: (form.querySelector('[name=message]')||{}).value || null,
-        subject: (form.querySelector('[name=subject]')||{}).value || null,
-        source:  form.dataset.source || window.location.pathname.split('/').pop() || 'website'
-      };
-      try {
-        const r = await fetch(SB_URL + '/rest/v1/leads', {
-          method: 'POST',
-          headers: { ...H, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-          body: JSON.stringify(data)
-        });
-        if (!r.ok) throw new Error();
-        if (msg) { msg.className='gpga-form-msg success'; msg.textContent='✓ Thank you! We will contact you within 24 hours.'; }
-        form.reset();
-        gpgaToast('Message sent! We will contact you shortly.');
-      } catch(err) {
-        if (msg) { msg.className='gpga-form-msg error'; msg.textContent='Something went wrong. Please call us directly.'; }
-      }
-      btn.disabled = false; btn.textContent = orig;
-    });
-  });
-
-  // ── TOAST ────────────────────────────────────────────────────
-  window.gpgaToast = function(msg, type) {
-    let t = document.getElementById('gpga-toast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'gpga-toast';
-      t.style.cssText = 'position:fixed;bottom:28px;right:28px;background:var(--brand);color:#000;padding:14px 22px;border-radius:4px;font-weight:600;font-size:13px;z-index:9999;transform:translateY(100px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);font-family:var(--font-body);letter-spacing:.3px;box-shadow:0 8px 32px rgba(0,0,0,.4)';
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.style.background = type === 'err' ? '#c62828' : 'var(--brand)';
-    t.style.color = type === 'err' ? '#fff' : '#000';
-    requestAnimationFrame(function() {
-      t.style.transform = 'translateY(0)'; t.style.opacity = '1';
-      setTimeout(function() { t.style.transform='translateY(100px)'; t.style.opacity='0'; }, 3500);
-    });
-  };
-
-  // ── FAQ ACCORDION ────────────────────────────────────────────
-  document.addEventListener('click', function(e) {
-    const q = e.target.closest('.gpga-faq-q');
-    if (!q) return;
-    const item = q.closest('.gpga-faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.gpga-faq-item.open').forEach(function(i) { i.classList.remove('open'); });
-    if (!isOpen) item.classList.add('open');
-  });
-
-  // ── FOOTER YEAR ──────────────────────────────────────────────
-  document.querySelectorAll('.gpga-year').forEach(function(el) { el.textContent = new Date().getFullYear(); });
-
-  // ── SCROLL ANIMATIONS ────────────────────────────────────────
-  if ('IntersectionObserver' in window) {
-    const obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('gpga-visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.gpga-animate').forEach(function(el) { obs.observe(el); });
-  } else {
-    document.querySelectorAll('.gpga-animate').forEach(function(el) { el.classList.add('gpga-visible'); });
-  }
-
-})();
+</body>
+</html>
