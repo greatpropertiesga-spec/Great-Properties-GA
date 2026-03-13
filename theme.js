@@ -22,7 +22,7 @@
     brand_color:          '#ffffff',
     brand_color_2:        '#ffffff',
     bg_color:             '#ffffff',
-    bg_color_2:           '#f7f5f2',
+    bg_color_2:           '#ffffff',
     text_color:           '#1a1410',
     font_display:         'Cormorant Garamond',
     font_body:            'DM Sans',
