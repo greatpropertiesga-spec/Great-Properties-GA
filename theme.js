@@ -5,6 +5,13 @@
 // ═══════════════════════════════════════════════════════════════
 
 (async function GPGA_THEME() {
+  // ── MIGRATE: delete old cache keys so old brand color doesn't show ──
+  try {
+    ['gpga_theme_v2', 'gpga_theme', 'gpga_settings'].forEach(function(k){
+      localStorage.removeItem(k);
+    });
+  } catch(e) {}
+
   const SB_URL = 'https://cqwvnvcjxbeskvyqrank.supabase.co';
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxd3ZudmNqeGJlc2t2eXFyYW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMjg5OTMsImV4cCI6MjA4ODYwNDk5M30.pavJBT9fpyoKPH9zbn-9pcUY72gaOB6qL76QMCtFoWw';
   const H = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
