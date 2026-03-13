@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{var c=JSON.parse(localStorage.getItem("gpga_theme_v2")||"{}");var r=document.documentElement;if(c.brand_color)r.style.setProperty("--brand",c.brand_color);if(c.brand_color_2)r.style.setProperty("--brand2",c.brand_color_2);if(c.font_display)r.style.setProperty("--font-display","'"+c.font_display+"', Georgia, serif");if(c.font_body)r.style.setProperty("--font-body","'"+c.font_body+"', system-ui, sans-serif");if(c.logo_url){var s=document.createElement("style");s.textContent=".gpga-logo-emoji{display:none!important}";document.head.appendChild(s);};}catch(e){}</script>
+<script>try{var _c=JSON.parse(localStorage.getItem("gpga_theme_v3")||"{}");var _r=document.documentElement;if(_c.brand_color)_r.style.setProperty("--brand",_c.brand_color);if(_c.brand_color_2)_r.style.setProperty("--brand2",_c.brand_color_2);if(_c.bg_color)_r.style.setProperty("--bg",_c.bg_color);if(_c.bg_color_2)_r.style.setProperty("--bg-2",_c.bg_color_2);if(_c.text_color)_r.style.setProperty("--text",_c.text_color);if(_c.font_display)_r.style.setProperty("--font-display","'"+_c.font_display+"'"+", Arial, sans-serif");if(_c.font_body)_r.style.setProperty("--font-body","'"+_c.font_body+"'"+", Arial, sans-serif");if(_c.logo_url){var _s=document.createElement("style");_s.id="gpga-logo-hide";_s.textContent=".gpga-logo-emoji{display:none!important}.gpga-logo-img-pre{display:block!important}";document.head.appendChild(_s);};}catch(e){}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FAQs — Great Properties GA, LLC</title>
+<meta name="description" content="Frequently asked questions about selling your home to Great Properties GA.">
 <link rel="stylesheet" href="theme.css">
 </head>
-<body>
-
-<div class="gpga-topbar">
+<body><div class="gpga-topbar">
   <div class="gpga-wrap"><div class="gpga-topbar-inner">
     <div class="gpga-topbar-links">
-      <a href="faqs.html">FAQs</a><a href="contact.html">Contact</a><a href="why.html">Why Us</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="why.html">Why Work With Us?</a>
     </div>
     <a href="tel:4045901613" class="gpga-topbar-phone gpga-phone">404-590-1613</a>
   </div></div>
-</div>
-
-<header class="gpga-header">
+</div><header class="gpga-header">
   <div class="gpga-wrap"><div class="gpga-header-inner">
     <a href="index.html" class="gpga-logo">
-      <div class="gpga-logo-icon" id="gpga-logo-img-wrap"><span class="gpga-logo-emoji">🦅</span></div>
+      <div class="gpga-logo-icon" id="gpga-logo-img-wrap">
+        <span class="gpga-logo-emoji">🦅</span>
+        <img class="gpga-logo-img gpga-logo-img-pre" id="gpga-logo-preload" src="" alt="Logo"
+          style="height:52px;width:auto;max-width:200px;object-fit:contain;display:none"
+          onerror="this.style.display='none';document.querySelector('.gpga-logo-emoji').style.display=''">
+        <script>try{var _lu=JSON.parse(localStorage.getItem("gpga_theme_v3")||"{}").logo_url;if(_lu){var _li=document.getElementById("gpga-logo-preload");if(_li)_li.src=_lu;}}catch(e){}</script>
+      </div>
       <div class="gpga-logo-text">
         <span class="gpga-logo-name">Great Properties GA</span>
         <span class="gpga-logo-tag">Serious About Buying. Serious About Closing.</span>
@@ -36,7 +41,6 @@
       <a href="why.html">Why Us</a>
       <a href="faqs.html" class="active">FAQs</a>
       <a href="contact.html" class="gpga-nav-cta">Contact</a>
-      
     </nav>
   </div></div>
 </header>
@@ -44,52 +48,63 @@
 <div class="gpga-page-hero">
   <div class="gpga-wrap">
     <div class="gpga-page-hero-inner">
-      <span class="gpga-eyebrow">Everything You Need to Know</span>
-      <div class="gpga-line"></div>
-      <h1 class="gpga-page-title">Frequently Asked Questions</h1>
+      <div class="gpga-breadcrumb"><a href="index.html">Home</a><span>›</span>FAQs</div>
+      <h1>Frequently Asked Questions</h1>
+      <p>Everything you need to know about selling your home to us.</p>
     </div>
   </div>
 </div>
 
-
-<div class="gpga-wrap"><div class="gpga-content-wrap">
-<main class="gpga-main-col">
-  <div class="gpga-heading gpga-animate">
-    <span class="gpga-eyebrow">Common Questions</span>
-    <div class="gpga-line"></div>
-    <h2>Frequently Asked <em>Questions</em></h2>
+<section class="gpga-section">
+  <div class="gpga-wrap">
+    <div class="gpga-faq-list gpga-animate">
+      <div class="gpga-faq-item open">
+        <div class="gpga-faq-q">How does your home buying process work?</div>
+        <div class="gpga-faq-a">Our process is simple: (1) You contact us and tell us about your property. (2) We research it and make you a fair cash offer within 24 hours. (3) If you accept, we handle all the paperwork and close on your timeline — as fast as 7 days.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">Do I need to make repairs before selling?</div>
+        <div class="gpga-faq-a">Absolutely not. We buy homes in any condition — whether it needs minor cosmetic updates or major structural repairs. You don&#39;t spend a single dollar fixing anything. We handle all of that after purchase.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">How do you determine your cash offer?</div>
+        <div class="gpga-faq-a">We look at the location, size, condition, and recent sales of comparable homes in your area. Our goal is to make a fair offer that works for both sides — we&#39;re not here to lowball anyone.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">Are there any fees or commissions?</div>
+        <div class="gpga-faq-a">None whatsoever. There are no real estate agent commissions, no closing costs, and no hidden fees. The cash offer we make is the full amount you receive at closing.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">How fast can you close?</div>
+        <div class="gpga-faq-a">We can close in as little as 7 days if needed. If you need more time to make arrangements, we can also wait — the closing date is always on your schedule, not ours.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">What types of properties do you buy?</div>
+        <div class="gpga-faq-a">We buy single-family homes, condos, townhomes, multi-family properties, commercial buildings, land, and lots — anywhere in Georgia, in any condition.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">What situations do you help with?</div>
+        <div class="gpga-faq-a">We help homeowners in many situations: foreclosure or pre-foreclosure, divorce, inherited properties, job loss or relocation, tired landlords, fire or water damage, code violations, tax liens, and more. No situation is too complicated for us.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">Is your cash offer an obligation?</div>
+        <div class="gpga-faq-a">No, our cash offers are 100% free and come with zero obligation. If our offer doesn&#39;t work for you, simply decline — no pressure, no hard feelings. We want the deal to be right for you.</div>
+      </div>
+      <div class="gpga-faq-item">
+        <div class="gpga-faq-q">Do you cover the entire state of Georgia?</div>
+        <div class="gpga-faq-a">Yes! We buy properties across all of Georgia including Atlanta, Savannah, Augusta, Macon, Columbus, Athens, Albany, Valdosta, Gainesville, and every city and county in between.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px;padding:32px;background:var(--bg-2);border:1px solid var(--border);border-radius:4px">
+      <h3 style="color:var(--brand);margin-bottom:8px">Still Have Questions?</h3>
+      <p style="color:var(--text-2);margin-bottom:20px">Give us a call or send us a message — we&#39;re happy to help.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="tel:4045901613" class="gpga-btn gpga-btn-dark">📞 Call 404-590-1613</a>
+        <a href="contact.html" class="gpga-btn gpga-btn-outline-dark">Send a Message</a>
+      </div>
+    </div>
   </div>
-  <div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">Do you buy homes in any condition?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">Yes — absolutely any condition. Fire damage, structural issues, code violations, hoarder situations, liens, tenant problems — we&#39;ve seen it all. We make offers on every type of property regardless of condition.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">How fast can you close?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">We can typically close in 7 to 14 days. If you need more time, we can close on your schedule — we&#39;ve worked around 60+ day timelines too.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">Is there any obligation when I request an offer?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">Zero obligation. Getting an offer from us is completely free and there is no pressure whatsoever. You can decline at any time.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">Will I need to make repairs before selling?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">No. We buy properties as-is. Whatever condition your property is in today is exactly the condition we&#39;ll buy it in.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">What areas of Georgia do you buy in?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">All of Georgia — Atlanta metro, Savannah, Augusta, Columbus, Macon, Albany, Athens, Warner Robins, and every city and county in between.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">How do you determine your offer price?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">We consider the property&#39;s current condition, comparable sales in the area, estimated repair costs, and current market conditions. We aim to make a fair offer that works for both sides.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">Do I need to clean out the property?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">Leave whatever you don&#39;t want. We handle the cleanout after closing.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">Are there any fees or commissions?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">None. We cover all closing costs. What we offer is what you receive.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">Can you buy my home if it&#39;s in foreclosure?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">Yes. If you&#39;re facing foreclosure, contact us immediately — we may be able to purchase your home before the foreclosure completes and help you avoid the credit damage.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">What types of properties do you buy?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">Single-family homes, condos, townhomes, multi-family units (duplexes, triplexes, apartment buildings), commercial properties, land, and lots.</div></div>
-<div class="gpga-faq-item gpga-animate"><div class="gpga-faq-q">How is this different from listing with an agent?<span class="gpga-faq-icon">+</span></div><div class="gpga-faq-a">When you list with an agent, you wait months, pay 5-6% in commissions, make repairs, host showings, and risk deals falling through. With us, you get a cash offer in 24 hours and close in days — with zero fees.</div></div>
-</main>
-<aside class="gpga-sidebar">
-  <div class="gpga-sidebar-cta">
-    <h3>Still Have Questions?</h3>
-    <p>Call us or submit your question below. We respond within hours.</p>
-    <a href="tel:4045901613" class="gpga-btn gpga-btn-gold gpga-btn-block">📞 Call Us</a>
-  </div>
-  <div class="gpga-sidebar-box">
-    <h3>Ask a Question</h3>
-    <form class="gpga-form" data-source="faqs">
-      <div class="gpga-field"><label>Name</label><input type="text" name="name" placeholder="John Smith" required></div>
-      <div class="gpga-field"><label>Email or Phone</label><input type="text" name="email" placeholder="you@email.com" required></div>
-      <div class="gpga-field"><label>Your Question</label><textarea name="message" rows="4" placeholder="What would you like to know?"></textarea></div>
-      <button type="submit" class="gpga-btn gpga-btn-gold gpga-btn-block">Send Question →</button>
-      <div class="gpga-form-msg"></div>
-    </form>
-  </div>
-</aside>
-</div></div>
-
+</section>
 <footer class="gpga-footer">
   <div class="gpga-wrap">
     <div class="gpga-footer-grid">
@@ -109,21 +124,18 @@
         <li><a href="sell.html">Multi-Family Units</a></li><li><a href="sell.html">Commercial</a></li>
         <li><a href="sell.html">Land &amp; Lots</a></li><li><a href="sell.html">Foreclosures</a></li>
       </ul></div>
-      <div class="gpga-footer-col"><h4>Contact</h4>
-        <div class="gpga-footer-contact-line">📞 <a href="tel:4045901613" style="color:var(--text-3)" class="gpga-phone">404-590-1613</a></div>
-        <div class="gpga-footer-contact-line">✉️ <a href="mailto:info@greatpropertiesga.com" style="color:var(--text-3)">info@greatpropertiesga.com</a></div>
+      <div class="gpga-footer-col"><h4>Contact Us</h4>
+        <div class="gpga-footer-contact-line">📞 <a href="tel:4045901613" style="color:rgba(255,255,255,.65)" class="gpga-phone">404-590-1613</a></div>
+        <div class="gpga-footer-contact-line">✉️ <a href="mailto:info@greatpropertiesga.com" style="color:rgba(255,255,255,.65)">info@greatpropertiesga.com</a></div>
         <div class="gpga-footer-contact-line">📍 Serving all of Georgia</div>
-        <div style="margin-top:20px"><a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer</a></div>
+        <div style="margin-top:20px"><a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer →</a></div>
       </div>
     </div>
     <div class="gpga-footer-bar">
-      <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC</span>
-      <span style="color:var(--text-3)">Georgia Real Estate Investors</span>
+      <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC &middot; All Rights Reserved</span>
+      <span>Georgia Real Estate Investors</span>
     </div>
   </div>
 </footer>
-
 <script src="theme.js"></script>
-
-</body>
-</html>
+</body></html>
