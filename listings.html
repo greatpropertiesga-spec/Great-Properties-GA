@@ -205,7 +205,7 @@ waitForGPGA(async function(g) {
         + '<div class="gpga-prop-card-img" style="position:relative;cursor:pointer" onclick="location.href=\'property.html?id=' + p.id + '\'">' + img + overlay + featuredBadge + '<span class="gpga-prop-badge ' + badge + '">' + label + '</span></div>'
         + '<div class="gpga-prop-card-body">'
         + '<div class="gpga-prop-type">' + (typeLabel[p.property_type] || p.property_type || '') + '</div>'
-        + '<h3><a href="property.html?id=" + p.id + "" style="color:var(--brand,#1a3a5c)">' + p.title + '</a></h3>'
+        + '<h3><a href="property.html?id=' + p.id + '" style="color:var(--brand,#1a3a5c)">' + p.title + '</a></h3>'
         + '<p class="gpga-prop-city">' + (p.address ? p.address + ', ' : '') + (p.city || '') + (p.zip ? ', GA ' + p.zip : '') + '</p>'
         + '<div class="gpga-prop-price">' + (st === 'sold' ? '<span style="color:var(--text-3);font-size:13px;font-style:italic">Sold</span>' : price) + '</div>'
         + '<div class="gpga-prop-details">'
