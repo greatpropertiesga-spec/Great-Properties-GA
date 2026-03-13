@@ -186,8 +186,8 @@ waitForGPGA(async function(g) {
       var badge = st === 'sold' ? 'badge-sold' : st === 'pending' ? 'badge-pending' : 'badge-available';
       var label = statusLabel[st] || st;
 
-      var overlay = st === 'sold'
-        ? ''
+      var overlay = ''
+   
 
       var featuredBadge = p.featured ? '<span style="position:absolute;top:10px;left:10px;z-index:3;background:var(--brand);color:#000;font-size:9px;font-weight:800;padding:4px 10px;border-radius:2px;letter-spacing:1.5px;text-transform:uppercase">⭐ Featured</span>' : '';
 
