@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>try{var _c=JSON.parse(localStorage.getItem("gpga_theme_v3")||"{}");var _r=document.documentElement;if(_c.brand_color)_r.style.setProperty("--brand",_c.brand_color);if(_c.bg_color)_r.style.setProperty("--bg",_c.bg_color);if(_c.text_color)_r.style.setProperty("--text",_c.text_color);if(_c.font_body)_r.style.setProperty("--font-body","'"+_c.font_body+"', Arial, sans-serif");}catch(e){}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Property Detail — Great Properties GA, LLC</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+body { font-family: Arial, sans-serif; }
+
+/* TOPBAR */
+.p180-topbar { background: var(--brand,#1a3a5c); }
+.p180-topbar-inner { max-width:1140px; margin:0 auto; padding:0 20px; display:flex; align-items:stretch; }
+.p180-topbar-inner a { color:rgba(255,255,255,.85); font-size:12px; padding:8px 16px; text-decoration:none; border-right:1px solid rgba(255,255,255,.15); display:flex; align-items:center; white-space:nowrap; transition:background .14s; }
+.p180-topbar-inner a:first-child { border-left:1px solid rgba(255,255,255,.15); }
+.p180-topbar-inner a:hover { background:rgba(255,255,255,.1); color:#fff; }
+.p180-topbar-phone { margin-left:auto; background:rgba(0,0,0,.18)!important; color:#fff!important; font-weight:700!important; border-left:1px solid rgba(255,255,255,.15)!important; }
+
+/* HEADER */
+.p180-header { background:#fff; border-bottom:2px solid #ddd; box-shadow:0 2px 5px rgba(0,0,0,.07); position:sticky; top:0; z-index:100; }
+.p180-header-inner { max-width:1140px; margin:0 auto; padding:0 20px; display:flex; align-items:stretch; min-height:65px; }
+.p180-logo { display:flex; align-items:center; text-decoration:none; padding-right:28px; flex-shrink:0; border-right:1px solid #eee; }
+.p180-logo-name { font-family:Arial,sans-serif; font-size:21px; font-weight:700; color:var(--brand,#1a3a5c); white-space:nowrap; }
+.p180-logo-sub { font-size:10px; color:#999; font-weight:400; margin-left:4px; vertical-align:super; }
+.p180-nav { display:flex; align-items:stretch; flex:1; }
+.p180-nav a { display:flex; align-items:center; font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; color:#555; padding:0 13px; text-decoration:none; border-bottom:3px solid transparent; transition:all .14s; white-space:nowrap; }
+.p180-nav a:hover { color:var(--brand,#1a3a5c); border-bottom-color:var(--brand,#1a3a5c); }
+
+/* PAGE HERO */
+.prop-page-hero { background:var(--brand,#1a3a5c); padding:28px 0; border-bottom:3px solid #c9a84c; }
+.prop-breadcrumb { display:flex; align-items:center; gap:8px; font-size:12px; color:rgba(255,255,255,.6); margin-bottom:8px; }
+.prop-breadcrumb a { color:rgba(255,255,255,.75); text-decoration:none; }
+.prop-breadcrumb a:hover { color:#fff; }
+.prop-breadcrumb span { color:rgba(255,255,255,.35); }
+.prop-page-hero h1 { font-size:clamp(20px,3vw,32px); font-weight:700; color:#fff; margin-bottom:6px; line-height:1.2; }
+.prop-status-row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.prop-status-badge { display:inline-flex; align-items:center; padding:4px 12px; border-radius:2px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; }
+.psb-available { background:#c9a84c; color:#fff; }
+.psb-pending   { background:#e65100; color:#fff; }
+.psb-sold      { background:#555; color:#fff; }
+.prop-price-hero { font-size:28px; font-weight:700; color:#c9a84c; }
+
+/* MAIN GRID */
+.prop-wrap { max-width:1140px; margin:0 auto; padding:0 20px; }
+.prop-grid { display:grid; grid-template-columns:1fr 340px; gap:40px; padding:40px 0 60px; align-items:start; }
+
+/* GALLERY */
+.prop-gallery { margin-bottom:28px; }
+.prop-main-img { width:100%; height:420px; object-fit:cover; border-radius:3px; display:block; background:#eee; border:1px solid #ddd; cursor:pointer; }
+.prop-main-img.placeholder-bg { display:flex; align-items:center; justify-content:center; font-size:64px; }
+.prop-thumbs { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+.prop-thumb { width:80px; height:60px; object-fit:cover; border-radius:2px; cursor:pointer; border:2px solid transparent; transition:border-color .14s; opacity:.75; }
+.prop-thumb:hover, .prop-thumb.active { border-color:var(--brand,#1a3a5c); opacity:1; }
+
+/* LIGHTBOX */
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:999; align-items:center; justify-content:center; }
+.lightbox.open { display:flex; }
+.lightbox-img { max-width:92vw; max-height:88vh; object-fit:contain; border-radius:3px; }
+.lightbox-close { position:fixed; top:20px; right:24px; color:#fff; font-size:32px; cursor:pointer; background:none; border:none; line-height:1; opacity:.8; }
+.lightbox-close:hover { opacity:1; }
+.lightbox-prev, .lightbox-next { position:fixed; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.12); border:none; color:#fff; font-size:28px; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .14s; }
+.lightbox-prev { left:16px; }
+.lightbox-next { right:16px; }
+.lightbox-prev:hover, .lightbox-next:hover { background:rgba(255,255,255,.25); }
+.lightbox-counter { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); color:rgba(255,255,255,.6); font-size:13px; font-family:Arial,sans-serif; }
+
+/* DETAILS */
+.prop-section-title { font-size:17px; font-weight:700; color:var(--brand,#1a3a5c); border-bottom:2px solid #eee; padding-bottom:10px; margin-bottom:16px; }
+.prop-specs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
+.prop-spec { background:#f5f7fa; border:1px solid #e8eaed; border-radius:2px; padding:14px 12px; text-align:center; }
+.prop-spec-val { font-size:22px; font-weight:700; color:var(--brand,#1a3a5c); line-height:1; margin-bottom:4px; }
+.prop-spec-label { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#888; }
+.prop-description { font-size:14.5px; line-height:1.8; color:#444; margin-bottom:28px; }
+.prop-features-list { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:28px; }
+.prop-features-list li { list-style:none; font-size:13.5px; color:#444; display:flex; align-items:center; gap:8px; }
+.prop-features-list li::before { content:'✓'; width:18px; height:18px; background:var(--brand,#1a3a5c); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; }
+.prop-map { width:100%; height:260px; border:1px solid #ddd; border-radius:3px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; color:#999; font-size:14px; margin-bottom:28px; overflow:hidden; }
+.prop-map iframe { width:100%; height:100%; border:none; }
+
+/* SIDEBAR */
+.prop-sidebar { position:sticky; top:80px; }
+.prop-contact-card { background:#fff; border:1px solid #ddd; border-top:4px solid var(--brand,#1a3a5c); border-radius:2px; padding:24px 20px; margin-bottom:20px; box-shadow:0 2px 10px rgba(0,0,0,.07); }
+.prop-contact-card h3 { font-size:17px; font-weight:700; color:var(--brand,#1a3a5c); margin-bottom:4px; }
+.prop-contact-card p { font-size:13px; color:#888; margin-bottom:18px; }
+.p180-field { margin-bottom:10px; }
+.p180-field input, .p180-field textarea { width:100%; border:1px solid #ccc; border-radius:2px; padding:9px 11px; font-size:13px; font-family:Arial,sans-serif; color:#333; transition:border-color .14s; }
+.p180-field input:focus, .p180-field textarea:focus { outline:none; border-color:var(--brand,#1a3a5c); }
+.p180-field input::placeholder, .p180-field textarea::placeholder { color:#bbb; }
+.p180-btn-submit { width:100%; background:var(--brand,#1a3a5c); color:#fff; border:none; border-radius:2px; padding:12px; font-family:Arial,sans-serif; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; cursor:pointer; transition:background .14s; display:flex; align-items:center; justify-content:center; gap:8px; }
+.p180-btn-submit:hover { background:#0f2340; }
+.gpga-form-msg { display:none; margin-top:10px; padding:9px 12px; border-radius:2px; font-size:13px; }
+.gpga-form-msg.success { display:block; background:#e8f5e9; color:#2e7d32; border:1px solid #c8e6c9; }
+.gpga-form-msg.error   { display:block; background:#ffebee; color:#c62828; border:1px solid #ffcdd2; }
+.prop-call-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px; background:#c9a84c; color:#fff; font-family:Arial,sans-serif; font-size:15px; font-weight:700; text-decoration:none; border-radius:2px; text-align:center; transition:background .14s; }
+.prop-call-btn:hover { background:#a8872e; color:#fff; }
+.prop-share { background:#f5f7fa; border:1px solid #e8eaed; border-radius:2px; padding:16px; text-align:center; }
+.prop-share p { font-size:12px; color:#888; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px; font-weight:700; }
+.prop-share-btns { display:flex; gap:8px; justify-content:center; }
+.prop-share-btn { padding:7px 16px; border-radius:2px; font-size:12px; font-weight:700; cursor:pointer; border:none; font-family:Arial,sans-serif; text-decoration:none; }
+
+/* SIMILAR */
+.prop-similar-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:12px; }
+.p180-prop-card { border:1px solid #ddd; border-radius:2px; overflow:hidden; background:#fff; transition:box-shadow .15s; }
+.p180-prop-card:hover { box-shadow:0 4px 18px rgba(0,0,0,.12); }
+.p180-prop-card-img { height:150px; overflow:hidden; position:relative; background:#eee; }
+.p180-prop-card-img img { width:100%; height:100%; object-fit:cover; display:block; }
+.p180-prop-card-status { position:absolute; top:0; left:0; right:0; background:rgba(26,58,92,.85); color:#fff; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:5px 10px; text-align:center; }
+.p180-prop-card-status.sold { background:rgba(80,80,80,.85); }
+.p180-prop-card-body { padding:12px 14px; }
+.p180-prop-card-body h4 { font-size:13px; font-weight:700; color:var(--brand,#1a3a5c); margin-bottom:4px; line-height:1.3; }
+.p180-prop-card-city { font-size:12px; color:#888; margin-bottom:6px; }
+.p180-prop-card-details { font-size:11.5px; color:#666; }
+.p180-prop-card-details span { margin-right:8px; }
+
+/* FOOTER */
+.p180-footer { background:var(--brand,#1a3a5c); color:rgba(255,255,255,.8); padding:44px 0 0; }
+.p180-footer-grid { max-width:1140px; margin:0 auto; padding:0 20px 36px; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:32px; }
+.p180-footer h4 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.5); margin-bottom:14px; }
+.p180-footer-name { font-size:18px; font-weight:700; color:#fff; display:block; margin-bottom:10px; }
+.p180-footer p, .p180-footer li a { font-size:13px; color:rgba(255,255,255,.65); line-height:1.7; }
+.p180-footer ul { list-style:none; }
+.p180-footer li { margin-bottom:6px; }
+.p180-footer li a { text-decoration:none; }
+.p180-footer li a:hover { color:#fff; }
+.p180-footer-bar { border-top:1px solid rgba(255,255,255,.1); max-width:1140px; margin:0 auto; padding:14px 20px; display:flex; justify-content:space-between; font-size:11.5px; color:rgba(255,255,255,.4); flex-wrap:wrap; gap:8px; }
+
+/* LOADING / ERROR */
+.prop-loading { text-align:center; padding:80px 20px; font-family:Arial,sans-serif; }
+.prop-loading-spinner { width:40px; height:40px; border:3px solid #eee; border-top-color:var(--brand,#1a3a5c); border-radius:50%; animation:spin .7s linear infinite; margin:0 auto 16px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+@media(max-width:860px){
+  .prop-grid { grid-template-columns:1fr; }
+  .prop-sidebar { position:static; }
+  .prop-specs-grid { grid-template-columns:repeat(2,1fr); }
+  .prop-similar-grid { grid-template-columns:1fr 1fr; }
+  .p180-footer-grid { grid-template-columns:1fr 1fr; }
+  .p180-nav { display:none; }
+}
+@media(max-width:500px){
+  .prop-specs-grid { grid-template-columns:repeat(2,1fr); }
+  .prop-features-list { grid-template-columns:1fr; }
+  .prop-similar-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="p180-topbar">
+  <div class="p180-topbar-inner">
+    <a href="faqs.html">FAQs</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="why.html">Why Work With Us?</a>
+    <a href="tel:4045901613" class="p180-topbar-phone gpga-phone">📞 404-590-1613</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="p180-header">
+  <div class="p180-header-inner">
+    <a href="index.html" class="p180-logo">
+      <div class="p180-logo-name">Great Properties GA<span class="p180-logo-sub">, LLC</span></div>
+    </a>
+    <nav class="p180-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="sell.html">Sell to Us</a>
+      <a href="listings.html" class="active">Properties for Sale</a>
+      <a href="buy.html">A Way to Get Pre-Qualified</a>
+      <a href="why.html">Why Work With Us?</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- DYNAMIC PAGE HERO -->
+<div id="prop-hero" class="prop-page-hero" style="display:none">
+  <div class="prop-wrap">
+    <div class="prop-breadcrumb">
+      <a href="index.html">Home</a><span>›</span>
+      <a href="listings.html">Properties</a><span>›</span>
+      <span id="hero-title-crumb">Property</span>
+    </div>
+    <h1 id="hero-title"></h1>
+    <div class="prop-status-row">
+      <span id="hero-badge" class="prop-status-badge"></span>
+      <span id="hero-price" class="prop-price-hero"></span>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING STATE -->
+<div id="prop-loading" class="prop-loading">
+  <div class="prop-loading-spinner"></div>
+  <p style="color:#888;font-size:14px">Loading property details…</p>
+</div>
+
+<!-- MAIN CONTENT (hidden until loaded) -->
+<div id="prop-content" style="display:none">
+  <div class="prop-wrap">
+    <div class="prop-grid">
+
+      <!-- LEFT: Gallery + Details -->
+      <div>
+        <!-- GALLERY -->
+        <div class="prop-gallery">
+          <div id="main-img-wrap">
+            <img id="main-img" class="prop-main-img" src="" alt="Property photo" onclick="openLightbox(0)">
+          </div>
+          <div class="prop-thumbs" id="thumbs-row"></div>
+        </div>
+
+        <!-- SPECS -->
+        <h3 class="prop-section-title">Property Details</h3>
+        <div class="prop-specs-grid" id="specs-grid"></div>
+
+        <!-- DESCRIPTION -->
+        <div id="desc-wrap" style="display:none">
+          <h3 class="prop-section-title">Description</h3>
+          <div class="prop-description" id="prop-desc"></div>
+        </div>
+
+        <!-- FEATURES -->
+        <div id="feat-wrap" style="display:none">
+          <h3 class="prop-section-title">Features & Amenities</h3>
+          <ul class="prop-features-list" id="feat-list"></ul>
+        </div>
+
+        <!-- MAP -->
+        <div id="map-wrap" style="display:none">
+          <h3 class="prop-section-title">Location</h3>
+          <div class="prop-map" id="prop-map"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div class="prop-sidebar">
+        <!-- CONTACT FORM -->
+        <div class="prop-contact-card">
+          <h3>Interested in This Property?</h3>
+          <p>Fill out the form and we'll contact you within 24 hours.</p>
+          <form class="gpga-form" data-source="property-detail" id="prop-form">
+            <input type="hidden" name="subject" id="form-subject" value="Property Inquiry">
+            <div class="p180-field"><input name="name"  type="text"  placeholder="Your Full Name *" required></div>
+            <div class="p180-field"><input name="phone" type="tel"   placeholder="Phone Number *" required></div>
+            <div class="p180-field"><input name="email" type="email" placeholder="Email Address"></div>
+            <div class="p180-field"><textarea name="message" rows="3" placeholder="Any questions about this property?"></textarea></div>
+            <button type="submit" class="p180-btn-submit">Send Inquiry →</button>
+            <div class="gpga-form-msg"></div>
+          </form>
+        </div>
+
+        <!-- CALL BUTTON -->
+        <a href="tel:4045901613" class="prop-call-btn gpga-phone" style="display:flex;margin-bottom:20px">
+          📞 Call Us: 404-590-1613
+        </a>
+
+        <!-- SHARE -->
+        <div class="prop-share">
+          <p>Share This Property</p>
+          <div class="prop-share-btns">
+            <button class="prop-share-btn" style="background:#1877f2;color:#fff" onclick="shareOn('facebook')">Facebook</button>
+            <button class="prop-share-btn" style="background:#1da1f2;color:#fff" onclick="shareOn('twitter')">Twitter</button>
+            <button class="prop-share-btn" style="background:#eee;color:#333" onclick="copyLink()">Copy Link</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIMILAR PROPERTIES -->
+    <div style="padding-bottom:60px" id="similar-wrap">
+      <h3 class="prop-section-title" style="font-size:20px">More Properties</h3>
+      <div class="prop-similar-grid" id="similar-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1);event.stopPropagation()">‹</button>
+  <img class="lightbox-img" id="lb-img" src="" alt="">
+  <button class="lightbox-next" onclick="lightboxNav(1);event.stopPropagation()">›</button>
+  <div class="lightbox-counter" id="lb-counter"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="p180-footer">
+  <div class="p180-footer-grid">
+    <div>
+      <span class="p180-footer-name">Great Properties GA, LLC</span>
+      <p>Georgia's trusted real estate investment company. We buy, renovate, and sell properties across all of Georgia.</p>
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:10px">Serious About Buying. Serious About Closing.</p>
+    </div>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="sell.html">Sell Your Home</a></li><li><a href="listings.html">Properties</a></li>
+      <li><a href="buy.html">Buy a Home</a></li><li><a href="why.html">Why Work With Us</a></li>
+      <li><a href="faqs.html">FAQs</a></li>
+    </ul></div>
+    <div><h4>We Buy</h4><ul>
+      <li><a href="sell.html">Single-Family Homes</a></li><li><a href="sell.html">Condos &amp; Townhomes</a></li>
+      <li><a href="sell.html">Multi-Family Units</a></li><li><a href="sell.html">Commercial</a></li>
+      <li><a href="sell.html">Land &amp; Lots</a></li>
+    </ul></div>
+    <div><h4>Contact Us</h4>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <a href="tel:4045901613" style="color:rgba(255,255,255,.65);text-decoration:none" class="gpga-phone">📞 404-590-1613</a>
+        <a href="mailto:info@greatpropertiesga.com" style="color:rgba(255,255,255,.65);text-decoration:none">✉️ info@greatpropertiesga.com</a>
+        <span style="color:rgba(255,255,255,.65)">📍 Serving all of Georgia</span>
+      </div>
+    </div>
+  </div>
+  <div class="p180-footer-bar">
+    <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC · All Rights Reserved</span>
+    <span>Georgia Real Estate Investors</span>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+<script>
+var IMAGES = [];
+var LB_IDX = 0;
+
+// ── Get property ID from URL ──────────────────────────────
+var propId = new URLSearchParams(window.location.search).get('id');
+
+function waitForGPGA(cb){
+  if(window.GPGA&&window.GPGA.settings){cb(window.GPGA);return;}
+  var a=0,t=setInterval(function(){a++;if(window.GPGA&&window.GPGA.settings){clearInterval(t);cb(window.GPGA);}else if(a>80){clearInterval(t);cb(null);}},50);
+}
+
+waitForGPGA(async function(g) {
+  if(!g || !propId) {
+    showError('Property not found. <a href="listings.html">View all properties →</a>');
+    return;
+  }
+
+  try {
+    // Load this property
+    var r = await fetch(g.SB_URL + '/rest/v1/properties?id=eq.' + propId, { headers: g.H });
+    var arr = await r.json();
+    if(!arr || !arr.length) { showError('Property not found. <a href="listings.html">View all properties →</a>'); return; }
+    var p = arr[0];
+
+    // Update page title + meta
+    document.title = p.title + ' — Great Properties GA, LLC';
+
+    // Update hero
+    document.getElementById('hero-title').textContent = p.title;
+    document.getElementById('hero-title-crumb').textContent = p.title;
+    var st = p.status || 'available';
+    var badge = document.getElementById('hero-badge');
+    badge.textContent = st.charAt(0).toUpperCase() + st.slice(1);
+    badge.className = 'prop-status-badge psb-' + st;
+    var priceEl = document.getElementById('hero-price');
+    if(st === 'sold') priceEl.textContent = 'Sold';
+    else if(p.price) priceEl.textContent = '$' + Number(p.price).toLocaleString();
+    else priceEl.textContent = 'Contact for Price';
+    document.getElementById('prop-hero').style.display = '';
+
+    // Update form subject
+    document.getElementById('form-subject').value = 'Property Inquiry: ' + p.title;
+
+    // GALLERY
+    IMAGES = p.images || [];
+    if(IMAGES.length) {
+      var mainImg = document.getElementById('main-img');
+      mainImg.src = IMAGES[0];
+      mainImg.alt = p.title;
+      if(IMAGES.length > 1) {
+        var thumbs = document.getElementById('thumbs-row');
+        thumbs.innerHTML = IMAGES.map(function(url, i) {
+          return '<img class="prop-thumb' + (i===0?' active':'') + '" src="' + url + '" onclick="setMainImg(' + i + ')" alt="Photo ' + (i+1) + '" loading="lazy">';
+        }).join('');
+      }
+    } else {
+      var mainWrap = document.getElementById('main-img-wrap');
+      mainWrap.innerHTML = '<div class="prop-main-img placeholder-bg" style="background:#f0f2f5;display:flex;align-items:center;justify-content:center;font-size:72px;border-radius:3px;border:1px solid #ddd;height:420px">🏠</div>';
+    }
+
+    // SPECS
+    var specs = [];
+    if(p.bedrooms)  specs.push({val: p.bedrooms,                              label: 'Bedrooms'});
+    if(p.bathrooms) specs.push({val: p.bathrooms,                             label: 'Bathrooms'});
+    if(p.sqft)      specs.push({val: Number(p.sqft).toLocaleString() + ' ft²', label: 'Square Feet'});
+    if(p.lot_size)  specs.push({val: p.lot_size,                              label: 'Lot Size'});
+    if(p.property_type) {
+      var tl = {'single-family':'Single-Family','condo':'Condo/Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land/Lot'};
+      specs.push({val: tl[p.property_type] || p.property_type, label: 'Type'});
+    }
+    if(p.city) specs.push({val: p.city + (p.zip ? ' ' + p.zip : ''), label: 'Location'});
+    document.getElementById('specs-grid').innerHTML = specs.map(function(s) {
+      return '<div class="prop-spec"><div class="prop-spec-val">' + s.val + '</div><div class="prop-spec-label">' + s.label + '</div></div>';
+    }).join('');
+
+    // DESCRIPTION
+    if(p.description) {
+      document.getElementById('prop-desc').innerHTML = p.description.replace(/\n/g, '<br>');
+      document.getElementById('desc-wrap').style.display = '';
+    }
+
+    // FEATURES
+    if(p.features && p.features.length) {
+      document.getElementById('feat-list').innerHTML = p.features.map(function(f) {
+        return '<li>' + f + '</li>';
+      }).join('');
+      document.getElementById('feat-wrap').style.display = '';
+    }
+
+    // MAP
+    var addr = [p.address, p.city, 'GA', p.zip].filter(Boolean).join(', ');
+    if(addr) {
+      var mapEl = document.getElementById('prop-map');
+      mapEl.innerHTML = '<iframe loading="lazy" src="https://maps.google.com/maps?q=' + encodeURIComponent(addr) + '&output=embed&z=15" allowfullscreen></iframe>';
+      document.getElementById('map-wrap').style.display = '';
+    }
+
+    // Show content
+    document.getElementById('prop-loading').style.display = 'none';
+    document.getElementById('prop-content').style.display = '';
+
+    // SIMILAR PROPERTIES
+    var r2 = await fetch(g.SB_URL + '/rest/v1/properties?id=neq.' + propId + '&order=created_at.desc&limit=3', { headers: g.H });
+    var similar = await r2.json();
+    if(similar && similar.length) {
+      var sl = {available:'FOR SALE', pending:'PENDING', sold:'SOLD'};
+      document.getElementById('similar-grid').innerHTML = similar.map(function(s) {
+        var sst = s.status || 'available';
+        var img = s.images && s.images.length
+          ? '<img src="' + s.images[0] + '" loading="lazy" alt="' + s.title + '">'
+          : '<div style="height:100%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-size:28px">🏠</div>';
+        return '<div class="p180-prop-card" onclick="window.location=\'property.html?id=' + s.id + '\'" style="cursor:pointer">'
+          + '<div class="p180-prop-card-img">' + img
+          + '<div class="p180-prop-card-status' + (sst==='sold'?' sold':'') + '">' + (sl[sst]||sst.toUpperCase()) + '</div></div>'
+          + '<div class="p180-prop-card-body"><h4>' + s.title + '</h4>'
+          + '<div class="p180-prop-card-city">' + (s.city||'') + (s.zip?', GA '+s.zip:'') + '</div>'
+          + '<div class="p180-prop-card-details">'
+          + (s.bedrooms?'<span>🛏 '+s.bedrooms+' bd</span>':'')
+          + (s.bathrooms?'<span>🚿 '+s.bathrooms+' ba</span>':'')
+          + (s.sqft?'<span>📐 '+Number(s.sqft).toLocaleString()+' sqft</span>':'')
+          + '</div>'
+          + (s.price&&sst!=='sold'?'<div style="font-weight:700;color:var(--brand,#1a3a5c);margin-top:6px;font-size:15px">$'+Number(s.price).toLocaleString()+'</div>':'')
+          + '</div></div>';
+      }).join('');
+    } else {
+      document.getElementById('similar-wrap').style.display = 'none';
+    }
+
+  } catch(e) {
+    showError('Unable to load property. <a href="listings.html">View all properties →</a>');
+  }
+});
+
+function showError(msg) {
+  document.getElementById('prop-loading').innerHTML = '<div style="text-align:center;padding:80px 20px;font-family:Arial,sans-serif"><div style="font-size:48px;margin-bottom:16px">🏠</div><p style="color:#666;font-size:15px">' + msg + '</p></div>';
+}
+
+// ── Gallery controls ────────────────────────────────────
+function setMainImg(idx) {
+  LB_IDX = idx;
+  var main = document.getElementById('main-img');
+  if(main && IMAGES[idx]) main.src = IMAGES[idx];
+  document.querySelectorAll('.prop-thumb').forEach(function(t, i) {
+    t.classList.toggle('active', i === idx);
+  });
+}
+
+// ── Lightbox ─────────────────────────────────────────────
+function openLightbox(idx) {
+  if(!IMAGES.length) return;
+  LB_IDX = idx;
+  document.getElementById('lb-img').src = IMAGES[LB_IDX];
+  document.getElementById('lb-counter').textContent = (LB_IDX+1) + ' / ' + IMAGES.length;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if(e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lightbox-close')) return;
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lightboxNav(dir) {
+  LB_IDX = (LB_IDX + dir + IMAGES.length) % IMAGES.length;
+  document.getElementById('lb-img').src = IMAGES[LB_IDX];
+  document.getElementById('lb-counter').textContent = (LB_IDX+1) + ' / ' + IMAGES.length;
+  setMainImg(LB_IDX);
+}
+document.addEventListener('keydown', function(e) {
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key === 'ArrowLeft') lightboxNav(-1);
+  if(e.key === 'ArrowRight') lightboxNav(1);
+  if(e.key === 'Escape') { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+});
+
+// ── Share ─────────────────────────────────────────────────
+function shareOn(platform) {
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+  var links = {
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+    twitter:  'https://twitter.com/intent/tweet?url=' + url + '&text=' + title
+  };
+  window.open(links[platform], '_blank', 'width=600,height=400');
+}
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(function() {
+    alert('Link copied to clipboard!');
+  });
+}
+</script>
+</body>
+</html>
