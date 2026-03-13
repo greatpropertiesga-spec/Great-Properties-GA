@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{var c=JSON.parse(localStorage.getItem("gpga_theme_v2")||"{}");var r=document.documentElement;if(c.brand_color)r.style.setProperty("--brand",c.brand_color);if(c.brand_color_2)r.style.setProperty("--brand2",c.brand_color_2);if(c.font_display)r.style.setProperty("--font-display","'"+c.font_display+"', Georgia, serif");if(c.font_body)r.style.setProperty("--font-body","'"+c.font_body+"', system-ui, sans-serif");}catch(e){}</script>
+<script>try{var c=JSON.parse(localStorage.getItem("gpga_theme_v2")||"{}");var r=document.documentElement;if(c.brand_color)r.style.setProperty("--brand",c.brand_color);if(c.brand_color_2)r.style.setProperty("--brand2",c.brand_color_2);if(c.font_display)r.style.setProperty("--font-display","'"+c.font_display+"', Georgia, serif");if(c.font_body)r.style.setProperty("--font-body","'"+c.font_body+"', system-ui, sans-serif");if(c.logo_url){var s=document.createElement("style");s.textContent=".gpga-logo-emoji{display:none!important}";document.head.appendChild(s);};}catch(e){}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Properties — Great Properties GA, LLC</title>
 <link rel="stylesheet" href="theme.css">
+<style>
+.gpga-filter-btn {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: var(--text-2, #aaa);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: var(--font-body, sans-serif);
+  letter-spacing: 0.2px;
+}
+.gpga-filter-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.gpga-filter-btn.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+</style>
 </head>
 <body>
 
@@ -21,7 +45,7 @@
 <header class="gpga-header">
   <div class="gpga-wrap"><div class="gpga-header-inner">
     <a href="index.html" class="gpga-logo">
-      <div class="gpga-logo-icon">🦅</div>
+      <div class="gpga-logo-icon" id="gpga-logo-img-wrap"><span class="gpga-logo-emoji">🦅</span></div>
       <div class="gpga-logo-text">
         <span class="gpga-logo-name">Great Properties GA</span>
         <span class="gpga-logo-tag">Serious About Buying. Serious About Closing.</span>
@@ -44,9 +68,9 @@
 <div class="gpga-page-hero">
   <div class="gpga-wrap">
     <div class="gpga-page-hero-inner">
-      <span class="gpga-eyebrow">Available Now · Direct Sale</span>
+      <span class="gpga-eyebrow">Our Portfolio · Direct Sale</span>
       <div class="gpga-line"></div>
-      <h1 class="gpga-page-title">Properties For Sale</h1>
+      <h1 class="gpga-page-title">Properties</h1>
     </div>
   </div>
 </div>
@@ -57,8 +81,15 @@
     <div class="gpga-heading gpga-animate">
       <span class="gpga-eyebrow">Investment Opportunities</span>
       <div class="gpga-line"></div>
-      <h2>Properties <em>For Sale</em></h2>
-      <p>Renovated, move-in ready properties across Georgia. No agent commissions — buy direct.</p>
+      <h2>Our <em>Properties</em></h2>
+      <p>Renovated and investment-ready properties across Georgia. No agent commissions — buy direct.</p>
+    </div>
+    <!-- Filter Bar -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;align-items:center">
+      <button class="gpga-filter-btn active" data-filter="all" onclick="filterProps(this,'all')">All Properties</button>
+      <button class="gpga-filter-btn" data-filter="available" onclick="filterProps(this,'available')">✅ Available</button>
+      <button class="gpga-filter-btn" data-filter="pending" onclick="filterProps(this,'pending')">⏳ Pending</button>
+      <button class="gpga-filter-btn" data-filter="sold" onclick="filterProps(this,'sold')">🏷 Sold</button>
     </div>
     <div class="gpga-prop-grid" id="sb-properties-grid">
       <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-3)">
@@ -104,36 +135,95 @@
 
 <script src="theme.js"></script>
 <script>
-(async function() {
-  await new Promise(function(r){if(window.GPGA)return r();setTimeout(r,3000);});
-  const s=window.GPGA; if(!s)return;
-  try{
-    const r=await fetch(s.SB_URL+'/rest/v1/properties?status=eq.available&order=featured.desc,created_at.desc',{headers:s.H});
-    if(!r.ok)return; const props=await r.json(); if(!props||!props.length)return;
-    const typeLabel={'single-family':'Single-Family','condo':'Condo/Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land/Lot'};
-    const grid=document.getElementById('sb-properties-grid');
-    if(grid)grid.innerHTML=props.map(function(p){
-      const price=p.price?'$'+Number(p.price).toLocaleString():'Contact Us';
-      const img=p.images&&p.images.length?'<img src="'+p.images[0]+'" alt="'+p.title+'" loading="lazy">':'<div class="placeholder">🏠</div>';
-      const badge=p.status==='sold'?'badge-sold':p.status==='pending'?'badge-pending':'badge-available';
-      return '<div class="gpga-prop-card">'+
-        '<div class="gpga-prop-card-img">'+img+'<span class="gpga-prop-badge '+badge+'">'+(p.status||'Available')+'</span></div>'+
-        '<div class="gpga-prop-card-body">'+
-        '<div class="gpga-prop-type">'+(typeLabel[p.property_type]||p.property_type||'')+'</div>'+
-        '<h3><a href="contact.html">'+p.title+'</a></h3>'+
-        '<p class="gpga-prop-city">'+(p.address?p.address+', ':'')+( p.city||'')+(p.zip?', GA '+p.zip:'')+'</p>'+
-        '<div class="gpga-prop-price">'+price+'</div>'+
-        '<div class="gpga-prop-details">'+
-        (p.bedrooms?'<span>🛏 '+p.bedrooms+' Bed</span>':'')+
-        (p.bathrooms?'<span>🚿 '+p.bathrooms+' Bath</span>':'')+
-        (p.sqft?'<span>📐 '+Number(p.sqft).toLocaleString()+' sqft</span>':'')+
-        '</div>'+
-        (p.description?'<p style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.6">'+p.description.substring(0,120)+(p.description.length>120?'…':'')+'</p>':'')+
-        '<a href="contact.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">Inquire About Property</a>'+
-        '</div></div>';
-    }).join('');
-  }catch(e){}
-})();
+var ALL_PROPS = [];
+
+function filterProps(btn, status) {
+  document.querySelectorAll('.gpga-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  var cards = document.querySelectorAll('.gpga-prop-card[data-status]');
+  cards.forEach(function(card){
+    card.style.display = (status === 'all' || card.dataset.status === status) ? '' : 'none';
+  });
+  var visible = Array.from(cards).filter(function(c){ return c.style.display !== 'none'; });
+  var empty = document.getElementById('sb-empty-state');
+  if(empty) empty.style.display = visible.length ? 'none' : 'block';
+}
+
+// Wait for GPGA settings — works whether theme.js is fast or slow
+function waitForGPGA(cb) {
+  if (window.GPGA && window.GPGA.settings) { cb(window.GPGA); return; }
+  var attempts = 0;
+  var t = setInterval(function() {
+    attempts++;
+    if (window.GPGA && window.GPGA.settings) { clearInterval(t); cb(window.GPGA); }
+    else if (attempts > 80) { clearInterval(t); } // give up after 4s
+  }, 50);
+}
+
+waitForGPGA(async function(g) {
+  var grid = document.getElementById('sb-properties-grid');
+  if (!grid) return;
+  try {
+    // Fetch ALL statuses: available + pending + sold
+    var r = await fetch(g.SB_URL + '/rest/v1/properties?order=featured.desc,created_at.desc', { headers: g.H });
+    if (!r.ok) throw new Error('Fetch failed');
+    var props = await r.json();
+
+    if (!props || !props.length) {
+      grid.innerHTML = '<div id="sb-empty-state" style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)"><div style="font-size:32px;margin-bottom:12px">🏠</div><p>No properties listed yet. Check back soon!</p></div>';
+      return;
+    }
+
+    var typeLabel = {'single-family':'Single-Family','condo':'Condo/Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land/Lot'};
+    var statusLabel = {'available':'Available','pending':'Pending','sold':'Sold'};
+
+    grid.innerHTML = props.map(function(p) {
+      var price = p.price ? '$' + Number(p.price).toLocaleString() : 'Contact Us';
+      var img = (p.images && p.images.length)
+        ? '<img src="' + p.images[0] + '" alt="' + p.title + '" loading="lazy">'
+        : '<div class="placeholder">🏠</div>';
+      var st = p.status || 'available';
+      var badge = st === 'sold' ? 'badge-sold' : st === 'pending' ? 'badge-pending' : 'badge-available';
+      var label = statusLabel[st] || st;
+
+      var overlay = st === 'sold'
+        ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);display:flex;align-items:center;justify-content:center;z-index:2"><span style="background:rgba(60,60,60,0.92);color:#fff;font-size:11px;font-weight:700;padding:6px 18px;border-radius:3px;letter-spacing:2px;text-transform:uppercase">SOLD</span></div>'
+        : st === 'pending'
+        ? '<div style="position:absolute;inset:0;background:rgba(180,90,0,0.18);display:flex;align-items:center;justify-content:center;z-index:2"><span style="background:#c84b00;color:#fff;font-size:11px;font-weight:700;padding:6px 18px;border-radius:3px;letter-spacing:2px;text-transform:uppercase">PENDING</span></div>'
+        : '';
+
+      var featuredBadge = p.featured ? '<span style="position:absolute;top:10px;left:10px;z-index:3;background:var(--brand);color:#000;font-size:9px;font-weight:800;padding:4px 10px;border-radius:2px;letter-spacing:1.5px;text-transform:uppercase">⭐ Featured</span>' : '';
+
+      var cardStyle = st !== 'available' ? 'opacity:0.85;' : '';
+
+      var footerBlock = st === 'available'
+        ? '<a href="contact.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">Inquire About This Property</a>'
+        : '<div style="font-size:12px;color:var(--text-3);text-align:center;padding:8px 0;border-top:1px solid rgba(0,0,0,.07);margin-top:4px">'
+          + (st === 'sold' ? '🏷 This property has been sold' : '⏳ Currently under contract') + '</div>';
+
+      return '<div class="gpga-prop-card" data-status="' + st + '" style="' + cardStyle + '">'
+        + '<div class="gpga-prop-card-img" style="position:relative">' + img + overlay + featuredBadge + '<span class="gpga-prop-badge ' + badge + '">' + label + '</span></div>'
+        + '<div class="gpga-prop-card-body">'
+        + '<div class="gpga-prop-type">' + (typeLabel[p.property_type] || p.property_type || '') + '</div>'
+        + '<h3>' + (st === 'available' ? '<a href="contact.html">' + p.title + '</a>' : p.title) + '</h3>'
+        + '<p class="gpga-prop-city">' + (p.address ? p.address + ', ' : '') + (p.city || '') + (p.zip ? ', GA ' + p.zip : '') + '</p>'
+        + '<div class="gpga-prop-price">' + (st === 'sold' ? '<span style="color:var(--text-3);font-size:13px;font-style:italic">Sold</span>' : price) + '</div>'
+        + '<div class="gpga-prop-details">'
+        + (p.bedrooms ? '<span>🛏 ' + p.bedrooms + ' Bed</span>' : '')
+        + (p.bathrooms ? '<span>🚿 ' + p.bathrooms + ' Bath</span>' : '')
+        + (p.sqft ? '<span>📐 ' + Number(p.sqft).toLocaleString() + ' sqft</span>' : '')
+        + '</div>'
+        + (p.description ? '<p style="font-size:12px;color:var(--text-2);margin-bottom:12px;line-height:1.6">' + p.description.substring(0, 120) + (p.description.length > 120 ? '…' : '') + '</p>' : '')
+        + footerBlock
+        + '</div></div>';
+    }).join('')
+      + '<div id="sb-empty-state" style="display:none;grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)"><div style="font-size:32px;margin-bottom:12px">🔍</div><p>No properties in this category right now.</p></div>';
+
+  } catch(e) {
+    console.error('Properties error:', e);
+    if (grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-3)">Unable to load properties. Please try again later.</div>';
+  }
+});
 </script>
 </body>
 </html>
