@@ -19,13 +19,13 @@
 
   // ── DEFAULTS ─────────────────────────────────────────────────
   const DEFAULTS = {
-    brand_color:          '#ffffff',
-    brand_color_2:        '#ffffff',
+    brand_color:          '#1a3a5c',
+    brand_color_2:        '#c9a84c',
     bg_color:             '#ffffff',
-    bg_color_2:           '#ffffff',
-    text_color:           '#1a1410',
-    font_display:         'Cormorant Garamond',
-    font_body:            'DM Sans',
+    bg_color_2:           '#f5f7fa',
+    text_color:           '#1a1a1a',
+    font_display:         'Arial',
+    font_body:            'Arial',
     logo_text:            'Great Properties GA',
     logo_tagline:         'Serious About Buying. Serious About Closing.',
     logo_url:             '',
@@ -109,8 +109,8 @@
     'Montserrat':         'Montserrat:wght@300;400;500;600;700',
     'Open Sans':          'Open+Sans:wght@300;400;500;600;700',
   };
-  const df = s.font_display || 'Cormorant Garamond';
-  const bf = s.font_body    || 'DM Sans';
+  const df = s.font_display || 'Arial';
+  const bf = s.font_body    || 'Arial';
   const dq = fontMap[df] || (df.replace(/ /g,'+') + ':wght@400;700');
   const bq = fontMap[bf] || (bf.replace(/ /g,'+') + ':wght@300;400;500;600');
   if (df !== bf) {
@@ -220,13 +220,13 @@
 
   function applyCSS(cfg) {
     const root = document.documentElement;
-    const brand  = cfg.brand_color   || '#c9a84c';
-    const brand2 = cfg.brand_color_2 || '#0a0a0a';
+    const brand  = cfg.brand_color   || '#1a3a5c';
+    const brand2 = cfg.brand_color_2 || '#c9a84c';
     const bg     = cfg.bg_color      || '#ffffff';
     const bg2    = cfg.bg_color_2    || '#f7f5f2';
     const txt    = cfg.text_color    || '#1a1410';
-    const df     = cfg.font_display  || 'Cormorant Garamond';
-    const bf     = cfg.font_body     || 'DM Sans';
+    const df     = cfg.font_display  || 'Arial';
+    const bf     = cfg.font_body     || 'Arial';
 
     root.style.setProperty('--brand',        brand);
     root.style.setProperty('--brand-dark',   darken(brand, 20));
