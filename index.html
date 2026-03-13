@@ -169,46 +169,17 @@
   <div class="gpga-wrap">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px" class="gpga-animate">
       <div>
-        <span class="gpga-eyebrow">Available Now</span>
+        <span class="gpga-eyebrow">Featured Properties</span>
         <div class="gpga-line"></div>
         <h2 style="font-size:clamp(26px,3vw,38px);font-weight:300">Properties <em>For Sale</em></h2>
       </div>
       <a href="listings.html" class="gpga-btn gpga-btn-outline gpga-btn-sm">View All →</a>
     </div>
+    <!-- Grid starts EMPTY — filled by script below -->
     <div class="gpga-prop-grid" id="sb-home-props">
-      <!-- Loaded by theme.js -->
-      <div class="gpga-prop-card gpga-animate">
-        <div class="gpga-prop-card-img"><div class="placeholder">🏠</div><span class="gpga-prop-badge badge-available">Available</span></div>
-        <div class="gpga-prop-card-body">
-          <div class="gpga-prop-type">Single-Family</div>
-          <h3><a href="listings.html">Renovated Family Home – Atlanta</a></h3>
-          <p class="gpga-prop-city">Atlanta, GA 30309</p>
-          <div class="gpga-prop-price">$249,000</div>
-          <div class="gpga-prop-details"><span>🛏 3 Bed</span><span>🚿 2 Bath</span><span>📐 1,650 sqft</span></div>
-          <a href="listings.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">View Property</a>
-        </div>
-      </div>
-      <div class="gpga-prop-card gpga-animate">
-        <div class="gpga-prop-card-img" style="background:linear-gradient(135deg,#1a3a2a,#2d5a4a)"><div class="placeholder">🏢</div><span class="gpga-prop-badge badge-available">Available</span></div>
-        <div class="gpga-prop-card-body">
-          <div class="gpga-prop-type">Condo / Townhome</div>
-          <h3><a href="listings.html">Updated Townhome – Savannah</a></h3>
-          <p class="gpga-prop-city">Savannah, GA 31401</p>
-          <div class="gpga-prop-price">$185,000</div>
-          <div class="gpga-prop-details"><span>🛏 2 Bed</span><span>🚿 2 Bath</span><span>📐 1,200 sqft</span></div>
-          <a href="listings.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">View Property</a>
-        </div>
-      </div>
-      <div class="gpga-prop-card gpga-animate">
-        <div class="gpga-prop-card-img" style="background:linear-gradient(135deg,#2a1a1a,#4a2d2d)"><div class="placeholder">🏗️</div><span class="gpga-prop-badge badge-available">Available</span></div>
-        <div class="gpga-prop-card-body">
-          <div class="gpga-prop-type">Multi-Family</div>
-          <h3><a href="listings.html">Investment Property – Augusta</a></h3>
-          <p class="gpga-prop-city">Augusta, GA 30901</p>
-          <div class="gpga-prop-price">$399,000</div>
-          <div class="gpga-prop-details"><span>4 Units</span><span>📐 3,200 sqft</span></div>
-          <a href="listings.html" class="gpga-btn gpga-btn-dark gpga-btn-block gpga-btn-sm">View Property</a>
-        </div>
+      <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-3)">
+        <div style="font-size:32px;margin-bottom:12px">🏠</div>
+        <p>Loading properties…</p>
       </div>
     </div>
   </div>
@@ -227,19 +198,19 @@
   </div>
   <div class="gpga-why-grid">
     <div class="gpga-why-box gpga-animate">
-      <h3><a href="about.html" style="color:var(--white)">About Us</a></h3>
+      <h3><a href="about.html" style="color:inherit">About Us</a></h3>
       <p>Georgia's premier real estate solutions company, helping homeowners and improving communities one property at a time.</p>
     </div>
     <div class="gpga-why-box gpga-animate">
-      <h3><a href="listings.html" style="color:var(--white)">Buy Our Properties</a></h3>
+      <h3><a href="listings.html" style="color:inherit">Buy Our Properties</a></h3>
       <p>Check out our current listings — renovated, move-in ready homes across Georgia with no agent commissions.</p>
     </div>
     <div class="gpga-why-box gpga-animate">
-      <h3><a href="sell.html" style="color:var(--white)">Sell Your Home</a></h3>
+      <h3><a href="sell.html" style="color:inherit">Sell Your Home</a></h3>
       <p>We buy in any condition, any situation. Get a fair cash offer today — no obligation, no pressure.</p>
     </div>
     <div class="gpga-why-box gpga-animate">
-      <h3><a href="why.html" style="color:var(--white)">Why Work With Us</a></h3>
+      <h3><a href="why.html" style="color:inherit">Why Work With Us</a></h3>
       <p>No fees, no commissions, no repairs. Fast closings on your timeline. Cash in your hands.</p>
     </div>
   </div>
@@ -366,7 +337,6 @@
 
 <script src="theme.js"></script>
 <script>
-// Load FEATURED properties (all statuses) into home grid
 function waitForGPGA_home(cb) {
   if (window.GPGA && window.GPGA.settings) { cb(window.GPGA); return; }
   var attempts = 0;
@@ -381,18 +351,19 @@ waitForGPGA_home(async function(g) {
   var grid = document.getElementById('sb-home-props');
   if (!grid) return;
   try {
-    // Fetch FEATURED properties of ALL statuses (available, pending, sold)
+    // Try featured first, fallback to latest 3
     var r = await fetch(g.SB_URL + '/rest/v1/properties?featured=eq.true&order=created_at.desc&limit=6', { headers: g.H });
-    if (!r.ok) return;
-    var props = await r.json();
+    var props = r.ok ? await r.json() : [];
 
-    // Fallback: if no featured, grab latest available
     if (!props || !props.length) {
       r = await fetch(g.SB_URL + '/rest/v1/properties?order=created_at.desc&limit=3', { headers: g.H });
-      if (!r.ok) return;
-      props = await r.json();
+      props = r.ok ? await r.json() : [];
     }
-    if (!props || !props.length) return;
+
+    if (!props || !props.length) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-3)"><div style="font-size:32px;margin-bottom:12px">🏠</div><p>No properties listed yet. Check back soon!</p></div>';
+      return;
+    }
 
     var typeLabel = {'single-family':'Single-Family','condo':'Condo/Townhome','multi-family':'Multi-Family','commercial':'Commercial','land':'Land/Lot'};
     var statusLabel = {'available':'Available','pending':'Pending','sold':'Sold'};
@@ -406,11 +377,8 @@ waitForGPGA_home(async function(g) {
       var badge = st === 'sold' ? 'badge-sold' : st === 'pending' ? 'badge-pending' : 'badge-available';
       var label = statusLabel[st] || st;
 
-      var overlay = st === 'sold'
-        ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);display:flex;align-items:center;justify-content:center;z-index:2"><span style="background:rgba(60,60,60,0.92);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:3px;letter-spacing:2px;text-transform:uppercase">SOLD</span></div>'
-        : st === 'pending'
-        ? '<div style="position:absolute;inset:0;background:rgba(180,90,0,0.15);display:flex;align-items:center;justify-content:center;z-index:2"><span style="background:#c84b00;color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:3px;letter-spacing:2px;text-transform:uppercase">PENDING</span></div>'
-        : '';
+      // NO overlay — just the small badge in the corner
+      var overlay = '';
 
       var cardStyle = st !== 'available' ? 'opacity:0.85;' : '';
 
@@ -420,7 +388,8 @@ waitForGPGA_home(async function(g) {
           + (st === 'sold' ? '🏷 Sold' : '⏳ Under Contract') + '</div>';
 
       return '<div class="gpga-prop-card gpga-animate gpga-visible" style="' + cardStyle + '">'
-        + '<div class="gpga-prop-card-img" style="position:relative">' + img + overlay + '<span class="gpga-prop-badge ' + badge + '">' + label + '</span></div>'
+        + '<div class="gpga-prop-card-img" style="position:relative">' + img + overlay
+        + '<span class="gpga-prop-badge ' + badge + '">' + label + '</span></div>'
         + '<div class="gpga-prop-card-body">'
         + '<div class="gpga-prop-type">' + (typeLabel[p.property_type] || p.property_type || 'Property') + '</div>'
         + '<h3><a href="listings.html">' + p.title + '</a></h3>'
