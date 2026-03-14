@@ -4,7 +4,7 @@ RUN printf 'server {\n\
     listen 80;\n\
     server_name localhost;\n\
     root /usr/share/nginx/html;\n\
-    index home;\n\
+    home index.html;\n\
 \n\
     # Remove .html extension from URLs\n\
     location / {\n\
