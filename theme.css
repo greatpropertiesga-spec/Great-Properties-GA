@@ -618,6 +618,14 @@ p { margin-bottom:14px; color:var(--text-2); }
   justify-content:space-between; align-items:center;
   font-size:11px; color:var(--text-3);
 }
+.gpga-footer-bar a {
+  color:var(--text-3);
+  text-decoration:none;
+}
+.gpga-footer-bar a:hover {
+  color:var(--white);
+  text-decoration:none;
+}
 
 /* ── ANIMATIONS ───────────────────────────────────────────────── */
 .gpga-animate {
