@@ -132,7 +132,7 @@
   display: flex; align-items: center;
   padding: 44px 20px 80px;
 }
-.p180-featured { background: #fff; border: 1px solid #ddd; border-radius: 2px; display: grid; grid-template-columns: 380px 1fr; gap: 0; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.07); max-width: 900px; margin: 0 auto; width: 100%; }
+.p180-featured { background: #fff; border: 1px solid #ddd; border-radius: 2px; display: grid; grid-template-columns: 380px 1fr; gap: 0; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.07); max-width: 900px; margin: 0 auto; width: 100%; transition: opacity .5s; }
 .p180-featured-img { min-height: 260px; background:#eee; overflow:hidden; }
 .p180-featured-img img { width:100%; height:100%; object-fit:cover; display:block; }
 .p180-featured-body { padding: 28px 32px; }
@@ -480,30 +480,46 @@ waitForGPGA(async function(g){
     }
   }
 
-  // Featured property — slide 2
+  // Featured properties — slide 2 — auto-rotate
   var feat=document.getElementById('featured-single');
   try{
-    var r=await fetch(g.SB_URL+'/rest/v1/properties?featured=eq.true&status=eq.available&order=created_at.desc&limit=1',{headers:g.H});
+    var r=await fetch(g.SB_URL+'/rest/v1/properties?featured=eq.true&status=eq.available&order=created_at.desc&limit=10',{headers:g.H});
     var ps=await r.json();
-    if(!ps||!ps.length){r=await fetch(g.SB_URL+'/rest/v1/properties?status=eq.available&order=created_at.desc&limit=1',{headers:g.H});ps=await r.json();}
-    if(ps&&ps.length){
-      var p=ps[0];
-      var img=p.images&&p.images.length?'<img src="'+p.images[0]+'" alt="'+p.title+'">':'<div style="height:100%;background:#ddd;display:flex;align-items:center;justify-content:center;font-size:40px">🏠</div>';
-      feat.innerHTML='<div class="p180-featured-img">'+img+'</div>'
-        +'<div class="p180-featured-body">'
-        +'<span class="p180-featured-label">Featured Property</span>'
-        +'<h3>'+p.title+'</h3>'
-        +(p.description?'<p>'+p.description.substring(0,280)+(p.description.length>280?'… <a href="contact.html" style="color:var(--brand,#1a3a5c);font-weight:700">[Read More]</a>':'')+'</p>':'')
-        +'<div class="p180-featured-meta">'
-        +(p.bedrooms?'<span><strong>Beds:</strong> '+p.bedrooms+'</span>':'')
-        +(p.bathrooms?'<span><strong>Baths:</strong> '+p.bathrooms+'</span>':'')
-        +(p.sqft?'<span><strong>Square Ft.:</strong> '+Number(p.sqft).toLocaleString()+'</span>':'')
-        +(p.price?'<span><strong>Price:</strong> $'+Number(p.price).toLocaleString()+'</span>':'')
-        +'</div>'
-        +'<a href="property.html?id='+p.id+'" class="p180-btn-view">VIEW PROPERTY →</a>'
-        +'</div>';
-    } else {
+    if(!ps||!ps.length){
       feat.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:#999;font-family:Arial,sans-serif">No featured properties at this time. Check back soon!</div>';
+    } else {
+      // Build render function
+      var featIdx=0;
+      function renderFeatured(p){
+        var img=p.images&&p.images.length?'<img src="'+p.images[0]+'" alt="'+p.title+'">':'<div style="height:100%;background:#ddd;display:flex;align-items:center;justify-content:center;font-size:40px">🏠</div>';
+        feat.style.opacity='0';
+        feat.style.transition='opacity .5s';
+        setTimeout(function(){
+          feat.innerHTML='<div class="p180-featured-img">'+img+'</div>'
+            +'<div class="p180-featured-body">'
+            +'<span class="p180-featured-label">Featured Property '+(featIdx+1)+' of '+ps.length+'</span>'
+            +'<h3>'+p.title+'</h3>'
+            +(p.description?'<p>'+p.description.substring(0,280)+(p.description.length>280?'… <a href="contact.html" style="color:var(--brand,#1a3a5c);font-weight:700">[Read More]</a>':'')+'</p>':'')
+            +'<div class="p180-featured-meta">'
+            +(p.bedrooms?'<span><strong>Beds:</strong> '+p.bedrooms+'</span>':'')
+            +(p.bathrooms?'<span><strong>Baths:</strong> '+p.bathrooms+'</span>':'')
+            +(p.sqft?'<span><strong>Square Ft.:</strong> '+Number(p.sqft).toLocaleString()+'</span>':'')
+            +(p.price?'<span><strong>Price:</strong> $'+Number(p.price).toLocaleString()+'</span>':'')
+            +'</div>'
+            +'<a href="property.html?id='+p.id+'" class="p180-btn-view">VIEW PROPERTY →</a>'
+            +'</div>';
+          feat.style.opacity='1';
+        },250);
+      }
+      // Show first
+      renderFeatured(ps[0]);
+      // Rotate every 5 seconds if more than 1 property
+      if(ps.length>1){
+        setInterval(function(){
+          featIdx=(featIdx+1)%ps.length;
+          renderFeatured(ps[featIdx]);
+        },5000);
+      }
     }
   }catch(e){feat.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:#999">Unable to load featured property.</div>';}
 
