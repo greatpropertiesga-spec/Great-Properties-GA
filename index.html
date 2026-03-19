@@ -13,261 +13,196 @@
    ══════════════════════════════════════════════ */
 
 /* TOPBAR */
-.p180-topbar {
-  background: var(--brand,#1a3a5c);
-  font-family: Arial, sans-serif;
-}
-.p180-topbar-inner {
-  max-width: 1140px; margin: 0 auto; padding: 0 20px;
-  display: flex; align-items: stretch;
-}
-.p180-topbar-inner a {
-  color: rgba(255,255,255,.85); font-size: 12px; font-weight: 400;
-  padding: 8px 16px; text-decoration: none;
-  border-right: 1px solid rgba(255,255,255,.15);
-  transition: background .14s; white-space: nowrap;
-  display: flex; align-items: center;
-}
+.p180-topbar { background: var(--brand,#1a3a5c); font-family: Arial, sans-serif; }
+.p180-topbar-inner { max-width: 1140px; margin: 0 auto; padding: 0 20px; display: flex; align-items: stretch; }
+.p180-topbar-inner a { color: rgba(255,255,255,.85); font-size: 12px; font-weight: 400; padding: 8px 16px; text-decoration: none; border-right: 1px solid rgba(255,255,255,.15); transition: background .14s; white-space: nowrap; display: flex; align-items: center; }
 .p180-topbar-inner a:first-child { border-left: 1px solid rgba(255,255,255,.15); }
 .p180-topbar-inner a:hover { background: rgba(255,255,255,.1); color: #fff; }
-.p180-topbar-phone {
-  margin-left: auto;
-  background: rgba(0,0,0,.18) !important;
-  color: #fff !important; font-weight: 700 !important;
-  font-size: 13px !important; border: none !important;
-  border-left: 1px solid rgba(255,255,255,.15) !important;
-  letter-spacing: .3px;
-}
+.p180-topbar-phone { margin-left: auto; background: rgba(0,0,0,.18) !important; color: #fff !important; font-weight: 700 !important; font-size: 13px !important; border: none !important; border-left: 1px solid rgba(255,255,255,.15) !important; letter-spacing: .3px; }
 
 /* HEADER */
-.p180-header {
-  background: #fff;
-  border-bottom: 2px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0,0,0,.07);
-  position: sticky; top: 0; z-index: 100;
+.p180-header { background: #fff; border-bottom: 2px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,.07); position: sticky; top: 0; z-index: 100; }
+.p180-header-inner { max-width: 1140px; margin: 0 auto; padding: 0 20px; display: flex; align-items: stretch; min-height: 65px; }
+.p180-logo { display: flex; align-items: center; text-decoration: none; padding-right: 28px; flex-shrink: 0; border-right: 1px solid #eee; }
+.p180-logo-name { font-family: Arial, sans-serif; font-size: 21px; font-weight: 700; color: var(--brand,#1a3a5c); line-height: 1.1; white-space: nowrap; }
+.p180-logo-sub { font-size: 10px; color: #999; font-weight: 400; margin-left: 4px; vertical-align: super; font-family: Arial, sans-serif; }
+.p180-nav { display: flex; align-items: stretch; flex: 1; }
+.p180-nav a { display: flex; align-items: center; font-family: Arial, sans-serif; font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #555; padding: 0 13px; text-decoration: none; border-bottom: 3px solid transparent; transition: all .14s; white-space: nowrap; }
+.p180-nav a:hover, .p180-nav a.active { color: var(--brand,#1a3a5c); border-bottom-color: var(--brand,#1a3a5c); }
+
+/* ══ CAROUSEL ══════════════════════════════════ */
+.p180-carousel {
+  position: relative;
+  overflow: hidden;
+  background: #222;
 }
-.p180-header-inner {
-  max-width: 420px; margin: 0 auto; padding: 0 20px;
-  display: flex; align-items: stretch; min-height: 65px;
+.p180-carousel-track {
+  display: flex;
+  transition: transform .45s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
 }
-.p180-logo {
-  display: flex; align-items: center;
-  text-decoration: none; padding-right: 28px; flex-shrink: 0;
-  border-right: 1px solid #eee;
-}
-.p180-logo-name {
-  font-family: Arial, sans-serif; font-size: 21px; font-weight: 700;
-  color: var(--brand,#1a3a5c); line-height: 1.1; white-space: nowrap;
-}
-.p180-logo-sub {
-  font-size: 10px; color: #999; font-weight: 400;
-  margin-left: 4px; vertical-align: super; font-family: Arial, sans-serif;
-}
-.p180-nav {
-  display: flex; align-items: stretch; flex: 1;
-}
-.p180-nav a {
-  display: flex; align-items: center;
-  font-family: Arial, sans-serif; font-size: 12.5px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .4px;
-  color: #555; padding: 0 13px; text-decoration: none;
-  border-bottom: 3px solid transparent; transition: all .14s;
-  white-space: nowrap;
-}
-.p180-nav a:hover, .p180-nav a.active {
-  color: var(--brand,#1a3a5c);
-  border-bottom-color: var(--brand,#1a3a5c);
+.p180-carousel-slide {
+  min-width: 100%;
+  flex-shrink: 0;
 }
 
-/* HERO — full width bg + video left + form right */
+/* Arrow buttons */
+.p180-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,.4);
+  border-radius: 50%;
+  width: 42px; height: 42px;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+  line-height: 1;
+}
+.p180-carousel-btn:hover { background: rgba(0,0,0,.7); border-color: #fff; }
+.p180-carousel-btn.prev { left: 14px; }
+.p180-carousel-btn.next { right: 14px; }
+
+/* Dot nav bar */
+.p180-carousel-nav {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: var(--brand,#1a3a5c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  z-index: 10;
+}
+.p180-carousel-dot {
+  padding: 10px 24px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,.6);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-right: 1px solid rgba(255,255,255,.15);
+  transition: all .15s;
+  white-space: nowrap;
+  letter-spacing: .3px;
+}
+.p180-carousel-dot:last-child { border-right: none; }
+.p180-carousel-dot:hover { color: #fff; background: rgba(255,255,255,.1); }
+.p180-carousel-dot.active { color: #fff; background: rgba(255,255,255,.18); }
+
+/* SLIDE 1 — Hero: video + form */
 .p180-hero {
   position: relative; overflow: hidden;
   min-height: 460px; background: #222;
   display: flex; align-items: center;
 }
-.p180-hero-bg {
-  position: absolute; inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80');
-  background-size: cover; background-position: center;
-  opacity: .3;
-}
-.p180-hero-inner {
-  position: relative; z-index: 1;
-  max-width: 900px; margin: 0 auto; padding: 44px 20px;
-  display: grid; grid-template-columns: 420px 1fr;
-  gap: 36px; align-items: center; width: 100%;
-}
+.p180-hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'); background-size: cover; background-position: center; opacity: .3; }
+.p180-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 44px 20px 80px; display: grid; grid-template-columns: 420px 1fr; gap: 36px; align-items: center; width: 100%; }
 
 /* VIDEO */
-.p180-video {
-  background: #000; border-radius: 3px; overflow: hidden;
-  aspect-ratio: 16/9; box-shadow: 0 6px 32px rgba(0,0,0,.55);
-  position: relative;
-}
-.p180-video iframe, .p180-video video {
-  width: 100%; height: 100%; border: none; display: block;
-}
-.p180-video-ph {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: linear-gradient(160deg,#0a1f38 0%,#1a3a5c 100%);
-  cursor: pointer; padding: 24px; text-align: center;
-}
-.p180-play {
-  width: 68px; height: 68px;
-  background: rgba(255,255,255,.12);
-  border: 3px solid rgba(255,255,255,.5);
-  border-radius: 50%; display: flex; align-items:center; justify-content:center;
-  font-size: 26px; color: #fff; margin-bottom: 18px;
-  transition: all .2s;
-}
+.p180-video { background: #000; border-radius: 3px; overflow: hidden; aspect-ratio: 16/9; box-shadow: 0 6px 32px rgba(0,0,0,.55); position: relative; }
+.p180-video iframe, .p180-video video { width: 100%; height: 100%; border: none; display: block; }
+.p180-video-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(160deg,#0a1f38 0%,#1a3a5c 100%); cursor: pointer; padding: 24px; text-align: center; }
+.p180-play { width: 68px; height: 68px; background: rgba(255,255,255,.12); border: 3px solid rgba(255,255,255,.5); border-radius: 50%; display: flex; align-items:center; justify-content:center; font-size: 26px; color: #fff; margin-bottom: 18px; transition: all .2s; }
 .p180-video-ph:hover .p180-play { background: rgba(255,255,255,.25); border-color:#fff; }
 .p180-video-ph h3 { font-family:Arial,sans-serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:10px; }
 .p180-video-ph p  { font-family:Arial,sans-serif; font-size:13px; color:rgba(255,255,255,.72); line-height:1.6; }
 
 /* FORM */
-.p180-form-box {
-  background: #fff; border-radius: 3px; padding: 26px 22px;
-  box-shadow: 0 6px 32px rgba(0,0,0,.3);
-}
-.p180-form-title {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--brand,#1a3a5c); text-align: center;
-  line-height: 1.35; margin-bottom: 16px;
-}
+.p180-form-box { background: #fff; border-radius: 3px; padding: 26px 22px; box-shadow: 0 6px 32px rgba(0,0,0,.3); }
+.p180-form-title { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--brand,#1a3a5c); text-align: center; line-height: 1.35; margin-bottom: 16px; }
 .p180-field { margin-bottom: 10px; }
-.p180-field input, .p180-field textarea {
-  width: 100%; border: 1px solid #ccc; border-radius: 2px;
-  padding: 9px 11px; font-size: 13px; font-family: Arial,sans-serif;
-  color: #333; background: #fff; transition: border-color .14s;
-}
+.p180-field input, .p180-field textarea { width: 100%; border: 1px solid #ccc; border-radius: 2px; padding: 9px 11px; font-size: 13px; font-family: Arial,sans-serif; color: #333; background: #fff; transition: border-color .14s; }
 .p180-field input:focus, .p180-field textarea:focus { outline:none; border-color:var(--brand,#1a3a5c); }
 .p180-field input::placeholder { color: #bbb; }
-.p180-btn-submit {
-  width: 100%; background: var(--brand,#1a3a5c); color: #fff;
-  border: none; border-radius: 2px; padding: 12px;
-  font-family: Arial,sans-serif; font-size: 15px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .5px;
-  cursor: pointer; transition: background .14s; margin-top: 4px;
-  display: flex; align-items:center; justify-content:center; gap:8px;
-}
+.p180-btn-submit { width: 100%; background: var(--brand,#1a3a5c); color: #fff; border: none; border-radius: 2px; padding: 12px; font-family: Arial,sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; cursor: pointer; transition: background .14s; margin-top: 4px; display: flex; align-items:center; justify-content:center; gap:8px; }
 .p180-btn-submit:hover { background: #0f2340; }
-.p180-privacy {
-  font-family: Arial,sans-serif; font-size: 11px; color: #aaa;
-  text-align: center; margin-top: 10px;
-  display: flex; align-items:center; justify-content:center; gap:5px;
-}
+.p180-privacy { font-family: Arial,sans-serif; font-size: 11px; color: #aaa; text-align: center; margin-top: 10px; display: flex; align-items:center; justify-content:center; gap:5px; }
 .gpga-form-msg { display:none; margin-top:10px; padding:9px 12px; border-radius:2px; font-size:13px; font-family:Arial,sans-serif; }
 .gpga-form-msg.success { display:block; background:#e8f5e9; color:#2e7d32; border:1px solid #c8e6c9; }
 .gpga-form-msg.error   { display:block; background:#ffebee; color:#c62828; border:1px solid #ffcdd2; }
 
-/* FEATURED PROPERTY — single wide card like p180 */
-.p180-featured {
-  background: #fff; border: 1px solid #ddd; border-radius: 2px;
-  display: grid; grid-template-columns: 340px 1fr;
-  gap: 0; overflow: hidden; margin-bottom: 36px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.07);
+/* SLIDE 2 — Featured Property */
+.p180-slide-featured {
+  min-height: 460px;
+  background: #f5f7fa;
+  display: flex; align-items: center;
+  padding: 44px 20px 80px;
 }
-.p180-featured-img { height: 100%; min-height: 220px; background:#eee; overflow:hidden; }
+.p180-featured { background: #fff; border: 1px solid #ddd; border-radius: 2px; display: grid; grid-template-columns: 380px 1fr; gap: 0; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.07); max-width: 900px; margin: 0 auto; width: 100%; }
+.p180-featured-img { min-height: 260px; background:#eee; overflow:hidden; }
 .p180-featured-img img { width:100%; height:100%; object-fit:cover; display:block; }
-.p180-featured-body { padding: 24px 28px; }
-.p180-featured-label {
-  font-family:Arial,sans-serif; font-size:10px; font-weight:700;
-  text-transform:uppercase; letter-spacing:2px;
-  color: var(--brand,#1a3a5c); margin-bottom:8px; display:block;
-}
-.p180-featured-body h3 { font-family:Arial,sans-serif; font-size:19px; font-weight:700; color:#222; margin-bottom:10px; line-height:1.3; }
+.p180-featured-body { padding: 28px 32px; }
+.p180-featured-label { font-family:Arial,sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color: var(--brand,#1a3a5c); margin-bottom:8px; display:block; }
+.p180-featured-body h3 { font-family:Arial,sans-serif; font-size:22px; font-weight:700; color:#222; margin-bottom:10px; line-height:1.3; }
 .p180-featured-body p  { font-size:14px; color:#555; line-height:1.7; margin-bottom:16px; }
 .p180-featured-meta { display:flex; gap:20px; margin-bottom:18px; flex-wrap:wrap; }
 .p180-featured-meta span { font-size:13px; color:#555; font-family:Arial,sans-serif; }
 .p180-featured-meta strong { color: var(--brand,#1a3a5c); }
+.p180-btn-view { display:inline-block; background:var(--brand,#1a3a5c); color:#fff; font-family:Arial,sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; padding:10px 22px; text-decoration:none; border-radius:2px; transition:background .14s; }
+.p180-btn-view:hover { background:#0f2340; color:#fff; }
 
-/* BUYER SECTION */
-.p180-buyer-grid {
-  display: grid; grid-template-columns: 1fr 360px; gap: 48px; align-items: start;
+/* SLIDE 3 — Buyers */
+.p180-slide-buyers {
+  min-height: 460px;
+  background: #f5f7fa;
+  display: flex; align-items: center;
+  padding: 44px 20px 80px;
 }
+.p180-buyer-grid { max-width: 900px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 360px; gap: 48px; align-items: start; }
 .p180-buyer-body h2 { font-family:Arial,sans-serif; font-size:22px; font-weight:700; color:var(--brand,#1a3a5c); margin-bottom:14px; }
-.p180-buyer-body p  { font-size:15px; color:#444; line-height:1.75; margin-bottom:14px; }
+.p180-buyer-body p  { font-size:15px; color:#444; line-height:1.75; margin-bottom:14px; font-family:Arial,sans-serif; }
 .p180-buyer-body strong { color:#222; }
-
-/* VIP FORM */
-.p180-vip-form {
-  background:#f9f9f9; border:1px solid #ddd;
-  border-top:4px solid var(--brand,#1a3a5c);
-  border-radius:2px; padding:24px 20px;
-}
-.p180-vip-form h3 {
-  font-family:Arial,sans-serif; font-size:17px; font-weight:700;
-  color:var(--brand,#1a3a5c); margin-bottom:4px;
-}
-.p180-vip-form p { font-size:13px; color:#888; margin-bottom:16px; }
+.p180-vip-form { background:#fff; border:1px solid #ddd; border-top:4px solid var(--brand,#1a3a5c); border-radius:2px; padding:24px 20px; }
+.p180-vip-form h3 { font-family:Arial,sans-serif; font-size:17px; font-weight:700; color:var(--brand,#1a3a5c); margin-bottom:4px; }
+.p180-vip-form p { font-size:13px; color:#888; margin-bottom:16px; font-family:Arial,sans-serif; }
 .p180-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 
-/* PROPERTIES GRID — p180 card style */
-.p180-prop-grid {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
-  margin-bottom: 24px;
-}
-.p180-prop-card {
-  border: 1px solid #ddd; border-radius:2px; overflow:hidden;
-  background:#fff; transition:box-shadow .15s;
-}
+/* FEATURED PROPERTY below carousel */
+.p180-featured-section { background: #fff; border: 1px solid #ddd; border-radius: 2px; display: grid; grid-template-columns: 340px 1fr; gap: 0; overflow: hidden; margin-bottom: 36px; box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+.p180-featured-section .p180-featured-img { height: 100%; min-height: 220px; background:#eee; overflow:hidden; }
+.p180-featured-section .p180-featured-img img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* PROPERTIES GRID */
+.p180-prop-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin-bottom: 24px; }
+.p180-prop-card { border: 1px solid #ddd; border-radius:2px; overflow:hidden; background:#fff; transition:box-shadow .15s; }
 .p180-prop-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.12); }
-.p180-prop-card-img {
-  height: 150px; overflow:hidden; position:relative; background:#eee;
-}
+.p180-prop-card-img { height: 150px; overflow:hidden; position:relative; background:#eee; }
 .p180-prop-card-img img { width:100%; height:100%; object-fit:cover; display:block; }
-.p180-prop-card-status {
-  position:absolute; top:0; left:0; right:0;
-  background:rgba(0,0,0,.55); color:#fff;
-  font-size:10px; font-weight:700; text-transform:uppercase;
-  letter-spacing:1px; padding:5px 10px; text-align:center;
-  font-family:Arial,sans-serif;
-}
+.p180-prop-card-status { position:absolute; top:0; left:0; right:0; background:rgba(0,0,0,.55); color:#fff; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:5px 10px; text-align:center; font-family:Arial,sans-serif; }
 .p180-prop-card-status.sold { background:rgba(80,80,80,.85); }
 .p180-prop-card-status.available { background:rgba(26,58,92,.85); }
 .p180-prop-card-body { padding:12px 14px; }
-.p180-prop-card-body h4 {
-  font-family:Arial,sans-serif; font-size:13px; font-weight:700;
-  color:var(--brand,#1a3a5c); margin-bottom:4px; line-height:1.35;
-}
+.p180-prop-card-body h4 { font-family:Arial,sans-serif; font-size:13px; font-weight:700; color:var(--brand,#1a3a5c); margin-bottom:4px; line-height:1.35; }
 .p180-prop-card-city { font-size:12px; color:#888; margin-bottom:8px; font-family:Arial,sans-serif; }
 .p180-prop-card-details { font-size:11.5px; color:#666; font-family:Arial,sans-serif; }
 .p180-prop-card-details span { margin-right:10px; }
 
-/* WORK WITH US 4-box */
-.p180-work-grid {
-  display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:24px;
-}
-.p180-work-box {
-  border:1px solid #ddd; border-top:3px solid var(--brand,#1a3a5c);
-  padding:20px 16px; border-radius:2px; background:#fff;
-  transition:box-shadow .15s; text-decoration:none;
-}
+/* WORK WITH US */
+.p180-work-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:24px; }
+.p180-work-box { border:1px solid #ddd; border-top:3px solid var(--brand,#1a3a5c); padding:20px 16px; border-radius:2px; background:#fff; transition:box-shadow .15s; text-decoration:none; }
 .p180-work-box:hover { box-shadow:0 4px 18px rgba(0,0,0,.1); }
 .p180-work-box h4 { font-family:Arial,sans-serif; font-size:14px; font-weight:700; color:var(--brand,#1a3a5c); margin-bottom:8px; }
 .p180-work-box p  { font-family:Arial,sans-serif; font-size:13px; color:#555; line-height:1.6; }
 
-/* TESTIMONIALS — p180 style blockquote */
+/* TESTIMONIALS */
 .p180-testi-list { display:flex; flex-direction:column; gap:20px; }
-.p180-testi {
-  background:#f9f9f9; border-left:4px solid var(--brand,#1a3a5c);
-  padding:18px 22px; border-radius:0 2px 2px 0;
-}
-.p180-testi blockquote {
-  font-family:Arial,sans-serif; font-size:14px; color:#444;
-  line-height:1.75; font-style:italic; margin:0 0 10px;
-}
+.p180-testi { background:#f9f9f9; border-left:4px solid var(--brand,#1a3a5c); padding:18px 22px; border-radius:0 2px 2px 0; }
+.p180-testi blockquote { font-family:Arial,sans-serif; font-size:14px; color:#444; line-height:1.75; font-style:italic; margin:0 0 10px; }
 .p180-testi cite { font-family:Arial,sans-serif; font-size:13px; font-weight:700; color:var(--brand,#1a3a5c); font-style:normal; }
 
-/* SECTION HEADERS */
-.p180-section-head {
-  font-family:Arial,sans-serif; font-size:22px; font-weight:700;
-  color:var(--brand,#1a3a5c); margin-bottom:6px;
-  padding-bottom:10px; border-bottom:2px solid #eee;
-}
+/* SECTION */
+.p180-section-head { font-family:Arial,sans-serif; font-size:22px; font-weight:700; color:var(--brand,#1a3a5c); margin-bottom:6px; padding-bottom:10px; border-bottom:2px solid #eee; }
 .p180-section-sub { font-size:14px; color:#777; margin-bottom:24px; font-family:Arial,sans-serif; }
+.p180-section { padding:52px 0; }
+.p180-section-alt { background:#f5f7fa; }
+.p180-wrap { max-width:1140px; margin:0 auto; padding:0 20px; }
 
 /* FOOTER */
 .p180-footer { background:var(--brand,#1a3a5c); color:rgba(255,255,255,.8); padding:44px 0 0; }
@@ -282,18 +217,9 @@
 .p180-footer-contact { display:flex; flex-direction:column; gap:9px; }
 .p180-footer-contact a { color:rgba(255,255,255,.65); text-decoration:none; }
 .p180-footer-contact a:hover { color:#fff; }
-.p180-footer-bar {
-  border-top:1px solid rgba(255,255,255,.1);
-  max-width:1140px; margin:0 auto; padding:14px 20px;
-  display:flex; justify-content:space-between;
-  font-family:Arial,sans-serif; font-size:11.5px; color:rgba(255,255,255,.4);
-  flex-wrap:wrap; gap:8px;
-}
-
-/* SECTION WRAPPER */
-.p180-section { padding:52px 0; }
-.p180-section-alt { background:#f5f7fa; }
-.p180-wrap { max-width:1140px; margin:0 auto; padding:0 20px; }
+.p180-footer-bar { border-top:1px solid rgba(255,255,255,.1); max-width:1140px; margin:0 auto; padding:14px 20px; display:flex; justify-content:space-between; font-family:Arial,sans-serif; font-size:11.5px; color:rgba(255,255,255,.4); flex-wrap:wrap; gap:8px; }
+.p180-footer-bar a { color:rgba(255,255,255,.4); text-decoration:none; }
+.p180-footer-bar a:hover { color:rgba(255,255,255,.7); }
 
 @media(max-width:960px){
   .p180-hero-inner { grid-template-columns:1fr; }
@@ -303,8 +229,9 @@
   .p180-work-grid { grid-template-columns:1fr 1fr; }
   .p180-prop-grid { grid-template-columns:1fr 1fr; }
   .p180-footer-grid { grid-template-columns:1fr 1fr; }
-  .p180-header-inner { flex-wrap:wrap; min-height:auto; }
+  .p180-header-inner { max-width:100%; flex-wrap:wrap; min-height:auto; }
   .p180-nav { display:none; }
+  .p180-carousel-btn { display:none; }
 }
 @media(max-width:600px){
   .p180-prop-grid { grid-template-columns:1fr; }
@@ -320,7 +247,9 @@
 <div class="p180-topbar">
   <div class="p180-topbar-inner">
     <a href="faqs.html">FAQs</a>
-    <a href="tel:4045901613" class="p180-topbar-phone gpga-phone">📞 404-590-1613</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="why.html">Why Work With Us?</a>
+    <a href="tel:4045901613" class="p180-topbar-phone gpga-phone">404-590-1613</a>
   </div>
 </div>
 
@@ -335,84 +264,98 @@
       <a href="about.html">About</a>
       <a href="sell.html">Sell to Us</a>
       <a href="listings.html">Properties for Sale</a>
-      <a href="buy.html">A Way to Get Pre-Qualified</a> 
-      <a href="contact.html">Contact Us</a>
-      <a href="why.html">Why Work With Us?</a>
+      <a href="buy.html">A Way to Get Pre-Qualified</a>
     </nav>
   </div>
 </header>
 
-<!-- ── HERO: video left + form right ── -->
-<section class="p180-hero">
-  <div class="p180-hero-bg" id="gpga-hero-bg"></div>
-  <div class="p180-hero-inner">
+<!-- ══ CAROUSEL ══ -->
+<div class="p180-carousel" id="main-carousel">
+  <div class="p180-carousel-track" id="carousel-track">
 
-    <div class="p180-video" id="hero-video-wrap">
-      <div class="p180-video-ph" id="video-placeholder">
-        <div class="p180-play">▶</div>
-        <h3>Need to sell your home quickly? We can help!</h3>
-        <p>Watch our short video to learn how we help Georgia homeowners sell fast for cash — no repairs, no commissions, no waiting.</p>
-      </div>
-    </div>
-
-    <div class="p180-form-box">
-      <div class="p180-form-title">Need to sell your home quickly? We can help!</div>
-      <form class="gpga-form" data-source="hero-home">
-        <div class="p180-field"><input name="name"    type="text"  placeholder="Name:"    required></div>
-        <div class="p180-field"><input name="email"   type="email" placeholder="E-mail Address:"></div>
-        <div class="p180-field"><input name="phone"   type="tel"   placeholder="Mobile Phone:" required></div>
-        <div class="p180-field"><input name="address" type="text"  placeholder="Property Address:"></div>
-        <button type="submit" class="p180-btn-submit">Submit ✏️</button>
-        <div class="gpga-form-msg"></div>
-      </form>
-      <p class="p180-privacy">🔒 We respect your privacy</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── FEATURED PROPERTY ── -->
-<div class="p180-section">
-  <div class="p180-wrap">
-    <h2 class="p180-section-head">Featured Property</h2>
-    <div class="p180-featured" id="featured-single">
-      <div style="text-align:center;padding:40px;grid-column:1/-1;color:#999;font-family:Arial,sans-serif">Loading…</div>
-    </div>
-  </div>
-</div>
-
-<!-- ── PROSPECTIVE BUYERS ── -->
-<div class="p180-section p180-section-alt">
-  <div class="p180-wrap">
-    <div class="p180-buyer-grid">
-      <div class="p180-buyer-body">
-        <h2>Prospective Home Buyers</h2>
-        <p>A very important step in the home-buying process is to get pre-qualified for a mortgage. This will give us an idea of the price range that you can afford so that we can go out and find the best deal on a home that is <strong>right for you</strong>.</p>
-        <p>Getting pre-qualified will require that you provide a lender with some basic information on your income, assets, and debt. We can arrange to have this done for you <strong>at no cost</strong>.</p>
-        <p>Another benefit in getting pre-qualified is that it is an expression of your seriousness in purchasing a home, which may be a <strong>deciding factor</strong> in a situation of competing offers on your dream home.</p>
-        <p>Enter your information below and we will get in touch with you shortly, or call us at <strong><a href="tel:4045901613" class="gpga-phone" style="color:var(--brand,#1a3a5c)">404-590-1613</a></strong>.</p>
-      </div>
-      <div>
-        <div class="p180-vip-form">
-          <h3>Join our VIP Buyers List Now!</h3>
-          <p>Enter your information and we will send you our FREE report on how to find your dream home at a rock bottom price!</p>
-          <form class="gpga-form" data-source="vip-buyers">
-            <div class="p180-row">
-              <div class="p180-field"><input name="name"  type="text" placeholder="First Name:" required></div>
-              <div class="p180-field"><input name="lname" type="text" placeholder="Last Name:"></div>
+    <!-- SLIDE 1: Video + Form -->
+    <div class="p180-carousel-slide">
+      <section class="p180-hero">
+        <div class="p180-hero-bg" id="gpga-hero-bg"></div>
+        <div class="p180-hero-inner">
+          <div class="p180-video" id="hero-video-wrap">
+            <div class="p180-video-ph" id="video-placeholder">
+              <div class="p180-play">▶</div>
+              <h3>Need to sell your home quickly? We can help!</h3>
+              <p>Watch our short video to learn how we help Georgia homeowners sell fast for cash — no repairs, no commissions, no waiting.</p>
             </div>
-            <div class="p180-field"><input name="email" type="email" placeholder="E-mail Address:" required></div>
-            <div class="p180-field"><input name="zip"   type="text"  placeholder="Zip Code:"></div>
-            <div class="p180-field"><input name="phone" type="tel"   placeholder="Mobile Phone:" required></div>
-            <button type="submit" class="p180-btn-submit">Submit ✏️</button>
-            <div class="gpga-form-msg"></div>
-          </form>
-          <p class="p180-privacy">🔒 We respect your privacy</p>
+          </div>
+          <div class="p180-form-box">
+            <div class="p180-form-title">Need to sell your home quickly? We can help!</div>
+            <form class="gpga-form" data-source="hero-home">
+              <div class="p180-field"><input name="name"    type="text"  placeholder="Name:"    required></div>
+              <div class="p180-field"><input name="email"   type="email" placeholder="E-mail Address:"></div>
+              <div class="p180-field"><input name="phone"   type="tel"   placeholder="Mobile Phone:" required></div>
+              <div class="p180-field"><input name="address" type="text"  placeholder="Property Address:"></div>
+              <button type="submit" class="p180-btn-submit">Submit ✏️</button>
+              <div class="gpga-form-msg"></div>
+            </form>
+            <p class="p180-privacy">🔒 We respect your privacy</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SLIDE 2: Featured Property -->
+    <div class="p180-carousel-slide">
+      <div class="p180-slide-featured">
+        <div class="p180-featured" id="featured-single">
+          <div style="grid-column:1/-1;text-align:center;padding:40px;color:#999;font-family:Arial,sans-serif">Loading…</div>
         </div>
       </div>
     </div>
+
+    <!-- SLIDE 3: Prospective Buyers / VIP -->
+    <div class="p180-carousel-slide">
+      <div class="p180-slide-buyers">
+        <div class="p180-buyer-grid">
+          <div class="p180-buyer-body">
+            <h2>Prospective Home Buyers</h2>
+            <p>A very important step in the home-buying process is to get pre-qualified for a mortgage. This will give us an idea of the price range that you can afford so that we can go out and find the best deal on a home that is <strong>right for you</strong>.</p>
+            <p>Getting pre-qualified will require that you provide a lender with some basic information on your income, assets, and debt. We can arrange to have this done for you <strong>at no cost</strong>.</p>
+            <p>Another benefit in getting pre-qualified is that it is an expression of your seriousness in purchasing a home, which may be a <strong>deciding factor</strong> in a situation of competing offers on your dream home.</p>
+            <p>Enter your information below and we will get in touch with you shortly, or call us at <strong><a href="tel:4045901613" class="gpga-phone" style="color:var(--brand,#1a3a5c)">404-590-1613</a></strong>.</p>
+          </div>
+          <div>
+            <div class="p180-vip-form">
+              <h3>Join our VIP Buyers List Now!</h3>
+              <p>Enter your information and we will send you our FREE report on how to find your dream home at a rock bottom price!</p>
+              <form class="gpga-form" data-source="vip-buyers">
+                <div class="p180-row">
+                  <div class="p180-field"><input name="name"  type="text" placeholder="First Name:" required></div>
+                  <div class="p180-field"><input name="lname" type="text" placeholder="Last Name:"></div>
+                </div>
+                <div class="p180-field"><input name="email" type="email" placeholder="E-mail Address:" required></div>
+                <div class="p180-field"><input name="zip"   type="text"  placeholder="Zip Code:"></div>
+                <div class="p180-field"><input name="phone" type="tel"   placeholder="Mobile Phone:" required></div>
+                <button type="submit" class="p180-btn-submit">Submit ✏️</button>
+                <div class="gpga-form-msg"></div>
+              </form>
+              <p class="p180-privacy">🔒 We respect your privacy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /track -->
+
+  <!-- Arrow buttons -->
+  <button class="p180-carousel-btn prev" id="carousel-prev">&#8249;</button>
+  <button class="p180-carousel-btn next" id="carousel-next">&#8250;</button>
+
+  <!-- Dot nav -->
+  <div class="p180-carousel-nav">
+    <button class="p180-carousel-dot active" data-slide="0">Welcome to Great Properties GA</button>
+    <button class="p180-carousel-dot" data-slide="1">Featured Property</button>
+    <button class="p180-carousel-dot" data-slide="2">Buy a Home!</button>
   </div>
-</div>
+</div><!-- /carousel -->
 
 <!-- ── BUY PROPERTIES FROM US ── -->
 <div class="p180-section">
@@ -433,22 +376,10 @@
     <h2 class="p180-section-head">Work With Us!</h2>
     <p class="p180-section-sub">At Great Properties GA, LLC, we believe that being informed is the key to a smooth and successful Georgia home purchase. We want to arm you with the knowledge to make the best decisions and save you valuable time, money, and stress. A brief phone conversation with us may be life-changing. Whether you are looking to purchase a home for your family to live in, or if you're looking for an investment property, <a href="contact.html" style="color:var(--brand,#1a3a5c);font-weight:700">contact us</a>.</p>
     <div class="p180-work-grid">
-      <a href="about.html" class="p180-work-box">
-        <h4>About Us</h4>
-        <p>Great Properties GA, LLC is Georgia's premiere real estate solutions company, helping homeowners and improving communities.</p>
-      </a>
-      <a href="listings.html" class="p180-work-box">
-        <h4>Buy Our Properties</h4>
-        <p>Check out our property listings to see our current homes, or tell us your dream home so we can help you find it!</p>
-      </a>
-      <a href="why.html" class="p180-work-box">
-        <h4>Testimonials</h4>
-        <p>Browse testimonials from satisfied Georgia homeowners, sellers and investors Great Properties GA has worked with.</p>
-      </a>
-      <a href="sell.html" class="p180-work-box">
-        <h4>Sell Your Home To Us</h4>
-        <p>Great Properties GA can help you sell your home no matter what your situation is or the condition of your house. Get Your Cash Offer Now!</p>
-      </a>
+      <a href="about.html" class="p180-work-box"><h4>About Us</h4><p>Great Properties GA, LLC is Georgia's premiere real estate solutions company, helping homeowners and improving communities.</p></a>
+      <a href="listings.html" class="p180-work-box"><h4>Buy Our Properties</h4><p>Check out our property listings to see our current homes, or tell us your dream home so we can help you find it!</p></a>
+      <a href="why.html" class="p180-work-box"><h4>Testimonials</h4><p>Browse testimonials from satisfied Georgia homeowners, sellers and investors Great Properties GA has worked with.</p></a>
+      <a href="sell.html" class="p180-work-box"><h4>Sell Your Home To Us</h4><p>Great Properties GA can help you sell your home no matter what your situation is or the condition of your house. Get Your Cash Offer Now!</p></a>
     </div>
   </div>
 </div>
@@ -458,18 +389,9 @@
   <div class="p180-wrap">
     <h2 class="p180-section-head">Testimonials</h2>
     <div class="p180-testi-list">
-      <div class="p180-testi">
-        <blockquote>"My experience was fantastic. They are great people, very helpful. They make every deal a win-win situation and make sure the transaction goes smoothly. They have a solution for every problem and will answer any question and guide you through the process."</blockquote>
-        <cite>Jose A. — Atlanta, GA</cite>
-      </div>
-      <div class="p180-testi">
-        <blockquote>"It was a great experience. They are very professional, courteous and they return calls promptly."</blockquote>
-        <cite>Casey &amp; Danny — Savannah, GA</cite>
-      </div>
-      <div class="p180-testi">
-        <blockquote>"I was able to get a fast, decent offer and not have to deal with the mess of evicting tenants, cleaning, and repairs."</blockquote>
-        <cite>Doug V. — Augusta, GA</cite>
-      </div>
+      <div class="p180-testi"><blockquote>"My experience was fantastic. They are great people, very helpful. They make every deal a win-win situation and make sure the transaction goes smoothly. They have a solution for every problem and will answer any question and guide you through the process."</blockquote><cite>Jose A. — Atlanta, GA</cite></div>
+      <div class="p180-testi"><blockquote>"It was a great experience. They are very professional, courteous and they return calls promptly."</blockquote><cite>Casey &amp; Danny — Savannah, GA</cite></div>
+      <div class="p180-testi"><blockquote>"I was able to get a fast, decent offer and not have to deal with the mess of evicting tenants, cleaning, and repairs."</blockquote><cite>Doug V. — Augusta, GA</cite></div>
     </div>
   </div>
 </div>
@@ -511,30 +433,46 @@
         <a href="tel:4045901613" class="gpga-phone">📞 404-590-1613</a>
         <a href="mailto:info@greatpropertiesga.com">✉️ info@greatpropertiesga.com</a>
         <span>📍 Serving all of Georgia</span>
-        <div style="margin-top:12px">
-          <a href="sell.html" class="gpga-btn gpga-btn-gold gpga-btn-sm">Get Cash Offer →</a>
-        </div>
       </div>
     </div>
   </div>
   <div class="p180-footer-bar">
     <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC &middot; All Rights Reserved</span>
-    <span>Georgia Real Estate Investors</span>
+    <span>Georgia Real Estate Investors &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms &amp; Conditions</a></span>
   </div>
 </footer>
 
 <script src="theme.js"></script>
 <script>
+// ── CAROUSEL ──────────────────────────────────
+(function(){
+  var track = document.getElementById('carousel-track');
+  var dots  = document.querySelectorAll('.p180-carousel-dot');
+  var total = 3;
+  var cur   = 0;
+
+  function goTo(n) {
+    cur = (n + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === cur); });
+  }
+
+  document.getElementById('carousel-prev').addEventListener('click', function(){ goTo(cur - 1); });
+  document.getElementById('carousel-next').addEventListener('click', function(){ goTo(cur + 1); });
+  dots.forEach(function(d) {
+    d.addEventListener('click', function(){ goTo(parseInt(d.dataset.slide)); });
+  });
+
+  // Auto-advance every 6 seconds
+  setInterval(function(){ goTo(cur + 1); }, 6000);
+})();
+
+// ── SUPABASE LOADER ───────────────────────────
 function waitForGPGA(cb){if(window.GPGA&&window.GPGA.settings){cb(window.GPGA);return;}var a=0,t=setInterval(function(){a++;if(window.GPGA&&window.GPGA.settings){clearInterval(t);cb(window.GPGA);}else if(a>80)clearInterval(t);},50);}
 
-function buildSlider(imgs){var c=imgs.length;return'<div class="prop-slider" data-count="'+c+'"><div class="prop-slider-track">'+imgs.map(function(u){return'<img src="'+u+'" loading="lazy">';}).join('')+'</div><button class="prop-slider-btn prev">&#8249;</button><button class="prop-slider-btn next">&#8250;</button><div class="prop-slider-dots">'+imgs.map(function(_,i){return'<button class="prop-slider-dot'+(i===0?' active':'')+'"></button>';}).join('')+'</div></div>';}
-function initSlider(s){var tk=s.querySelector('.prop-slider-track'),dots=s.querySelectorAll('.prop-slider-dot'),c=parseInt(s.dataset.count)||1,cur=0;function go(n){cur=(n+c)%c;tk.style.transform='translateX(-'+(cur*100)+'%)';dots.forEach(function(d,i){d.classList.toggle('active',i===cur);});}var pb=s.querySelector('.prop-slider-btn.prev'),nb=s.querySelector('.prop-slider-btn.next');if(pb)pb.addEventListener('click',function(e){e.stopPropagation();go(cur-1);});if(nb)nb.addEventListener('click',function(e){e.stopPropagation();go(cur+1);});dots.forEach(function(d,i){d.addEventListener('click',function(e){e.stopPropagation();go(i);});});}
-
 waitForGPGA(async function(g){
-  // Hero bg
   if(g.settings.hero_image_url){var bg=document.getElementById('gpga-hero-bg');if(bg)bg.style.backgroundImage='url('+g.settings.hero_image_url+')';}
 
-  // Video
   var vid=g.settings.hero_video_url;
   if(vid&&vid.trim()){
     var wrap=document.getElementById('hero-video-wrap');
@@ -547,7 +485,7 @@ waitForGPGA(async function(g){
     }
   }
 
-  // Featured property — single wide card
+  // Featured property — slide 2
   var feat=document.getElementById('featured-single');
   try{
     var r=await fetch(g.SB_URL+'/rest/v1/properties?featured=eq.true&status=eq.available&order=created_at.desc&limit=1',{headers:g.H});
@@ -567,14 +505,14 @@ waitForGPGA(async function(g){
         +(p.sqft?'<span><strong>Square Ft.:</strong> '+Number(p.sqft).toLocaleString()+'</span>':'')
         +(p.price?'<span><strong>Price:</strong> $'+Number(p.price).toLocaleString()+'</span>':'')
         +'</div>'
-        +'<a href="contact.html" class="gpga-btn gpga-btn-dark gpga-btn-sm">VIEW PROPERTY</a>'
+        +'<a href="property.html?id='+p.id+'" class="p180-btn-view">VIEW PROPERTY →</a>'
         +'</div>';
     } else {
       feat.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:#999;font-family:Arial,sans-serif">No featured properties at this time. Check back soon!</div>';
     }
-  }catch(e){feat.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:#999;font-family:Arial,sans-serif">Unable to load featured property.</div>';}
+  }catch(e){feat.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:#999">Unable to load featured property.</div>';}
 
-  // All properties grid (up to 8)
+  // All properties grid
   var grid=document.getElementById('all-props-grid');
   try{
     var r2=await fetch(g.SB_URL+'/rest/v1/properties?order=featured.desc,created_at.desc&limit=8',{headers:g.H});
@@ -586,8 +524,7 @@ waitForGPGA(async function(g){
       var stClass=st==='sold'?'sold':'available';
       var img=p.images&&p.images.length?'<img src="'+p.images[0]+'" alt="'+p.title+'" loading="lazy">':'<div style="height:100%;background:#ddd;display:flex;align-items:center;justify-content:center;font-size:30px">🏠</div>';
       return '<div class="p180-prop-card" style="cursor:pointer" onclick="location.href=\'property.html?id='+p.id+'\'">'
-        +'<div class="p180-prop-card-img" style="cursor:pointer" onclick="location.href=\'property.html?id='+p.id+'\'">'+img
-        +'<div class="p180-prop-card-status '+stClass+'">'+stLabel+'</div></div>'
+        +'<div class="p180-prop-card-img">'+img+'<div class="p180-prop-card-status '+stClass+'">'+stLabel+'</div></div>'
         +'<div class="p180-prop-card-body">'
         +'<h4><a href="property.html?id='+p.id+'" style="color:var(--brand,#1a3a5c);text-decoration:none">'+p.title+'</a></h4>'
         +'<div class="p180-prop-card-city">'+(p.city||'')+(p.zip?', GA '+p.zip:'')+'</div>'
@@ -599,7 +536,7 @@ waitForGPGA(async function(g){
         +(p.price&&st!=='sold'?'<div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:var(--brand,#1a3a5c);margin-top:6px">$'+Number(p.price).toLocaleString()+'</div>':'')
         +'</div></div>';
     }).join('');
-  }catch(e){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:#999;font-family:Arial,sans-serif">Unable to load properties.</div>';}
+  }catch(e){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:#999">Unable to load properties.</div>';}
 });
 </script>
 </body>
