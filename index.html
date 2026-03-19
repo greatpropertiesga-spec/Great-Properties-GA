@@ -458,9 +458,7 @@
     d.addEventListener('click', function(){ goTo(parseInt(d.dataset.slide)); });
   });
 
-  // Auto-advance every 6 seconds
-  setInterval(function(){ goTo(cur + 1); }, 6000);
-})();
+
 
 // ── SUPABASE LOADER ───────────────────────────
 function waitForGPGA(cb){if(window.GPGA&&window.GPGA.settings){cb(window.GPGA);return;}var a=0,t=setInterval(function(){a++;if(window.GPGA&&window.GPGA.settings){clearInterval(t);cb(window.GPGA);}else if(a>80)clearInterval(t);},50);}
@@ -483,7 +481,7 @@ waitForGPGA(async function(g){
   // Featured properties — slide 2 — auto-rotate
   var feat=document.getElementById('featured-single');
   try{
-    var r=await fetch(g.SB_URL+'/rest/v1/properties?featured=eq.true&status=eq.available&order=created_at.desc&limit=10',{headers:g.H});
+    var r=await fetch(g.SB_URL+'/rest/v1/properties?featured=eq.true&order=created_at.desc&limit=10',{headers:g.H});
     var ps=await r.json();
     if(!ps||!ps.length){
       feat.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:#999;font-family:Arial,sans-serif">No featured properties at this time. Check back soon!</div>';
