@@ -47,25 +47,7 @@
 }
 
 /* Arrow buttons */
-.p180-carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  background: rgba(0,0,0,.45);
-  color: #fff;
-  border: 2px solid rgba(255,255,255,.4);
-  border-radius: 50%;
-  width: 42px; height: 42px;
-  font-size: 22px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .2s;
-  line-height: 1;
-}
-.p180-carousel-btn:hover { background: rgba(0,0,0,.7); border-color: #fff; }
-.p180-carousel-btn.prev { left: 14px; }
-.p180-carousel-btn.next { right: 14px; }
+.p180-carousel-btn { display: none; }
 
 /* Dot nav bar */
 .p180-carousel-nav {
@@ -93,6 +75,21 @@
   letter-spacing: .3px;
 }
 .p180-carousel-dot:last-child { border-right: none; }
+.p180-carousel-arrow {
+  padding: 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(255,255,255,.8);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-right: 1px solid rgba(255,255,255,.15);
+  transition: all .15s;
+  line-height: 1;
+  display: flex; align-items: center; height: 100%;
+}
+.p180-carousel-arrow:last-child { border-right: none; border-left: 1px solid rgba(255,255,255,.15); }
+.p180-carousel-arrow:hover { color: #fff; background: rgba(255,255,255,.1); }
 .p180-carousel-dot:hover { color: #fff; background: rgba(255,255,255,.1); }
 .p180-carousel-dot.active { color: #fff; background: rgba(255,255,255,.18); }
 
@@ -131,7 +128,7 @@
 /* SLIDE 2 — Featured Property */
 .p180-slide-featured {
   min-height: 460px;
-  background: #f5f7fa;
+  background: #c8b89a url("https://images.unsplash.com/photo-1558618047-3c4e8e1c2b3c?w=1600&q=60") center/cover;
   display: flex; align-items: center;
   padding: 44px 20px 80px;
 }
@@ -151,7 +148,7 @@
 /* SLIDE 3 — Buyers */
 .p180-slide-buyers {
   min-height: 460px;
-  background: #f5f7fa;
+  background: #c8b89a url("https://images.unsplash.com/photo-1558618047-3c4e8e1c2b3c?w=1600&q=60") center/cover;
   display: flex; align-items: center;
   padding: 44px 20px 80px;
 }
@@ -345,15 +342,13 @@
 
   </div><!-- /track -->
 
-  <!-- Arrow buttons -->
-  <button class="p180-carousel-btn prev" id="carousel-prev">&#8249;</button>
-  <button class="p180-carousel-btn next" id="carousel-next">&#8250;</button>
-
-  <!-- Dot nav -->
+  <!-- Dot nav with arrows inside -->
   <div class="p180-carousel-nav">
+    <button class="p180-carousel-arrow" id="carousel-prev">&#8249;</button>
     <button class="p180-carousel-dot active" data-slide="0">Welcome to Great Properties GA</button>
     <button class="p180-carousel-dot" data-slide="1">Featured Property</button>
     <button class="p180-carousel-dot" data-slide="2">Buy a Home!</button>
+    <button class="p180-carousel-arrow" id="carousel-next">&#8250;</button>
   </div>
 </div><!-- /carousel -->
 
