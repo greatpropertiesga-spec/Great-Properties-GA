@@ -266,8 +266,19 @@
       <a href="listings.html">Properties for Sale</a>
       <a href="buy.html">A Way to Get Pre-Qualified</a>
     </nav>
+    <!-- Hamburger mobile menu -->
+    <button class="p180-hamburger" id="hamburger-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+<nav class="p180-mobile-nav" id="mobile-nav">
+<a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="sell.html">Sell to Us</a>
+      <a href="listings.html">Properties for Sale</a>
+      <a href="buy.html">A Way to Get Pre-Qualified</a>
+</nav>
 
 <!-- ══ CAROUSEL ══ -->
 <div class="p180-carousel" id="main-carousel">
@@ -396,7 +407,7 @@
 
 <!-- ── FOOTER ── -->
 <footer class="p180-footer">
-  <div style="max-width:1140px;margin:0 auto;padding:40px 20px 32px;display:grid;grid-template-columns:280px 1fr 280px;gap:40px;align-items:center">
+  <div class="p180-footer-main-grid">
 
     <!-- Logo box -->
     <div>
@@ -550,6 +561,24 @@ waitForGPGA(async function(g){
     }).join('');
   }catch(e){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:#999">Unable to load properties.</div>';}
 });
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.getElementById('mobile-nav');
+  if(!btn||!nav) return;
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  });
+  document.addEventListener('click', function(e){
+    if(!btn.contains(e.target)&&!nav.contains(e.target)){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  });
+})();
 </script>
 </body>
 </html>
