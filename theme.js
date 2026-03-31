@@ -7,7 +7,7 @@
 (async function GPGA_THEME() {
   // ── MIGRATE: delete old cache keys so old brand color doesn't show ──
   try {
-    ['gpga_theme_v2', 'gpga_theme', 'gpga_settings'].forEach(function(k){
+    ['gpga_theme_v2', 'gpga_theme_v3', 'gpga_theme_v4', 'gpga_theme', 'gpga_settings'].forEach(function(k){
       localStorage.removeItem(k);
     });
   } catch(e) {}
@@ -15,7 +15,7 @@
   const SB_URL = 'https://cqwvnvcjxbeskvyqrank.supabase.co';
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxd3ZudmNqeGJlc2t2eXFyYW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMjg5OTMsImV4cCI6MjA4ODYwNDk5M30.pavJBT9fpyoKPH9zbn-9pcUY72gaOB6qL76QMCtFoWw';
   const H = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
-  const CACHE_KEY = 'gpga_theme_v3';
+  const CACHE_KEY = 'gpga_theme_v5';
 
   // ── DEFAULTS ─────────────────────────────────────────────────
   const DEFAULTS = {
@@ -243,6 +243,33 @@
     root.style.setProperty('--white',        txt);
     root.style.setProperty('--font-display', "'" + df + "', Georgia, serif");
     root.style.setProperty('--font-body',    "'" + bf + "', system-ui, sans-serif");
+
+    // ── CTA & BUTTON COLORS (Properties180 style defaults) ─────
+    var ctaColor  = (cfg.cta_color  && cfg.cta_color  !== '') ? cfg.cta_color  : '#c0392b';
+    var ctaColor2 = (cfg.cta_color_2 && cfg.cta_color_2 !== '') ? cfg.cta_color_2 : darken(ctaColor, 15);
+    var ctaText   = cfg.cta_text_color   || '#ffffff';
+    var ctaBand   = (cfg.cta_band_color && cfg.cta_band_color !== '') ? cfg.cta_band_color : brand;
+    var ctaBand2  = darken(ctaBand, 25);
+    var topbarPh  = (cfg.topbar_phone_bg && cfg.topbar_phone_bg !== '') ? cfg.topbar_phone_bg : '#1c1c1c';
+    var topbarPhT = cfg.topbar_phone_text || '#ffffff';
+    var heroBg    = (cfg.hero_bg_color && cfg.hero_bg_color !== '') ? cfg.hero_bg_color : brand;
+    var phoneDot  = cfg.phone_dot_color || '#4ade80';
+
+    try {
+      var crgb = hexToRgb(ctaColor);
+      root.style.setProperty('--cta-shadow', 'rgba(' + crgb[0] + ',' + crgb[1] + ',' + crgb[2] + ',.4)');
+    } catch(e) {}
+
+    root.style.setProperty('--cta-color',         ctaColor);
+    root.style.setProperty('--cta-color-2',       ctaColor2);
+    root.style.setProperty('--cta-text',          ctaText);
+    root.style.setProperty('--cta-band-bg',       ctaBand);
+    root.style.setProperty('--cta-band-bg-2',     ctaBand2);
+    root.style.setProperty('--topbar-phone-bg',   topbarPh);
+    root.style.setProperty('--topbar-phone-text', topbarPhT);
+    root.style.setProperty('--hero-bg',           heroBg);
+    root.style.setProperty('--phone-dot',         phoneDot);
+    root.style.setProperty('--sidebar-cta-bg',    'linear-gradient(160deg, ' + darken(brand,30) + ', ' + brand + ')');
   }
 
   function applyLogo(cfg) {
