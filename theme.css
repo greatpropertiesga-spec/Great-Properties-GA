@@ -90,7 +90,7 @@ p { margin-bottom:14px; color:var(--text-2); }
   color:var(--text);
   margin-bottom:8px;
 }
-.gpga-section-title em { font-style:italic; color:var(--brand); }
+.gpga-section-title em { font-style:italic; color:var(--brand2, #c9a84c); }
 .gpga-section-sub {
   font-size:15px; color:var(--text-2);
   max-width:520px; line-height:1.8;
@@ -235,7 +235,7 @@ p { margin-bottom:14px; color:var(--text-2); }
   line-height:1.05;
   margin-bottom:24px;
 }
-.gpga-hero-title em { font-style:italic; color:var(--brand); }
+.gpga-hero-title em { font-style:italic; color:var(--brand2, #c9a84c); }
 .gpga-hero-subtitle {
   font-size:16px; color:var(--text-2);
   max-width:460px; line-height:1.85;
@@ -564,7 +564,7 @@ p { margin-bottom:14px; color:var(--text-2); }
 /* ── SECTION HEADING ──────────────────────────────────────────── */
 .gpga-heading { margin-bottom:40px; }
 .gpga-heading h2 { font-size:clamp(26px,3vw,38px); font-weight:300; margin-bottom:8px; }
-.gpga-heading h2 em { font-style:italic; color:var(--brand); }
+.gpga-heading h2 em { font-style:italic; color:var(--brand2, #c9a84c); }
 .gpga-heading p { font-size:15px; color:var(--text-2); max-width:500px; }
 
 /* ── ABOUT / WHY BOXES ────────────────────────────────────────── */
@@ -903,12 +903,17 @@ p { margin-bottom:14px; color:var(--text-2); }
 .gpga-sidebar-cta p  { color: rgba(255,255,255,.78) !important; font-size: 13px !important; margin-bottom: 20px !important; }
 
 .gpga-page-hero {
-  background: var(--hero-bg, var(--brand, #1a3a5c)) !important;
+  background: #1a3a5c !important;
   border-bottom: 3px solid var(--cta-color, #c0392b) !important;
 }
+/* When admin sets a custom hero bg color, override */
+.gpga-page-hero[data-custom-bg] {
+  background: var(--hero-bg, #1a3a5c) !important;
+}
 .gpga-page-title { color: #fff !important; }
-.gpga-eyebrow    { color: var(--cta-color, #c0392b) !important; }
-.gpga-line       { background: linear-gradient(90deg, var(--cta-color, #c0392b), transparent) !important; }
+/* eyebrow and divider line always stay brand gold — NOT cta-color */
+.gpga-eyebrow    { color: var(--brand2, #c9a84c) !important; }
+.gpga-line       { background: linear-gradient(90deg, var(--brand2, #c9a84c), transparent) !important; }
 
 .cta-band-wrap {
   background: var(--cta-band-bg, var(--brand, #1a3a5c)) !important;
