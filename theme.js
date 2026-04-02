@@ -228,19 +228,10 @@
     const df     = cfg.font_display  || 'Arial';
     const bf     = cfg.font_body     || 'Arial';
 
-    root.style.setProperty('--brand',        brand);
-    root.style.setProperty('--brand-dark',   darken(brand, 20));
-    root.style.setProperty('--brand-light',  lighten(brand, 60));
-    root.style.setProperty('--brand-rgb',    hexToRgb(brand).join(','));
-    root.style.setProperty('--brand2',       brand2);
-    root.style.setProperty('--bg',           bg);
-    root.style.setProperty('--bg-2',         bg2);
-    root.style.setProperty('--bg-3',         darken(bg2, 5));
-    root.style.setProperty('--surface',      bg === '#ffffff' ? '#fdfcfa' : lighten(bg, 3));
-    root.style.setProperty('--text',         txt);
-    root.style.setProperty('--text-2',       lighten(txt, 40));
-    root.style.setProperty('--text-3',       lighten(txt, 60));
-    root.style.setProperty('--white',        txt);
+    // NOTE: --brand is hardcoded #1a3a5c navy in CSS - not overridden from Supabase
+    // This prevents wrong Supabase brand_color from corrupting structural colors
+    // Only set brand2 (gold accent) and fonts from Supabase
+    root.style.setProperty('--brand2',       brand2);  // gold accent #c9a84c
     root.style.setProperty('--font-display', "'" + df + "', Georgia, serif");
     root.style.setProperty('--font-body',    "'" + bf + "', system-ui, sans-serif");
 
