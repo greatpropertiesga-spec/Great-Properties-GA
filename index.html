@@ -136,7 +136,7 @@
 .p180-video-ph p  { font-family:Arial,sans-serif; font-size:13px; color:rgba(255,255,255,.72); line-height:1.6; }
 
 /* FORM */
-.p180-form-box { background: #fff; border-radius: 3px; padding: 26px 22px; box-shadow: 0 6px 32px rgba(0,0,0,.3); }
+.p180-form-box { background: #fff; border-radius: 3px; padding: 20px 16px; box-shadow: 0 6px 32px rgba(0,0,0,.3); }
 .p180-form-title { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--brand,#1a4fa0); text-align: center; line-height: 1.35; margin-bottom: 16px; }
 .p180-field { margin-bottom: 10px; }
 .p180-field input, .p180-field textarea { width: 100%; border: 1px solid #ccc; border-radius: 2px; padding: 9px 11px; font-size: 13px; font-family: Arial,sans-serif; color: #333; background: #fff; transition: border-color .14s; }
@@ -243,8 +243,12 @@
 .p180-footer-bar a:hover { color:rgba(255,255,255,.7); }
 
 @media(max-width:960px){
-  .p180-hero-inner { grid-template-columns:1fr; }
-  .p180-video { display:none; }
+  .p180-hero-inner { grid-template-columns:1fr; gap:16px; padding:24px 16px 72px; }
+  .p180-video { display:block; max-height:180px; min-height:160px; }
+  .p180-video-ph { padding:12px; }
+  .p180-video-ph p { display:none; }
+  .p180-video-ph h3 { font-size:14px; margin-bottom:6px; }
+  .p180-play { width:48px; height:48px; font-size:20px; margin-bottom:10px; }
   .p180-featured { grid-template-columns:1fr; }
   .p180-buyer-grid { grid-template-columns:1fr; }
   .p180-work-grid { grid-template-columns:1fr 1fr; }

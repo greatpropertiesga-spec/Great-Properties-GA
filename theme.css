@@ -839,9 +839,9 @@ p { margin-bottom:14px; color:var(--text-2); }
    ═══════════════════════════════════════════════════════ */
 
 .gpga-btn-gold {
-  background: var(--cta-color, #1a4fa0) !important;
-  background-image: linear-gradient(135deg, var(--cta-color, #1a4fa0), var(--cta-color-2, #13387a)) !important;
-  color: var(--cta-text, #fff) !important;
+  background: #1a4fa0 !important;
+  background-image: linear-gradient(135deg, #1a4fa0, #13387a) !important;
+  color: #fff !important;
   box-shadow: 0 4px 18px rgba(26,79,160,.35) !important;
   font-weight: 700 !important;
   transition: all .2s ease !important;
@@ -854,8 +854,8 @@ p { margin-bottom:14px; color:var(--text-2); }
 }
 
 .p180-btn-submit {
-  background: var(--cta-color, #1a4fa0) !important;
-  background-image: linear-gradient(135deg, var(--cta-color, #1a4fa0), var(--cta-color-2, #13387a)) !important;
+  background: #1a4fa0 !important;
+  background-image: linear-gradient(135deg, #1a4fa0, #13387a) !important;
   box-shadow: 0 4px 16px rgba(26,79,160,.35) !important;
   font-size: 16px !important;
   font-weight: 800 !important;
