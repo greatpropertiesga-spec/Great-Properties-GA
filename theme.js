@@ -19,7 +19,7 @@
 
   // ── DEFAULTS ─────────────────────────────────────────────────
   const DEFAULTS = {
-    brand_color:          '#1a3a5c',
+    brand_color:          '#1a4fa0',
     brand_color_2:        '#c9a84c',
     bg_color:             '#ffffff',
     bg_color_2:           '#f5f7fa',
@@ -220,7 +220,7 @@
 
   function applyCSS(cfg) {
     const root = document.documentElement;
-    const brand  = cfg.brand_color   || '#1a3a5c';
+    const brand  = cfg.brand_color   || '#1a4fa0';
     const brand2 = cfg.brand_color_2 || '#c9a84c';
     const bg     = cfg.bg_color      || '#ffffff';
     const bg2    = cfg.bg_color_2    || '#f7f5f2';
@@ -228,7 +228,7 @@
     const df     = cfg.font_display  || 'Arial';
     const bf     = cfg.font_body     || 'Arial';
 
-    // NOTE: --brand is hardcoded #1a3a5c navy in CSS - not overridden from Supabase
+    // NOTE: --brand is hardcoded #1a4fa0 navy in CSS - not overridden from Supabase
     // This prevents wrong Supabase brand_color from corrupting structural colors
     // Only set brand2 (gold accent) and fonts from Supabase
     root.style.setProperty('--brand2',       brand2);  // gold accent #c9a84c
@@ -236,12 +236,12 @@
     root.style.setProperty('--font-body',    "'" + bf + "', system-ui, sans-serif");
 
     // ── CTA & BUTTON COLORS (Properties180 style defaults) ─────
-    var ctaColor  = (cfg.cta_color  && cfg.cta_color  !== '') ? cfg.cta_color  : '#c0392b';
+    var ctaColor  = (cfg.cta_color  && cfg.cta_color  !== '') ? cfg.cta_color  : '#1a4fa0';
     var ctaColor2 = (cfg.cta_color_2 && cfg.cta_color_2 !== '') ? cfg.cta_color_2 : darken(ctaColor, 15);
     var ctaText   = cfg.cta_text_color   || '#ffffff';
     var ctaBand   = (cfg.cta_band_color && cfg.cta_band_color !== '') ? cfg.cta_band_color : brand;
     var ctaBand2  = darken(ctaBand, 25);
-    var topbarPh  = (cfg.topbar_phone_bg && cfg.topbar_phone_bg !== '') ? cfg.topbar_phone_bg : '#1c1c1c';
+    var topbarPh  = (cfg.topbar_phone_bg && cfg.topbar_phone_bg !== '') ? cfg.topbar_phone_bg : '#1a4fa0';
     var topbarPhT = cfg.topbar_phone_text || '#ffffff';
     var heroBg    = (cfg.hero_bg_color && cfg.hero_bg_color !== '') ? cfg.hero_bg_color : brand;
     var phoneDot  = cfg.phone_dot_color || '#4ade80';
