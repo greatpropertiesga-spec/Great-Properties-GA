@@ -1,0 +1,35 @@
+Options -Indexes
+ServerSignature Off
+
+RewriteEngine On
+
+# Force HTTPS (uncomment in production)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Protect sensitive files
+<FilesMatch "^(config|save_lead|logout)\.php$">
+  # These are API/backend files - no direct browse restrictions needed
+</FilesMatch>
+
+# Block access to SQL and hidden files
+<FilesMatch "\.(sql|env|git|log)$">
+  Require all denied
+</FilesMatch>
+
+# Default index
+DirectoryIndex index.php index.html
+
+# Gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/plain
+</IfModule>
+
+# Browser caching for static assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+</IfModule>

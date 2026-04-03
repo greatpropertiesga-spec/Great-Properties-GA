@@ -10,9 +10,9 @@
 <meta name="author" content="Great Properties GA, LLC">
 <meta name="geo.region" content="US-GA">
 <meta name="geo.placename" content="Lawrenceville, Georgia">
-<link rel="canonical" href="https://greatpropertiesga.com/we-buy-houses-lawrenceville-ga.html">
+<link rel="canonical" href="https://greatpropertiesga.com/we-buy-houses-lawrenceville-ga.php">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://greatpropertiesga.com/we-buy-houses-lawrenceville-ga.html">
+<meta property="og:url" content="https://greatpropertiesga.com/we-buy-houses-lawrenceville-ga.php">
 <meta property="og:title" content="We Buy Houses Fast in Lawrenceville, GA | Cash Offer 24hr | Great Properties GA">
 <meta property="og:description" content="Sell your Lawrenceville house fast for cash. No repairs, no fees, no commissions. Cash offer within 24 hours. Serving Lawrenceville & Gwinnett County. Call (404) 590-1613 today!">
 <meta property="og:site_name" content="Great Properties GA, LLC">
@@ -25,7 +25,7 @@
   "@type": "RealEstateAgent",
   "name": "Great Properties GA, LLC",
   "description": "We buy houses fast in Lawrenceville, GA. Cash offers within 24 hours. No repairs, no commissions.",
-  "url": "https://greatpropertiesga.com/we-buy-houses-lawrenceville-ga.html",
+  "url": "https://greatpropertiesga.com/we-buy-houses-lawrenceville-ga.php",
   "telephone": "+14045901613",
   "address": {
     "@type": "PostalAddress",
@@ -94,9 +94,9 @@
   <div class="gp-wrap">
     <div class="gp-topbar-inner">
       <div class="gp-topbar-links">
-        <a href="faqs.html">FAQs</a>
-        <a href="contact.html">Contact</a>
-        <a href="why.html">Why Us?</a>
+        <a href="faqs.php">FAQs</a>
+        <a href="contact.php">Contact</a>
+        <a href="why.php">Why Us?</a>
       </div>
       <a href="tel:4045901613" class="gp-topbar-phone gpga-phone">404-590-1613</a>
     </div>
@@ -105,7 +105,7 @@
 <header class="gp-header">
   <div class="gp-wrap">
     <div class="gp-header-inner">
-      <a href="index.html" class="gp-logo">
+      <a href="index.php" class="gp-logo">
         <div class="gp-logo-icon">🦅</div>
         <div class="gp-logo-text">
           <span class="gp-logo-name">Great Properties GA</span>
@@ -113,12 +113,12 @@
         </div>
       </a>
       <nav class="gp-nav">
-        <a href="index.html" class="active">Home</a>
-      <a href="sell.html">How It Works</a>
-      <a href="why.html">Testimonials</a>
-      <a href="listings.html">Properties</a>
-      <a href="about.html">About</a>
-        <a href="sell.html" class="gp-nav-cta">Get Offer</a>
+        <a href="index.php" class="active">Home</a>
+      <a href="sell.php">How It Works</a>
+      <a href="why.php">Testimonials</a>
+      <a href="listings.php">Properties</a>
+      <a href="about.php">About</a>
+        <a href="sell.php" class="gp-nav-cta">Get Offer</a>
       </nav>
       <button class="gp-hamburger" id="gp-hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -127,12 +127,12 @@
   </div>
 </header>
 <nav class="gp-mobile-nav" id="gp-mobile-nav">
-<a href="index.html" class="active">Home</a>
-<a href="sell.html">How It Works</a>
-<a href="why.html">Testimonials</a>
-<a href="listings.html">Properties</a>
-<a href="about.html">About</a>
-<a href="sell.html" class="gp-mob-cta">Get My Cash Offer</a>
+<a href="index.php" class="active">Home</a>
+<a href="sell.php">How It Works</a>
+<a href="why.php">Testimonials</a>
+<a href="listings.php">Properties</a>
+<a href="about.php">About</a>
+<a href="sell.php" class="gp-mob-cta">Get My Cash Offer</a>
 </nav>
 
 <!-- HERO -->
@@ -152,13 +152,13 @@
           <li>Any Condition Accepted</li>
         </ul>
         <div class="gp-hero-actions">
-          <a href="sell.html" class="gp-btn gp-btn-red gp-btn-lg">Get My Cash Offer</a>
+          <a href="sell.php" class="gp-btn gp-btn-red gp-btn-lg">Get My Cash Offer</a>
           <a href="tel:4045901613" class="gp-btn gp-btn-outline gpga-phone">📞 404-590-1613</a>
         </div>
       </div>
       <div class="gp-form-box">
         <div class="gp-form-title">Get Your Free Cash Offer</div>
-        <form class="gpga-form" data-source="city-we-buy-houses-lawrenceville-ga">
+        <form class="gpga-form lead-form" data-source="city-we-buy-houses-lawrenceville-ga">
           <div class="gp-field"><input name="address" type="text" placeholder="Property Address in Lawrenceville" required></div>
           <div class="gp-field"><input name="name" type="text" placeholder="Your Full Name" required></div>
           <div class="gp-field"><input name="phone" type="tel" placeholder="Phone Number" required></div>
@@ -199,7 +199,7 @@
           <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text)"><span style="color:var(--red);font-size:18px;font-weight:900">✓</span> Zero fees, commissions, or closing costs</li>
           <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text)"><span style="color:var(--red);font-size:18px;font-weight:900">✓</span> We handle all the paperwork</li>
         </ul>
-        <a href="sell.html" class="gp-btn gp-btn-red">Sell My Lawrenceville House →</a>
+        <a href="sell.php" class="gp-btn gp-btn-red">Sell My Lawrenceville House →</a>
       </div>
       <div>
         <div style="background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--red);padding:32px">
@@ -291,7 +291,7 @@
   <div class="gp-wrap">
     <h2>Ready to Sell Your Lawrenceville House?</h2>
     <p>Get your free, no-obligation cash offer today. We respond within hours.</p>
-    <a href="sell.html" class="gp-btn gp-btn-red gp-btn-lg">GET MY CASH OFFER NOW</a>
+    <a href="sell.php" class="gp-btn gp-btn-red gp-btn-lg">GET MY CASH OFFER NOW</a>
     <a href="tel:4045901613" class="gp-phone-big gpga-phone">404-590-1613</a>
   </div>
 </div>
@@ -304,19 +304,19 @@
       <p>Great Properties GA serves all cities across Georgia</p>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
-      <a href="we-buy-houses-atlanta-ga.html" class="gp-filter-btn">Atlanta, GA</a>
-      <a href="we-buy-houses-decatur-ga.html" class="gp-filter-btn">Decatur, GA</a>
-      <a href="we-buy-houses-marietta-ga.html" class="gp-filter-btn">Marietta, GA</a>
-      <a href="we-buy-houses-lilburn-ga.html" class="gp-filter-btn">Lilburn, GA</a>
-      <a href="we-buy-houses-gwinnett-county.html" class="gp-filter-btn">Gwinnett County</a>
-      <a href="we-buy-houses-lawrenceville-ga.html" class="gp-filter-btn">Lawrenceville, GA</a>
-      <a href="we-buy-houses-duluth-ga.html" class="gp-filter-btn">Duluth, GA</a>
-      <a href="we-buy-houses-smyrna-ga.html" class="gp-filter-btn">Smyrna, GA</a>
-      <a href="we-buy-houses-kennesaw-ga.html" class="gp-filter-btn">Kennesaw, GA</a>
-      <a href="we-buy-houses-norcross-ga.html" class="gp-filter-btn">Norcross, GA</a>
-      <a href="we-buy-houses-stone-mountain-ga.html" class="gp-filter-btn">Stone Mountain, GA</a>
-      <a href="we-buy-houses-savannah-ga.html" class="gp-filter-btn">Savannah, GA</a>
-      <a href="sell.html" class="gp-filter-btn" style="border-color:var(--red);color:var(--red)">All of Georgia →</a>
+      <a href="we-buy-houses-atlanta-ga.php" class="gp-filter-btn">Atlanta, GA</a>
+      <a href="we-buy-houses-decatur-ga.php" class="gp-filter-btn">Decatur, GA</a>
+      <a href="we-buy-houses-marietta-ga.php" class="gp-filter-btn">Marietta, GA</a>
+      <a href="we-buy-houses-lilburn-ga.php" class="gp-filter-btn">Lilburn, GA</a>
+      <a href="we-buy-houses-gwinnett-county.php" class="gp-filter-btn">Gwinnett County</a>
+      <a href="we-buy-houses-lawrenceville-ga.php" class="gp-filter-btn">Lawrenceville, GA</a>
+      <a href="we-buy-houses-duluth-ga.php" class="gp-filter-btn">Duluth, GA</a>
+      <a href="we-buy-houses-smyrna-ga.php" class="gp-filter-btn">Smyrna, GA</a>
+      <a href="we-buy-houses-kennesaw-ga.php" class="gp-filter-btn">Kennesaw, GA</a>
+      <a href="we-buy-houses-norcross-ga.php" class="gp-filter-btn">Norcross, GA</a>
+      <a href="we-buy-houses-stone-mountain-ga.php" class="gp-filter-btn">Stone Mountain, GA</a>
+      <a href="we-buy-houses-savannah-ga.php" class="gp-filter-btn">Savannah, GA</a>
+      <a href="sell.php" class="gp-filter-btn" style="border-color:var(--red);color:var(--red)">All of Georgia →</a>
     </div>
   </div>
 </section>
@@ -332,21 +332,21 @@
       <div class="gp-footer-col">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="sell.html">Sell Your Home</a></li>
-          <li><a href="listings.html">Properties for Sale</a></li>
-          <li><a href="buy.html">Get Pre-Qualified</a></li>
-          <li><a href="about.html">About Us</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="sell.php">Sell Your Home</a></li>
+          <li><a href="listings.php">Properties for Sale</a></li>
+          <li><a href="buy.php">Get Pre-Qualified</a></li>
+          <li><a href="about.php">About Us</a></li>
         </ul>
       </div>
       <div class="gp-footer-col">
         <h4>Resources</h4>
         <ul>
-          <li><a href="why.html">Why Work With Us?</a></li>
-          <li><a href="faqs.html">FAQs</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="why.php">Why Work With Us?</a></li>
+          <li><a href="faqs.php">FAQs</a></li>
+          <li><a href="contact.php">Contact Us</a></li>
+          <li><a href="privacy.php">Privacy Policy</a></li>
+          <li><a href="terms.php">Terms &amp; Conditions</a></li>
         </ul>
       </div>
       <div class="gp-footer-col">
@@ -361,8 +361,8 @@
     <div class="gp-footer-bar">
       <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC &middot; All Rights Reserved</span>
       <div style="display:flex;gap:16px">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
+        <a href="privacy.php">Privacy</a>
+        <a href="terms.php">Terms</a>
         <a href="#" onclick="scrollTo({top:0,behavior:'smooth'});return false">Top ↑</a>
       </div>
     </div>
@@ -404,5 +404,49 @@
   document.querySelectorAll('.gpga-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 })();
 </script>
+
+<script>
+// ── Form handler → save_lead.php ─────────────────────────────
+document.querySelectorAll('.lead-form, .gpga-form').forEach(function(form) {
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    var msg = form.querySelector('.gp-form-msg, .gpga-form-msg');
+    var origText = btn ? btn.textContent : '';
+    if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+    if (msg) { msg.className = msg.className.replace(/success|error/g,'').trim(); msg.style.display='none'; }
+    try {
+      var data = new FormData(form);
+      // Add source from data attribute
+      var source = form.getAttribute('data-source') || 'website';
+      data.set('source', source);
+      var res = await fetch('save_lead.php', { method: 'POST', body: data });
+      var json = await res.json();
+      if (json.success) {
+        if (msg) {
+          msg.textContent = json.message || 'Thank you! We will contact you within 24 hours.';
+          msg.className = (msg.className || '') + ' success';
+          msg.style.display = 'block';
+        }
+        form.reset();
+      } else {
+        if (msg) {
+          msg.textContent = json.message || 'Something went wrong. Please call us at (404) 590-1613.';
+          msg.className = (msg.className || '') + ' error';
+          msg.style.display = 'block';
+        }
+      }
+    } catch(err) {
+      if (msg) {
+        msg.textContent = 'Connection error. Please call us at (404) 590-1613.';
+        msg.className = (msg.className || '') + ' error';
+        msg.style.display = 'block';
+      }
+    }
+    if (btn) { btn.textContent = origText; btn.disabled = false; }
+  });
+});
+</script>
+
 </body>
 </html>

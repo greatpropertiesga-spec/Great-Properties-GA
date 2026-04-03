@@ -31,9 +31,9 @@
   <div class="gp-wrap">
     <div class="gp-topbar-inner">
       <div class="gp-topbar-links">
-        <a href="faqs.html">FAQs</a>
-        <a href="contact.html">Contact</a>
-        <a href="why.html">Why Us?</a>
+        <a href="faqs.php">FAQs</a>
+        <a href="contact.php">Contact</a>
+        <a href="why.php">Why Us?</a>
       </div>
       <a href="tel:4045901613" class="gp-topbar-phone gpga-phone">404-590-1613</a>
     </div>
@@ -41,7 +41,7 @@
 </div><header class="gp-header">
   <div class="gp-wrap">
     <div class="gp-header-inner">
-      <a href="index.html" class="gp-logo">
+      <a href="index.php" class="gp-logo">
         <div class="gp-logo-icon">🦅</div>
         <div class="gp-logo-text">
           <span class="gp-logo-name">Great Properties GA</span>
@@ -49,12 +49,12 @@
         </div>
       </a>
       <nav class="gp-nav">
-        <a href="index.html">Home</a>
-      <a href="sell.html">How It Works</a>
-      <a href="why.html">Testimonials</a>
-      <a href="listings.html">Properties</a>
-      <a href="about.html">About</a>
-        <a href="sell.html" class="gp-nav-cta">Get Offer</a>
+        <a href="index.php">Home</a>
+      <a href="sell.php">How It Works</a>
+      <a href="why.php">Testimonials</a>
+      <a href="listings.php">Properties</a>
+      <a href="about.php">About</a>
+        <a href="sell.php" class="gp-nav-cta">Get Offer</a>
       </nav>
       <button class="gp-hamburger" id="gp-hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -63,19 +63,19 @@
   </div>
 </header>
 <nav class="gp-mobile-nav" id="gp-mobile-nav">
-<a href="index.html">Home</a>
-<a href="sell.html">How It Works</a>
-<a href="why.html">Testimonials</a>
-<a href="listings.html">Properties</a>
-<a href="about.html">About</a>
-<a href="sell.html" class="gp-mob-cta">Get My Cash Offer</a>
+<a href="index.php">Home</a>
+<a href="sell.php">How It Works</a>
+<a href="why.php">Testimonials</a>
+<a href="listings.php">Properties</a>
+<a href="about.php">About</a>
+<a href="sell.php" class="gp-mob-cta">Get My Cash Offer</a>
 </nav><div class="gp-page-hero">
   <div class="gp-wrap">
     <div class="gp-page-hero-inner">
       <h1 class="gp-page-title">Get Pre-Qualified</h1>
       <p style="color:var(--text-2);font-size:15px;margin-top:10px">Get pre-qualified for a mortgage at no cost. Find your dream home in Georgia.</p>
       <div class="gp-breadcrumb" style="margin-top:10px">
-        <a href="index.html">Home</a> <span style="color:var(--border)">›</span> Get Pre-Qualified
+        <a href="index.php">Home</a> <span style="color:var(--border)">›</span> Get Pre-Qualified
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@
       <div class="gp-sidebar-box">
         <h3>Join Our VIP Buyers List</h3>
         <p>Get our FREE report on finding your dream home at a rock-bottom price!</p>
-        <form class="gpga-form" data-source="vip-buyers">
+        <form class="gpga-form lead-form" data-source="vip-buyers">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <div class="gp-field"><input name="name" type="text" placeholder="First Name" required></div>
             <div class="gp-field"><input name="lname" type="text" placeholder="Last Name"></div>
@@ -120,7 +120,7 @@
   <div class="gp-wrap">
     <h2>Get Your Cash Offer Today</h2>
     <p>No obligation. No pressure. We respond within hours.</p>
-    <a href="sell.html" class="gp-btn gp-btn-red gp-btn-lg">GET MY CASH OFFER NOW</a>
+    <a href="sell.php" class="gp-btn gp-btn-red gp-btn-lg">GET MY CASH OFFER NOW</a>
     <a href="tel:4045901613" class="gp-phone-big gpga-phone">404-590-1613</a>
   </div>
 </div>
@@ -135,21 +135,21 @@
       <div class="gp-footer-col">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="sell.html">Sell Your Home</a></li>
-          <li><a href="listings.html">Properties for Sale</a></li>
-          <li><a href="buy.html">Get Pre-Qualified</a></li>
-          <li><a href="about.html">About Us</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="sell.php">Sell Your Home</a></li>
+          <li><a href="listings.php">Properties for Sale</a></li>
+          <li><a href="buy.php">Get Pre-Qualified</a></li>
+          <li><a href="about.php">About Us</a></li>
         </ul>
       </div>
       <div class="gp-footer-col">
         <h4>Resources</h4>
         <ul>
-          <li><a href="why.html">Why Work With Us?</a></li>
-          <li><a href="faqs.html">FAQs</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="why.php">Why Work With Us?</a></li>
+          <li><a href="faqs.php">FAQs</a></li>
+          <li><a href="contact.php">Contact Us</a></li>
+          <li><a href="privacy.php">Privacy Policy</a></li>
+          <li><a href="terms.php">Terms &amp; Conditions</a></li>
         </ul>
       </div>
       <div class="gp-footer-col">
@@ -164,8 +164,8 @@
     <div class="gp-footer-bar">
       <span>&copy; <span class="gpga-year"></span> Great Properties GA, LLC &middot; All Rights Reserved</span>
       <div style="display:flex;gap:16px">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
+        <a href="privacy.php">Privacy</a>
+        <a href="terms.php">Terms</a>
         <a href="#" onclick="scrollTo({top:0,behavior:'smooth'});return false">Top ↑</a>
       </div>
     </div>
@@ -207,5 +207,49 @@
   document.querySelectorAll('.gpga-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 })();
 </script>
+
+<script>
+// ── Form handler → save_lead.php ─────────────────────────────
+document.querySelectorAll('.lead-form, .gpga-form').forEach(function(form) {
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    var msg = form.querySelector('.gp-form-msg, .gpga-form-msg');
+    var origText = btn ? btn.textContent : '';
+    if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+    if (msg) { msg.className = msg.className.replace(/success|error/g,'').trim(); msg.style.display='none'; }
+    try {
+      var data = new FormData(form);
+      // Add source from data attribute
+      var source = form.getAttribute('data-source') || 'website';
+      data.set('source', source);
+      var res = await fetch('save_lead.php', { method: 'POST', body: data });
+      var json = await res.json();
+      if (json.success) {
+        if (msg) {
+          msg.textContent = json.message || 'Thank you! We will contact you within 24 hours.';
+          msg.className = (msg.className || '') + ' success';
+          msg.style.display = 'block';
+        }
+        form.reset();
+      } else {
+        if (msg) {
+          msg.textContent = json.message || 'Something went wrong. Please call us at (404) 590-1613.';
+          msg.className = (msg.className || '') + ' error';
+          msg.style.display = 'block';
+        }
+      }
+    } catch(err) {
+      if (msg) {
+        msg.textContent = 'Connection error. Please call us at (404) 590-1613.';
+        msg.className = (msg.className || '') + ' error';
+        msg.style.display = 'block';
+      }
+    }
+    if (btn) { btn.textContent = origText; btn.disabled = false; }
+  });
+});
+</script>
+
 </body>
 </html>
