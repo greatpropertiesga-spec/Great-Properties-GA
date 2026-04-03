@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://greatpropertiesga.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /wp-admin/
