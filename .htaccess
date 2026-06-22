@@ -7,13 +7,23 @@ RewriteEngine On
 # RewriteCond %{HTTPS} off
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Protect sensitive files
-<FilesMatch "^(config|save_lead|logout)\.php$">
-  # These are API/backend files - no direct browse restrictions needed
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Protect sensitive backend files from direct browsing.
+<FilesMatch "^(config|database)\.(php|sql)$">
+  Require all denied
 </FilesMatch>
 
 # Block access to SQL and hidden files
-<FilesMatch "\.(sql|env|git|log)$">
+<FilesMatch "(^\.|\.sql$|\.env$|\.git|\.log$)">
   Require all denied
 </FilesMatch>
 

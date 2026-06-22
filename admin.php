@@ -4,21 +4,53 @@ if (empty($_SESSION['admin_logged_in'])) {
     header('Location: login.php'); exit;
 }
 
+$_SESSION['csrf_token'] = $_SESSION['csrf_token'] ?? bin2hex(random_bytes(32));
+$csrf_token = $_SESSION['csrf_token'];
+
+function require_csrf(): void {
+    if (!hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'] ?? '')) {
+        http_response_code(403);
+        exit('Invalid request.');
+    }
+}
+
+// CSV Export
+if (isset($_GET['export']) && $_GET['export'] === 'csv') {
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="leads-'.date('Y-m-d').'.csv"');
+    $out = fopen('php://output', 'w');
+    fputcsv($out, ['ID','Date','Name','Phone','Email','Address','Source','Status']);
+    $all = $conn->query("SELECT * FROM leads ORDER BY id DESC");
+    while ($r = $all->fetch_assoc()) {
+        fputcsv($out, [$r['id'],$r['created_at'],$r['name'],$r['phone'],$r['email'],$r['address'],$r['source']??'',$r['status']]);
+    }
+    fclose($out);
+    exit;
+}
+
 // Handle status update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
+    require_csrf();
     $id     = (int)($_POST['lead_id'] ?? 0);
     $status = $_POST['status'] ?? 'New';
     $allowed = ['New','Contacted','Offer Made','Closed','Not Interested'];
-    if ($id > 0 && in_array($status, $allowed)) {
-        $conn->query("UPDATE leads SET status='".mysqli_real_escape_string($conn,$status)."' WHERE id=$id");
+    if ($id > 0 && in_array($status, $allowed, true)) {
+        $stmt = $conn->prepare("UPDATE leads SET status=? WHERE id=?");
+        $stmt->bind_param('si', $status, $id);
+        $stmt->execute();
     }
     header('Location: admin.php'); exit;
 }
 
 // Handle delete
-if (isset($_GET['delete'])) {
-    $id = (int)$_GET['delete'];
-    if ($id > 0) $conn->query("DELETE FROM leads WHERE id=$id");
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+    require_csrf();
+    $id = (int)$_POST['delete'];
+    if ($id > 0) {
+        $stmt = $conn->prepare("DELETE FROM leads WHERE id=?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
     header('Location: admin.php'); exit;
 }
 
@@ -166,6 +198,7 @@ select.status-sel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255
       <td style="color:#6b5f50;font-size:11px"><?= htmlspecialchars($row['source'] ?? 'website') ?></td>
       <td>
         <form method="POST" style="display:flex;gap:6px;align-items:center">
+          <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
           <input type="hidden" name="lead_id" value="<?= $row['id'] ?>">
           <select name="status" class="status-sel" onchange="this.form.submit()">
             <?php foreach (array_keys($status_colors) as $s): ?>
@@ -178,7 +211,11 @@ select.status-sel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255
       <td>
         <div class="actions">
           <a href="tel:<?= htmlspecialchars($row['phone']) ?>" class="btn-sm" style="background:rgba(26,79,160,.12);border:1px solid rgba(26,79,160,.3);color:#1a7fff;text-decoration:none">📞 Call</a>
-          <a href="admin.php?delete=<?= $row['id'] ?>" class="btn-sm btn-delete" onclick="return confirm('Delete this lead?')">Delete</a>
+          <form method="POST" style="display:inline" onsubmit="return confirm('Delete this lead?')">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
+            <input type="hidden" name="delete" value="<?= $row['id'] ?>">
+            <button type="submit" class="btn-sm btn-delete">Delete</button>
+          </form>
         </div>
       </td>
     </tr>
@@ -196,20 +233,5 @@ select.status-sel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255
 
 </div>
 
-<?php
-// CSV Export
-if (isset($_GET['export']) && $_GET['export'] === 'csv') {
-    header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="leads-'.date('Y-m-d').'.csv"');
-    $out = fopen('php://output', 'w');
-    fputcsv($out, ['ID','Date','Name','Phone','Email','Address','Source','Status']);
-    $all = $conn->query("SELECT * FROM leads ORDER BY id DESC");
-    while ($r = $all->fetch_assoc()) {
-        fputcsv($out, [$r['id'],$r['created_at'],$r['name'],$r['phone'],$r['email'],$r['address'],$r['source']??'',$r['status']]);
-    }
-    fclose($out);
-    exit;
-}
-?>
 </body>
 </html>
