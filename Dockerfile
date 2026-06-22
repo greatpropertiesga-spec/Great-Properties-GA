@@ -14,6 +14,16 @@ RUN echo '<Directory /var/www/html>\n\
 </Directory>' > /etc/apache2/conf-available/site.conf \
  && a2enconf site
 
+RUN printf 'ServerTokens Prod\nServerSignature Off\n' > /etc/apache2/conf-available/security-hardening.conf \
+ && a2enconf security-hardening \
+ && { \
+      echo 'display_errors = Off'; \
+      echo 'log_errors = On'; \
+      echo 'expose_php = Off'; \
+      echo 'session.cookie_httponly = 1'; \
+      echo 'session.cookie_samesite = Lax'; \
+    } > /usr/local/etc/php/conf.d/production-hardening.ini
+
 # Copy files
 COPY . /var/www/html/
 

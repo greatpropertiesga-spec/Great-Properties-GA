@@ -5,13 +5,29 @@ if (!empty($_SESSION['admin_logged_in'])) {
 }
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['login_attempts'] = $_SESSION['login_attempts'] ?? 0;
+    $_SESSION['login_window'] = $_SESSION['login_window'] ?? time();
+
+    if (time() - $_SESSION['login_window'] > 900) {
+        $_SESSION['login_attempts'] = 0;
+        $_SESSION['login_window'] = time();
+    }
+
+    if ($_SESSION['login_attempts'] >= 8) {
+        http_response_code(429);
+        $error = 'Too many attempts. Please try again later.';
+    } else {
     $user = trim($_POST['username'] ?? '');
     $pass = trim($_POST['password'] ?? '');
-    if ($user === $admin_user && $pass === $admin_pass) {
+    if (hash_equals($admin_user, $user) && hash_equals($admin_pass, $pass)) {
+        session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
+        $_SESSION['login_attempts'] = 0;
         header('Location: admin.php'); exit;
     }
+    $_SESSION['login_attempts']++;
     $error = 'Wrong username or password.';
+    }
 }
 ?><!DOCTYPE html>
 <html lang="en">

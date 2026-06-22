@@ -31,6 +31,7 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Invalid email address.']);
     exit;
 }
+$safe_reply_to = filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : $from_email;
 
 // ── Save to database ─────────────────────────────────────────
 $stmt = $conn->prepare(
@@ -56,11 +57,11 @@ $body = "New lead received from the website!\n\n"
       . "Message: $message\n\n"
       . "Login to admin to view all leads:\n"
       . "https://greatpropertiesga.com/login.php";
-$headers = "From: $from_name <$from_email>\r\nReply-To: $email";
+$headers = "From: $from_name <$from_email>\r\nReply-To: $safe_reply_to";
 @mail($lead_notification_email, $subject, $body, $headers);
 
 // ── SMS via Twilio (optional) ────────────────────────────────
-if ($enable_sms && $twilio_sid !== 'YOUR_TWILIO_SID') {
+if ($enable_sms && $twilio_sid && $twilio_token && $twilio_from) {
     $twilio_url = "https://api.twilio.com/2010-04-01/Accounts/$twilio_sid/Messages.json";
     $sms_body   = "New Lead: $name | $phone | $address";
     $ch = curl_init($twilio_url);
